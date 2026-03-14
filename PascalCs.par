@@ -318,7 +318,8 @@ StatementPart
 	;
 
 CompoundStatement
-	: PBEGIN [ StatementSequence ] END
+	: PBEGIN END
+	| PBEGIN StatementSequence [ SEMICOLON ] END
 	;
 
 StatementSequence
@@ -326,10 +327,25 @@ StatementSequence
 	;
 
 Statement
-	: [ Label COLON ] NonLabeledStatement
+	: [ Label COLON ] StatementCore
 	;
 
-NonLabeledStatement
+StatementCore
+	: NonIfStatement
+	| IfStatement
+	;
+
+ClosedStatement
+	: NonIfStatement
+	| IF Expression THEN ClosedStatement ELSE ClosedStatement
+	;
+
+IfStatement
+	: IF Expression THEN Statement
+	| IF Expression THEN ClosedStatement ELSE IfStatement
+	;
+
+NonIfStatement
 	: AssignmentStatement
 	| ProcedureStatement
 	| GotoStatement
@@ -337,10 +353,8 @@ NonLabeledStatement
 	| CaseStatement
 	| RepeatStatement
 	| WithStatement
-	| IfStatement
 	| WhileStatement
 	| ForStatement
-	|
 	;
 
 RepeatStatement
@@ -357,10 +371,6 @@ ForStatement
 
 WithStatement
 	: WITH RecordVariableList DO Statement
-	;
-
-IfStatement
-	: IF Expression THEN Statement [ ELSE Statement ]
 	;
 
 AssignmentStatement
