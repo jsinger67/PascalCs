@@ -340,10 +340,18 @@ ClosedStatement
 	| IF Expression THEN ClosedStatement ELSE ClosedStatement
 	;
 
+
+IfProlog
+    : IF Expression THEN
+    ;
+
 IfStatement
-	: IF Expression THEN Statement
-	| IF Expression THEN ClosedStatement ELSE IfStatement
+	: IfProlog IfEpilog
 	;
+
+IfEpilog
+    : Statement | IF Expression THEN ClosedStatement ELSE IfStatement
+    ;
 
 NonIfStatement
 	: AssignmentStatement
