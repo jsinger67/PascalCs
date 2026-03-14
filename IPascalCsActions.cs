@@ -12,14 +12,1352 @@ using Parol.Runtime.Scanner;
 
 namespace PascalCs {
     // Deduced grammar types
-    // Type derived for non-terminal HelloWorld
-    public sealed record HelloWorld(Token HelloWorldValue);
+    // Type derived for non-terminal AND
+    public sealed record AND(Token ANDValue);
+
+    // Type derived for non-terminal ARRAY
+    public sealed record ARRAY(Token ARRAYValue);
+
+    // Type derived for non-terminal ASSIGNMENT
+    public sealed record ASSIGNMENT(Token ASSIGNMENTValue);
+
+    // Type derived for non-terminal ActualParameter
+    public abstract record ActualParameter;
+    public sealed record ActualParameterExpressionVariant(ActualParameterExpression Value) : ActualParameter;
+    public sealed record ActualParameterExpressionCOLONExpressionVariant(ActualParameterExpressionCOLONExpression Value) : ActualParameter;
+    public sealed record ActualParameterExpressionCOLONExpressionCOLONExpressionVariant(ActualParameterExpressionCOLONExpressionCOLONExpression Value) : ActualParameter;
+
+    // Type derived for non-terminal ActualParameterList
+    public abstract record ActualParameterList;
+    public sealed record ActualParameterListActualParameterListCOMMAActualParameterVariant(ActualParameterListActualParameterListCOMMAActualParameter Value) : ActualParameterList;
+    public sealed record ActualParameterListActualParameterVariant(ActualParameterListActualParameter Value) : ActualParameterList;
+
+    // Type derived for non-terminal AddOp
+    public abstract record AddOp;
+    public sealed record AddOpPLUSVariant(AddOpPLUS Value) : AddOp;
+    public sealed record AddOpMINUSVariant(AddOpMINUS Value) : AddOp;
+    public sealed record AddOpORVariant(AddOpOR Value) : AddOp;
+
+    // Type derived for non-terminal ArrayType
+    public sealed record ArrayType(ARRAY ARRAY, LBRAC LBRAC, IndexList IndexList, RBRAC RBRAC, OF OF, ComponentType ComponentType);
+
+    // Type derived for non-terminal AssignmentStatement
+    public sealed record AssignmentStatement(VariableAccess VariableAccess, ASSIGNMENT ASSIGNMENT, Expression Expression);
+
+    // Type derived for non-terminal Block
+    public sealed record Block(LabelDeclarationPart LabelDeclarationPart, ConstantDefinitionPart ConstantDefinitionPart, TypeDefinitionPart TypeDefinitionPart, VariableDeclarationPart VariableDeclarationPart, ProcedureAndFunctionDeclarationPart ProcedureAndFunctionDeclarationPart, StatementPart StatementPart);
+
+    // Type derived for non-terminal CASE
+    public sealed record CASE(Token CASEValue);
+
+    // Type derived for non-terminal CExponentiation
+    public abstract record CExponentiation;
+    public sealed record CExponentiationCPrimaryVariant(CExponentiationCPrimary Value) : CExponentiation;
+    public sealed record CExponentiationCPrimarySTARSTARCExponentiationVariant(CExponentiationCPrimarySTARSTARCExponentiation Value) : CExponentiation;
+
+    // Type derived for non-terminal CExpression
+    public abstract record CExpression;
+    public sealed record CExpressionCSimpleExpressionVariant(CExpressionCSimpleExpression Value) : CExpression;
+    public sealed record CExpressionCSimpleExpressionRelOpCSimpleExpressionVariant(CExpressionCSimpleExpressionRelOpCSimpleExpression Value) : CExpression;
+
+    // Type derived for non-terminal CFactor
+    public abstract record CFactor;
+    public sealed record CFactorSignCFactorVariant(CFactorSignCFactor Value) : CFactor;
+    public sealed record CFactorCExponentiationVariant(CFactorCExponentiation Value) : CFactor;
+
+    // Type derived for non-terminal CHARACTER_STRING
+    public sealed record CHARACTERSTRING(Token CHARACTERSTRINGValue);
+
+    // Type derived for non-terminal COLON
+    public sealed record COLON(Token COLONValue);
+
+    // Type derived for non-terminal COMMA
+    public sealed record COMMA(Token COMMAValue);
+
+    // Type derived for non-terminal CONST
+    public sealed record CONST(Token CONSTValue);
+
+    // Type derived for non-terminal CPrimary
+    public abstract record CPrimary;
+    public sealed record CPrimaryIDENTIFIERVariant(CPrimaryIDENTIFIER Value) : CPrimary;
+    public sealed record CPrimaryLPARENCExpressionRPARENVariant(CPrimaryLPARENCExpressionRPAREN Value) : CPrimary;
+    public sealed record CPrimaryUnsignedConstantVariant(CPrimaryUnsignedConstant Value) : CPrimary;
+    public sealed record CPrimaryNOTCPrimaryVariant(CPrimaryNOTCPrimary Value) : CPrimary;
+
+    // Type derived for non-terminal CSimpleExpression
+    public abstract record CSimpleExpression;
+    public sealed record CSimpleExpressionCTermVariant(CSimpleExpressionCTerm Value) : CSimpleExpression;
+    public sealed record CSimpleExpressionCSimpleExpressionAddOpCTermVariant(CSimpleExpressionCSimpleExpressionAddOpCTerm Value) : CSimpleExpression;
+
+    // Type derived for non-terminal CTerm
+    public abstract record CTerm;
+    public sealed record CTermCFactorVariant(CTermCFactor Value) : CTerm;
+    public sealed record CTermCTermMulOpCFactorVariant(CTermCTermMulOpCFactor Value) : CTerm;
+
+    // Type derived for non-terminal CaseConstant
+    public abstract record CaseConstant;
+    public sealed record CaseConstantConstantVariant(CaseConstantConstant Value) : CaseConstant;
+    public sealed record CaseConstantConstantDOTDOTConstantVariant(CaseConstantConstantDOTDOTConstant Value) : CaseConstant;
+
+    // Type derived for non-terminal CaseConstantList
+    public abstract record CaseConstantList;
+    public sealed record CaseConstantListCaseConstantListCOMMACaseConstantVariant(CaseConstantListCaseConstantListCOMMACaseConstant Value) : CaseConstantList;
+    public sealed record CaseConstantListCaseConstantVariant(CaseConstantListCaseConstant Value) : CaseConstantList;
+
+    // Type derived for non-terminal CaseListElement
+    public sealed record CaseListElement(CaseConstantList CaseConstantList, COLON COLON, Statement Statement);
+
+    // Type derived for non-terminal CaseListElementList
+    public abstract record CaseListElementList;
+    public sealed record CaseListElementListCaseListElementListSEMICOLONCaseListElementVariant(CaseListElementListCaseListElementListSEMICOLONCaseListElement Value) : CaseListElementList;
+    public sealed record CaseListElementListCaseListElementVariant(CaseListElementListCaseListElement Value) : CaseListElementList;
+
+    // Type derived for non-terminal CaseStatement
+    public abstract record CaseStatement;
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListENDVariant(CaseStatementCASEExpressionOFCaseListElementListEND Value) : CaseStatement;
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONENDVariant(CaseStatementCASEExpressionOFCaseListElementListSEMICOLONEND Value) : CaseStatement;
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementENDVariant(CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementEND Value) : CaseStatement;
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementSEMICOLONENDVariant(CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementSEMICOLONEND Value) : CaseStatement;
+
+    // Type derived for non-terminal ClosedForStatement
+    public sealed record ClosedForStatement(FOR FOR, IDENTIFIER IDENTIFIER, ASSIGNMENT ASSIGNMENT, Expression Expression, Direction Direction, FinalValue FinalValue, DO DO, ClosedStatement ClosedStatement);
+
+    // Type derived for non-terminal ClosedIfStatement
+    public sealed record ClosedIfStatement(IF IF, Expression Expression, THEN THEN, ClosedStatement ClosedStatement, ELSE ELSE, ClosedStatement ClosedStatement0);
+
+    // Type derived for non-terminal ClosedStatement
+    public abstract record ClosedStatement;
+    public sealed record ClosedStatementLabelCOLONNonLabeledClosedStatementVariant(ClosedStatementLabelCOLONNonLabeledClosedStatement Value) : ClosedStatement;
+    public sealed record ClosedStatementNonLabeledClosedStatementVariant(ClosedStatementNonLabeledClosedStatement Value) : ClosedStatement;
+
+    // Type derived for non-terminal ClosedWhileStatement
+    public sealed record ClosedWhileStatement(WHILE WHILE, Expression Expression, DO DO, ClosedStatement ClosedStatement);
+
+    // Type derived for non-terminal ClosedWithStatement
+    public sealed record ClosedWithStatement(WITH WITH, RecordVariableList RecordVariableList, DO DO, ClosedStatement ClosedStatement);
+
+    // Type derived for non-terminal ComponentType
+    public sealed record ComponentType(TypeDenoter TypeDenoter);
+
+    // Type derived for non-terminal CompoundStatement
+    public sealed record CompoundStatement(PBEGIN PBEGIN, StatementSequence StatementSequence, END END);
+
+    // Type derived for non-terminal Constant
+    public abstract record Constant;
+    public sealed record ConstantNonStringVariant(ConstantNonString Value) : Constant;
+    public sealed record ConstantSignNonStringVariant(ConstantSignNonString Value) : Constant;
+    public sealed record ConstantCHARACTERSTRINGVariant(ConstantCHARACTERSTRING Value) : Constant;
+
+    // Type derived for non-terminal ConstantDefinition
+    public sealed record ConstantDefinition(IDENTIFIER IDENTIFIER, EQUAL EQUAL, CExpression CExpression, SEMICOLON SEMICOLON);
+
+    // Type derived for non-terminal ConstantDefinitionPart
+    public abstract record ConstantDefinitionPart;
+    public sealed record ConstantDefinitionPartCONSTConstantListVariant(ConstantDefinitionPartCONSTConstantList Value) : ConstantDefinitionPart;
+    public sealed record ConstantDefinitionPartConstantDefinitionPartEmptyVariant(ConstantDefinitionPartConstantDefinitionPartEmpty Value) : ConstantDefinitionPart;
+
+    // Type derived for non-terminal ConstantList
+    public abstract record ConstantList;
+    public sealed record ConstantListConstantListConstantDefinitionVariant(ConstantListConstantListConstantDefinition Value) : ConstantList;
+    public sealed record ConstantListConstantDefinitionVariant(ConstantListConstantDefinition Value) : ConstantList;
+
+    // Type derived for non-terminal DIGSEQ
+    public sealed record DIGSEQ(Token DIGSEQValue);
+
+    // Type derived for non-terminal DIV
+    public sealed record DIV(Token DIVValue);
+
+    // Type derived for non-terminal DO
+    public sealed record DO(Token DOValue);
+
+    // Type derived for non-terminal DOT
+    public sealed record DOT(Token DOTValue);
+
+    // Type derived for non-terminal DOTDOT
+    public sealed record DOTDOT(Token DOTDOTValue);
+
+    // Type derived for non-terminal DOWNTO
+    public sealed record DOWNTO(Token DOWNTOValue);
+
+    // Type derived for non-terminal Direction
+    public abstract record Direction;
+    public sealed record DirectionTOVariant(DirectionTO Value) : Direction;
+    public sealed record DirectionDOWNTOVariant(DirectionDOWNTO Value) : Direction;
+
+    // Type derived for non-terminal Directive
+    public abstract record Directive;
+    public sealed record DirectiveFORWARDVariant(DirectiveFORWARD Value) : Directive;
+    public sealed record DirectiveEXTERNALVariant(DirectiveEXTERNAL Value) : Directive;
+
+    // Type derived for non-terminal DomainType
+    public sealed record DomainType(IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal ELSE
+    public sealed record ELSE(Token ELSEValue);
+
+    // Type derived for non-terminal END
+    public sealed record END(Token ENDValue);
+
+    // Type derived for non-terminal EQUAL
+    public sealed record EQUAL(Token EQUALValue);
+
+    // Type derived for non-terminal EXTERNAL
+    public sealed record EXTERNAL(Token EXTERNALValue);
+
+    // Type derived for non-terminal EnumeratedType
+    public sealed record EnumeratedType(LPAREN LPAREN, IdentifierList IdentifierList, RPAREN RPAREN);
+
+    // Type derived for non-terminal Exponentiation
+    public abstract record Exponentiation;
+    public sealed record ExponentiationPrimaryVariant(ExponentiationPrimary Value) : Exponentiation;
+    public sealed record ExponentiationPrimarySTARSTARExponentiationVariant(ExponentiationPrimarySTARSTARExponentiation Value) : Exponentiation;
+
+    // Type derived for non-terminal Expression
+    public abstract record Expression;
+    public sealed record ExpressionSimpleExpressionVariant(ExpressionSimpleExpression Value) : Expression;
+    public sealed record ExpressionSimpleExpressionRelOpSimpleExpressionVariant(ExpressionSimpleExpressionRelOpSimpleExpression Value) : Expression;
+
+    // Type derived for non-terminal FOR
+    public sealed record FOR(Token FORValue);
+
+    // Type derived for non-terminal FORWARD
+    public sealed record FORWARD(Token FORWARDValue);
+
+    // Type derived for non-terminal FUNCTION
+    public sealed record FUNCTION(Token FUNCTIONValue);
+
+    // Type derived for non-terminal Factor
+    public abstract record Factor;
+    public sealed record FactorSignFactorVariant(FactorSignFactor Value) : Factor;
+    public sealed record FactorExponentiationVariant(FactorExponentiation Value) : Factor;
+
+    // Type derived for non-terminal FieldDesignator
+    public sealed record FieldDesignator(VariableAccess VariableAccess, DOT DOT, IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal FileType
+    public sealed record FileType(PFILE PFILE, OF OF, ComponentType ComponentType);
+
+    // Type derived for non-terminal FinalValue
+    public sealed record FinalValue(Expression Expression);
+
+    // Type derived for non-terminal FormalParameterList
+    public sealed record FormalParameterList(LPAREN LPAREN, FormalParameterSectionList FormalParameterSectionList, RPAREN RPAREN);
+
+    // Type derived for non-terminal FormalParameterSection
+    public abstract record FormalParameterSection;
+    public sealed record FormalParameterSectionValueParameterSpecificationVariant(FormalParameterSectionValueParameterSpecification Value) : FormalParameterSection;
+    public sealed record FormalParameterSectionVariableParameterSpecificationVariant(FormalParameterSectionVariableParameterSpecification Value) : FormalParameterSection;
+    public sealed record FormalParameterSectionProceduralParameterSpecificationVariant(FormalParameterSectionProceduralParameterSpecification Value) : FormalParameterSection;
+    public sealed record FormalParameterSectionFunctionalParameterSpecificationVariant(FormalParameterSectionFunctionalParameterSpecification Value) : FormalParameterSection;
+
+    // Type derived for non-terminal FormalParameterSectionList
+    public abstract record FormalParameterSectionList;
+    public sealed record FormalParameterSectionListFormalParameterSectionListSEMICOLONFormalParameterSectionVariant(FormalParameterSectionListFormalParameterSectionListSEMICOLONFormalParameterSection Value) : FormalParameterSectionList;
+    public sealed record FormalParameterSectionListFormalParameterSectionVariant(FormalParameterSectionListFormalParameterSection Value) : FormalParameterSectionList;
+
+    // Type derived for non-terminal FunctionBlock
+    public sealed record FunctionBlock(Block Block);
+
+    // Type derived for non-terminal FunctionDeclaration
+    public abstract record FunctionDeclaration;
+    public sealed record FunctionDeclarationFunctionHeadingSEMICOLONDirectiveVariant(FunctionDeclarationFunctionHeadingSEMICOLONDirective Value) : FunctionDeclaration;
+    public sealed record FunctionDeclarationFunctionIdentificationSEMICOLONFunctionBlockVariant(FunctionDeclarationFunctionIdentificationSEMICOLONFunctionBlock Value) : FunctionDeclaration;
+    public sealed record FunctionDeclarationFunctionHeadingSEMICOLONFunctionBlockVariant(FunctionDeclarationFunctionHeadingSEMICOLONFunctionBlock Value) : FunctionDeclaration;
+
+    // Type derived for non-terminal FunctionDesignator
+    public sealed record FunctionDesignator(IDENTIFIER IDENTIFIER, Params Params);
+
+    // Type derived for non-terminal FunctionHeading
+    public abstract record FunctionHeading;
+    public sealed record FunctionHeadingFUNCTIONIDENTIFIERCOLONResultTypeVariant(FunctionHeadingFUNCTIONIDENTIFIERCOLONResultType Value) : FunctionHeading;
+    public sealed record FunctionHeadingFUNCTIONIDENTIFIERFormalParameterListCOLONResultTypeVariant(FunctionHeadingFUNCTIONIDENTIFIERFormalParameterListCOLONResultType Value) : FunctionHeading;
+
+    // Type derived for non-terminal FunctionIdentification
+    public sealed record FunctionIdentification(FUNCTION FUNCTION, IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal FunctionalParameterSpecification
+    public sealed record FunctionalParameterSpecification(FunctionHeading FunctionHeading);
+
+    // Type derived for non-terminal GE
+    public sealed record GE(Token GEValue);
+
+    // Type derived for non-terminal GOTO
+    public sealed record GOTO(Token GOTOValue);
+
+    // Type derived for non-terminal GT
+    public sealed record GT(Token GTValue);
+
+    // Type derived for non-terminal GotoStatement
+    public sealed record GotoStatement(GOTO GOTO, Label Label);
+
+    // Type derived for non-terminal IDENTIFIER
+    public sealed record IDENTIFIER(Token IDENTIFIERValue);
+
+    // Type derived for non-terminal IF
+    public sealed record IF(Token IFValue);
+
+    // Type derived for non-terminal IN
+    public sealed record IN(Token INValue);
+
+    // Type derived for non-terminal IdentifierList
+    public abstract record IdentifierList;
+    public sealed record IdentifierListIdentifierListCOMMAIDENTIFIERVariant(IdentifierListIdentifierListCOMMAIDENTIFIER Value) : IdentifierList;
+    public sealed record IdentifierListIDENTIFIERVariant(IdentifierListIDENTIFIER Value) : IdentifierList;
+
+    // Type derived for non-terminal IndexExpression
+    public sealed record IndexExpression(Expression Expression);
+
+    // Type derived for non-terminal IndexExpressionList
+    public abstract record IndexExpressionList;
+    public sealed record IndexExpressionListIndexExpressionListCOMMAIndexExpressionVariant(IndexExpressionListIndexExpressionListCOMMAIndexExpression Value) : IndexExpressionList;
+    public sealed record IndexExpressionListIndexExpressionVariant(IndexExpressionListIndexExpression Value) : IndexExpressionList;
+
+    // Type derived for non-terminal IndexList
+    public abstract record IndexList;
+    public sealed record IndexListIndexListCOMMAIndexTypeVariant(IndexListIndexListCOMMAIndexType Value) : IndexList;
+    public sealed record IndexListIndexTypeVariant(IndexListIndexType Value) : IndexList;
+
+    // Type derived for non-terminal IndexType
+    public sealed record IndexType(OrdinalType OrdinalType);
+
+    // Type derived for non-terminal IndexedVariable
+    public sealed record IndexedVariable(VariableAccess VariableAccess, LBRAC LBRAC, IndexExpressionList IndexExpressionList, RBRAC RBRAC);
+
+    // Type derived for non-terminal LABEL
+    public sealed record LABEL(Token LABELValue);
+
+    // Type derived for non-terminal LBRAC
+    public sealed record LBRAC(Token LBRACValue);
+
+    // Type derived for non-terminal LE
+    public sealed record LE(Token LEValue);
+
+    // Type derived for non-terminal LPAREN
+    public sealed record LPAREN(Token LPARENValue);
+
+    // Type derived for non-terminal LT
+    public sealed record LT(Token LTValue);
+
+    // Type derived for non-terminal Label
+    public sealed record Label(DIGSEQ DIGSEQ);
+
+    // Type derived for non-terminal LabelDeclarationPart
+    public abstract record LabelDeclarationPart;
+    public sealed record LabelDeclarationPartLABELLabelListSEMICOLONVariant(LabelDeclarationPartLABELLabelListSEMICOLON Value) : LabelDeclarationPart;
+    public sealed record LabelDeclarationPartLabelDeclarationPartEmptyVariant(LabelDeclarationPartLabelDeclarationPartEmpty Value) : LabelDeclarationPart;
+
+    // Type derived for non-terminal LabelList
+    public abstract record LabelList;
+    public sealed record LabelListLabelListCOMMALabelVariant(LabelListLabelListCOMMALabel Value) : LabelList;
+    public sealed record LabelListLabelVariant(LabelListLabel Value) : LabelList;
+
+    // Type derived for non-terminal MINUS
+    public sealed record MINUS(Token MINUSValue);
+
+    // Type derived for non-terminal MOD
+    public sealed record MOD(Token MODValue);
+
+    // Type derived for non-terminal MemberDesignator
+    public abstract record MemberDesignator;
+    public sealed record MemberDesignatorMemberDesignatorDOTDOTExpressionVariant(MemberDesignatorMemberDesignatorDOTDOTExpression Value) : MemberDesignator;
+    public sealed record MemberDesignatorExpressionVariant(MemberDesignatorExpression Value) : MemberDesignator;
+
+    // Type derived for non-terminal MemberDesignatorList
+    public abstract record MemberDesignatorList;
+    public sealed record MemberDesignatorListMemberDesignatorListCOMMAMemberDesignatorVariant(MemberDesignatorListMemberDesignatorListCOMMAMemberDesignator Value) : MemberDesignatorList;
+    public sealed record MemberDesignatorListMemberDesignatorVariant(MemberDesignatorListMemberDesignator Value) : MemberDesignatorList;
+
+    // Type derived for non-terminal Module
+    public sealed record Module(ConstantDefinitionPart ConstantDefinitionPart, TypeDefinitionPart TypeDefinitionPart, VariableDeclarationPart VariableDeclarationPart, ProcedureAndFunctionDeclarationPart ProcedureAndFunctionDeclarationPart);
+
+    // Type derived for non-terminal MulOp
+    public abstract record MulOp;
+    public sealed record MulOpSTARVariant(MulOpSTAR Value) : MulOp;
+    public sealed record MulOpSLASHVariant(MulOpSLASH Value) : MulOp;
+    public sealed record MulOpDIVVariant(MulOpDIV Value) : MulOp;
+    public sealed record MulOpMODVariant(MulOpMOD Value) : MulOp;
+    public sealed record MulOpANDVariant(MulOpAND Value) : MulOp;
+
+    // Type derived for non-terminal NIL
+    public sealed record NIL(Token NILValue);
+
+    // Type derived for non-terminal NOT
+    public sealed record NOT(Token NOTValue);
+
+    // Type derived for non-terminal NOTEQUAL
+    public sealed record NOTEQUAL(Token NOTEQUALValue);
+
+    // Type derived for non-terminal NewOrdinalType
+    public abstract record NewOrdinalType;
+    public sealed record NewOrdinalTypeEnumeratedTypeVariant(NewOrdinalTypeEnumeratedType Value) : NewOrdinalType;
+    public sealed record NewOrdinalTypeSubrangeTypeVariant(NewOrdinalTypeSubrangeType Value) : NewOrdinalType;
+
+    // Type derived for non-terminal NewPointerType
+    public sealed record NewPointerType(UPARROW UPARROW, DomainType DomainType);
+
+    // Type derived for non-terminal NewStructuredType
+    public abstract record NewStructuredType;
+    public sealed record NewStructuredTypeStructuredTypeVariant(NewStructuredTypeStructuredType Value) : NewStructuredType;
+    public sealed record NewStructuredTypePACKEDStructuredTypeVariant(NewStructuredTypePACKEDStructuredType Value) : NewStructuredType;
+
+    // Type derived for non-terminal NewType
+    public abstract record NewType;
+    public sealed record NewTypeNewOrdinalTypeVariant(NewTypeNewOrdinalType Value) : NewType;
+    public sealed record NewTypeNewStructuredTypeVariant(NewTypeNewStructuredType Value) : NewType;
+    public sealed record NewTypeNewPointerTypeVariant(NewTypeNewPointerType Value) : NewType;
+
+    // Type derived for non-terminal NonLabeledClosedStatement
+    public abstract record NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementAssignmentStatementVariant(NonLabeledClosedStatementAssignmentStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementProcedureStatementVariant(NonLabeledClosedStatementProcedureStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementGotoStatementVariant(NonLabeledClosedStatementGotoStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementCompoundStatementVariant(NonLabeledClosedStatementCompoundStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementCaseStatementVariant(NonLabeledClosedStatementCaseStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementRepeatStatementVariant(NonLabeledClosedStatementRepeatStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementClosedWithStatementVariant(NonLabeledClosedStatementClosedWithStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementClosedIfStatementVariant(NonLabeledClosedStatementClosedIfStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementClosedWhileStatementVariant(NonLabeledClosedStatementClosedWhileStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementClosedForStatementVariant(NonLabeledClosedStatementClosedForStatement Value) : NonLabeledClosedStatement;
+    public sealed record NonLabeledClosedStatementNonLabeledClosedStatementEmptyVariant(NonLabeledClosedStatementNonLabeledClosedStatementEmpty Value) : NonLabeledClosedStatement;
+
+    // Type derived for non-terminal NonLabeledOpenStatement
+    public abstract record NonLabeledOpenStatement;
+    public sealed record NonLabeledOpenStatementOpenWithStatementVariant(NonLabeledOpenStatementOpenWithStatement Value) : NonLabeledOpenStatement;
+    public sealed record NonLabeledOpenStatementOpenIfStatementVariant(NonLabeledOpenStatementOpenIfStatement Value) : NonLabeledOpenStatement;
+    public sealed record NonLabeledOpenStatementOpenWhileStatementVariant(NonLabeledOpenStatementOpenWhileStatement Value) : NonLabeledOpenStatement;
+    public sealed record NonLabeledOpenStatementOpenForStatementVariant(NonLabeledOpenStatementOpenForStatement Value) : NonLabeledOpenStatement;
+
+    // Type derived for non-terminal NonString
+    public abstract record NonString;
+    public sealed record NonStringDIGSEQVariant(NonStringDIGSEQ Value) : NonString;
+    public sealed record NonStringIDENTIFIERVariant(NonStringIDENTIFIER Value) : NonString;
+    public sealed record NonStringREALNUMBERVariant(NonStringREALNUMBER Value) : NonString;
+
+    // Type derived for non-terminal OF
+    public sealed record OF(Token OFValue);
+
+    // Type derived for non-terminal OR
+    public sealed record OR(Token ORValue);
+
+    // Type derived for non-terminal OTHERWISE
+    public sealed record OTHERWISE(Token OTHERWISEValue);
+
+    // Type derived for non-terminal OpenForStatement
+    public sealed record OpenForStatement(FOR FOR, IDENTIFIER IDENTIFIER, ASSIGNMENT ASSIGNMENT, Expression Expression, Direction Direction, FinalValue FinalValue, DO DO, OpenStatement OpenStatement);
+
+    // Type derived for non-terminal OpenIfStatement
+    public abstract record OpenIfStatement;
+    public sealed record OpenIfStatementIFExpressionTHENStatementVariant(OpenIfStatementIFExpressionTHENStatement Value) : OpenIfStatement;
+    public sealed record OpenIfStatementIFExpressionTHENClosedStatementELSEOpenStatementVariant(OpenIfStatementIFExpressionTHENClosedStatementELSEOpenStatement Value) : OpenIfStatement;
+
+    // Type derived for non-terminal OpenStatement
+    public abstract record OpenStatement;
+    public sealed record OpenStatementLabelCOLONNonLabeledOpenStatementVariant(OpenStatementLabelCOLONNonLabeledOpenStatement Value) : OpenStatement;
+    public sealed record OpenStatementNonLabeledOpenStatementVariant(OpenStatementNonLabeledOpenStatement Value) : OpenStatement;
+
+    // Type derived for non-terminal OpenWhileStatement
+    public sealed record OpenWhileStatement(WHILE WHILE, Expression Expression, DO DO, OpenStatement OpenStatement);
+
+    // Type derived for non-terminal OpenWithStatement
+    public sealed record OpenWithStatement(WITH WITH, RecordVariableList RecordVariableList, DO DO, OpenStatement OpenStatement);
+
+    // Type derived for non-terminal OrdinalType
+    public abstract record OrdinalType;
+    public sealed record OrdinalTypeNewOrdinalTypeVariant(OrdinalTypeNewOrdinalType Value) : OrdinalType;
+    public sealed record OrdinalTypeIDENTIFIERVariant(OrdinalTypeIDENTIFIER Value) : OrdinalType;
+
+    // Type derived for non-terminal OtherwisePart
+    public abstract record OtherwisePart;
+    public sealed record OtherwisePartOTHERWISEVariant(OtherwisePartOTHERWISE Value) : OtherwisePart;
+    public sealed record OtherwisePartOTHERWISECOLONVariant(OtherwisePartOTHERWISECOLON Value) : OtherwisePart;
+
+    // Type derived for non-terminal PACKED
+    public sealed record PACKED(Token PACKEDValue);
+
+    // Type derived for non-terminal PBEGIN
+    public sealed record PBEGIN(Token PBEGINValue);
+
+    // Type derived for non-terminal PFILE
+    public sealed record PFILE(Token PFILEValue);
+
+    // Type derived for non-terminal PLUS
+    public sealed record PLUS(Token PLUSValue);
+
+    // Type derived for non-terminal PROCEDURE
+    public sealed record PROCEDURE(Token PROCEDUREValue);
+
+    // Type derived for non-terminal PROGRAM
+    public sealed record PROGRAM(Token PROGRAMValue);
+
+    // Type derived for non-terminal Params
+    public sealed record Params(LPAREN LPAREN, ActualParameterList ActualParameterList, RPAREN RPAREN);
 
     // Type derived for non-terminal PascalCs
-    public sealed record PascalCs(PascalCsOpt PascalCsOpt);
+    public abstract record PascalCs;
+    public sealed record PascalCsProgramVariant(PascalCsProgram Value) : PascalCs;
+    public sealed record PascalCsModuleVariant(PascalCsModule Value) : PascalCs;
 
-    // Type derived for non-terminal PascalCsOpt
-    public sealed record PascalCsOpt(HelloWorld HelloWorld);
+    // Type derived for non-terminal PascalCs0
+    public sealed record PascalCs0(PascalCs PascalCs);
+
+    // Type derived for non-terminal Primary
+    public abstract record Primary;
+    public sealed record PrimaryVariableAccessVariant(PrimaryVariableAccess Value) : Primary;
+    public sealed record PrimaryUnsignedConstantVariant(PrimaryUnsignedConstant Value) : Primary;
+    public sealed record PrimaryFunctionDesignatorVariant(PrimaryFunctionDesignator Value) : Primary;
+    public sealed record PrimarySetConstructorVariant(PrimarySetConstructor Value) : Primary;
+    public sealed record PrimaryLPARENExpressionRPARENVariant(PrimaryLPARENExpressionRPAREN Value) : Primary;
+    public sealed record PrimaryNOTPrimaryVariant(PrimaryNOTPrimary Value) : Primary;
+
+    // Type derived for non-terminal ProcOrFuncDeclaration
+    public abstract record ProcOrFuncDeclaration;
+    public sealed record ProcOrFuncDeclarationProcedureDeclarationVariant(ProcOrFuncDeclarationProcedureDeclaration Value) : ProcOrFuncDeclaration;
+    public sealed record ProcOrFuncDeclarationFunctionDeclarationVariant(ProcOrFuncDeclarationFunctionDeclaration Value) : ProcOrFuncDeclaration;
+
+    // Type derived for non-terminal ProcOrFuncDeclarationList
+    public abstract record ProcOrFuncDeclarationList;
+    public sealed record ProcOrFuncDeclarationListProcOrFuncDeclarationListSEMICOLONProcOrFuncDeclarationVariant(ProcOrFuncDeclarationListProcOrFuncDeclarationListSEMICOLONProcOrFuncDeclaration Value) : ProcOrFuncDeclarationList;
+    public sealed record ProcOrFuncDeclarationListProcOrFuncDeclarationVariant(ProcOrFuncDeclarationListProcOrFuncDeclaration Value) : ProcOrFuncDeclarationList;
+
+    // Type derived for non-terminal ProceduralParameterSpecification
+    public sealed record ProceduralParameterSpecification(ProcedureHeading ProcedureHeading);
+
+    // Type derived for non-terminal ProcedureAndFunctionDeclarationPart
+    public abstract record ProcedureAndFunctionDeclarationPart;
+    public sealed record ProcedureAndFunctionDeclarationPartProcOrFuncDeclarationListSEMICOLONVariant(ProcedureAndFunctionDeclarationPartProcOrFuncDeclarationListSEMICOLON Value) : ProcedureAndFunctionDeclarationPart;
+    public sealed record ProcedureAndFunctionDeclarationPartProcedureAndFunctionDeclarationPartEmptyVariant(ProcedureAndFunctionDeclarationPartProcedureAndFunctionDeclarationPartEmpty Value) : ProcedureAndFunctionDeclarationPart;
+
+    // Type derived for non-terminal ProcedureBlock
+    public sealed record ProcedureBlock(Block Block);
+
+    // Type derived for non-terminal ProcedureDeclaration
+    public abstract record ProcedureDeclaration;
+    public sealed record ProcedureDeclarationProcedureHeadingSEMICOLONDirectiveVariant(ProcedureDeclarationProcedureHeadingSEMICOLONDirective Value) : ProcedureDeclaration;
+    public sealed record ProcedureDeclarationProcedureHeadingSEMICOLONProcedureBlockVariant(ProcedureDeclarationProcedureHeadingSEMICOLONProcedureBlock Value) : ProcedureDeclaration;
+
+    // Type derived for non-terminal ProcedureHeading
+    public abstract record ProcedureHeading;
+    public sealed record ProcedureHeadingProcedureIdentificationVariant(ProcedureHeadingProcedureIdentification Value) : ProcedureHeading;
+    public sealed record ProcedureHeadingProcedureIdentificationFormalParameterListVariant(ProcedureHeadingProcedureIdentificationFormalParameterList Value) : ProcedureHeading;
+
+    // Type derived for non-terminal ProcedureIdentification
+    public sealed record ProcedureIdentification(PROCEDURE PROCEDURE, IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal ProcedureStatement
+    public abstract record ProcedureStatement;
+    public sealed record ProcedureStatementIDENTIFIERParamsVariant(ProcedureStatementIDENTIFIERParams Value) : ProcedureStatement;
+    public sealed record ProcedureStatementIDENTIFIERVariant(ProcedureStatementIDENTIFIER Value) : ProcedureStatement;
+
+    // Type derived for non-terminal Program
+    public sealed record Program(ProgramHeading ProgramHeading, SEMICOLON SEMICOLON, Block Block, DOT DOT);
+
+    // Type derived for non-terminal ProgramHeading
+    public abstract record ProgramHeading;
+    public sealed record ProgramHeadingPROGRAMIDENTIFIERVariant(ProgramHeadingPROGRAMIDENTIFIER Value) : ProgramHeading;
+    public sealed record ProgramHeadingPROGRAMIDENTIFIERLPARENIdentifierListRPARENVariant(ProgramHeadingPROGRAMIDENTIFIERLPARENIdentifierListRPAREN Value) : ProgramHeading;
+
+    // Type derived for non-terminal RBRAC
+    public sealed record RBRAC(Token RBRACValue);
+
+    // Type derived for non-terminal REALNUMBER
+    public sealed record REALNUMBER(Token REALNUMBERValue);
+
+    // Type derived for non-terminal RECORD
+    public sealed record RECORD(Token RECORDValue);
+
+    // Type derived for non-terminal REPEAT
+    public sealed record REPEAT(Token REPEATValue);
+
+    // Type derived for non-terminal RPAREN
+    public sealed record RPAREN(Token RPARENValue);
+
+    // Type derived for non-terminal RecordSection
+    public sealed record RecordSection(IdentifierList IdentifierList, COLON COLON, TypeDenoter TypeDenoter);
+
+    // Type derived for non-terminal RecordSectionList
+    public abstract record RecordSectionList;
+    public sealed record RecordSectionListRecordSectionListSEMICOLONRecordSectionVariant(RecordSectionListRecordSectionListSEMICOLONRecordSection Value) : RecordSectionList;
+    public sealed record RecordSectionListRecordSectionVariant(RecordSectionListRecordSection Value) : RecordSectionList;
+
+    // Type derived for non-terminal RecordType
+    public abstract record RecordType;
+    public sealed record RecordTypeRECORDRecordSectionListENDVariant(RecordTypeRECORDRecordSectionListEND Value) : RecordType;
+    public sealed record RecordTypeRECORDRecordSectionListSEMICOLONVariantPartENDVariant(RecordTypeRECORDRecordSectionListSEMICOLONVariantPartEND Value) : RecordType;
+    public sealed record RecordTypeRECORDVariantPartENDVariant(RecordTypeRECORDVariantPartEND Value) : RecordType;
+
+    // Type derived for non-terminal RecordVariableList
+    public abstract record RecordVariableList;
+    public sealed record RecordVariableListRecordVariableListCOMMAVariableAccessVariant(RecordVariableListRecordVariableListCOMMAVariableAccess Value) : RecordVariableList;
+    public sealed record RecordVariableListVariableAccessVariant(RecordVariableListVariableAccess Value) : RecordVariableList;
+
+    // Type derived for non-terminal RelOp
+    public abstract record RelOp;
+    public sealed record RelOpEQUALVariant(RelOpEQUAL Value) : RelOp;
+    public sealed record RelOpNOTEQUALVariant(RelOpNOTEQUAL Value) : RelOp;
+    public sealed record RelOpLTVariant(RelOpLT Value) : RelOp;
+    public sealed record RelOpGTVariant(RelOpGT Value) : RelOp;
+    public sealed record RelOpLEVariant(RelOpLE Value) : RelOp;
+    public sealed record RelOpGEVariant(RelOpGE Value) : RelOp;
+    public sealed record RelOpINVariant(RelOpIN Value) : RelOp;
+
+    // Type derived for non-terminal RepeatStatement
+    public sealed record RepeatStatement(REPEAT REPEAT, StatementSequence StatementSequence, UNTIL UNTIL, Expression Expression);
+
+    // Type derived for non-terminal ResultType
+    public sealed record ResultType(IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal SEMICOLON
+    public sealed record SEMICOLON(Token SEMICOLONValue);
+
+    // Type derived for non-terminal SET
+    public sealed record SET(Token SETValue);
+
+    // Type derived for non-terminal SLASH
+    public sealed record SLASH(Token SLASHValue);
+
+    // Type derived for non-terminal STAR
+    public sealed record STAR(Token STARValue);
+
+    // Type derived for non-terminal STARSTAR
+    public sealed record STARSTAR(Token STARSTARValue);
+
+    // Type derived for non-terminal SetConstructor
+    public abstract record SetConstructor;
+    public sealed record SetConstructorLBRACMemberDesignatorListRBRACVariant(SetConstructorLBRACMemberDesignatorListRBRAC Value) : SetConstructor;
+    public sealed record SetConstructorLBRACRBRACVariant(SetConstructorLBRACRBRAC Value) : SetConstructor;
+
+    // Type derived for non-terminal SetType
+    public sealed record SetType(SET SET, OF OF, OrdinalType OrdinalType);
+
+    // Type derived for non-terminal Sign
+    public abstract record Sign;
+    public sealed record SignPLUSVariant(SignPLUS Value) : Sign;
+    public sealed record SignMINUSVariant(SignMINUS Value) : Sign;
+
+    // Type derived for non-terminal SimpleExpression
+    public abstract record SimpleExpression;
+    public sealed record SimpleExpressionTermVariant(SimpleExpressionTerm Value) : SimpleExpression;
+    public sealed record SimpleExpressionSimpleExpressionAddOpTermVariant(SimpleExpressionSimpleExpressionAddOpTerm Value) : SimpleExpression;
+
+    // Type derived for non-terminal Statement
+    public abstract record Statement;
+    public sealed record StatementOpenStatementVariant(StatementOpenStatement Value) : Statement;
+    public sealed record StatementClosedStatementVariant(StatementClosedStatement Value) : Statement;
+
+    // Type derived for non-terminal StatementPart
+    public sealed record StatementPart(CompoundStatement CompoundStatement);
+
+    // Type derived for non-terminal StatementSequence
+    public abstract record StatementSequence;
+    public sealed record StatementSequenceStatementSequenceSEMICOLONStatementVariant(StatementSequenceStatementSequenceSEMICOLONStatement Value) : StatementSequence;
+    public sealed record StatementSequenceStatementVariant(StatementSequenceStatement Value) : StatementSequence;
+
+    // Type derived for non-terminal StructuredType
+    public abstract record StructuredType;
+    public sealed record StructuredTypeArrayTypeVariant(StructuredTypeArrayType Value) : StructuredType;
+    public sealed record StructuredTypeRecordTypeVariant(StructuredTypeRecordType Value) : StructuredType;
+    public sealed record StructuredTypeSetTypeVariant(StructuredTypeSetType Value) : StructuredType;
+    public sealed record StructuredTypeFileTypeVariant(StructuredTypeFileType Value) : StructuredType;
+
+    // Type derived for non-terminal SubrangeType
+    public sealed record SubrangeType(Constant Constant, DOTDOT DOTDOT, Constant Constant0);
+
+    // Type derived for non-terminal THEN
+    public sealed record THEN(Token THENValue);
+
+    // Type derived for non-terminal TO
+    public sealed record TO(Token TOValue);
+
+    // Type derived for non-terminal TYPE
+    public sealed record TYPE(Token TYPEValue);
+
+    // Type derived for non-terminal TagField
+    public sealed record TagField(IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal TagType
+    public sealed record TagType(IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal Term
+    public abstract record Term;
+    public sealed record TermFactorVariant(TermFactor Value) : Term;
+    public sealed record TermTermMulOpFactorVariant(TermTermMulOpFactor Value) : Term;
+
+    // Type derived for non-terminal TypeDefinition
+    public sealed record TypeDefinition(IDENTIFIER IDENTIFIER, EQUAL EQUAL, TypeDenoter TypeDenoter, SEMICOLON SEMICOLON);
+
+    // Type derived for non-terminal TypeDefinitionList
+    public abstract record TypeDefinitionList;
+    public sealed record TypeDefinitionListTypeDefinitionListTypeDefinitionVariant(TypeDefinitionListTypeDefinitionListTypeDefinition Value) : TypeDefinitionList;
+    public sealed record TypeDefinitionListTypeDefinitionVariant(TypeDefinitionListTypeDefinition Value) : TypeDefinitionList;
+
+    // Type derived for non-terminal TypeDefinitionPart
+    public abstract record TypeDefinitionPart;
+    public sealed record TypeDefinitionPartTYPETypeDefinitionListVariant(TypeDefinitionPartTYPETypeDefinitionList Value) : TypeDefinitionPart;
+    public sealed record TypeDefinitionPartTypeDefinitionPartEmptyVariant(TypeDefinitionPartTypeDefinitionPartEmpty Value) : TypeDefinitionPart;
+
+    // Type derived for non-terminal TypeDenoter
+    public abstract record TypeDenoter;
+    public sealed record TypeDenoterIDENTIFIERVariant(TypeDenoterIDENTIFIER Value) : TypeDenoter;
+    public sealed record TypeDenoterNewTypeVariant(TypeDenoterNewType Value) : TypeDenoter;
+
+    // Type derived for non-terminal UNTIL
+    public sealed record UNTIL(Token UNTILValue);
+
+    // Type derived for non-terminal UPARROW
+    public sealed record UPARROW(Token UPARROWValue);
+
+    // Type derived for non-terminal UnsignedConstant
+    public abstract record UnsignedConstant;
+    public sealed record UnsignedConstantUnsignedNumberVariant(UnsignedConstantUnsignedNumber Value) : UnsignedConstant;
+    public sealed record UnsignedConstantCHARACTERSTRINGVariant(UnsignedConstantCHARACTERSTRING Value) : UnsignedConstant;
+    public sealed record UnsignedConstantNILVariant(UnsignedConstantNIL Value) : UnsignedConstant;
+
+    // Type derived for non-terminal UnsignedNumber
+    public abstract record UnsignedNumber;
+    public sealed record UnsignedNumberDIGSEQVariant(UnsignedNumberDIGSEQ Value) : UnsignedNumber;
+    public sealed record UnsignedNumberREALNUMBERVariant(UnsignedNumberREALNUMBER Value) : UnsignedNumber;
+
+    // Type derived for non-terminal VAR
+    public sealed record VAR(Token VARValue);
+
+    // Type derived for non-terminal ValueParameterSpecification
+    public sealed record ValueParameterSpecification(IdentifierList IdentifierList, COLON COLON, IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal VariableAccess
+    public abstract record VariableAccess;
+    public sealed record VariableAccessIDENTIFIERVariant(VariableAccessIDENTIFIER Value) : VariableAccess;
+    public sealed record VariableAccessIndexedVariableVariant(VariableAccessIndexedVariable Value) : VariableAccess;
+    public sealed record VariableAccessFieldDesignatorVariant(VariableAccessFieldDesignator Value) : VariableAccess;
+    public sealed record VariableAccessVariableAccessUPARROWVariant(VariableAccessVariableAccessUPARROW Value) : VariableAccess;
+
+    // Type derived for non-terminal VariableDeclaration
+    public sealed record VariableDeclaration(IdentifierList IdentifierList, COLON COLON, TypeDenoter TypeDenoter);
+
+    // Type derived for non-terminal VariableDeclarationList
+    public abstract record VariableDeclarationList;
+    public sealed record VariableDeclarationListVariableDeclarationListSEMICOLONVariableDeclarationVariant(VariableDeclarationListVariableDeclarationListSEMICOLONVariableDeclaration Value) : VariableDeclarationList;
+    public sealed record VariableDeclarationListVariableDeclarationVariant(VariableDeclarationListVariableDeclaration Value) : VariableDeclarationList;
+
+    // Type derived for non-terminal VariableDeclarationPart
+    public abstract record VariableDeclarationPart;
+    public sealed record VariableDeclarationPartVARVariableDeclarationListSEMICOLONVariant(VariableDeclarationPartVARVariableDeclarationListSEMICOLON Value) : VariableDeclarationPart;
+    public sealed record VariableDeclarationPartVariableDeclarationPartEmptyVariant(VariableDeclarationPartVariableDeclarationPartEmpty Value) : VariableDeclarationPart;
+
+    // Type derived for non-terminal VariableParameterSpecification
+    public sealed record VariableParameterSpecification(VAR VAR, IdentifierList IdentifierList, COLON COLON, IDENTIFIER IDENTIFIER);
+
+    // Type derived for non-terminal Variant
+    public abstract record Variant;
+    public sealed record VariantCaseConstantListCOLONLPARENRecordSectionListRPARENVariant(VariantCaseConstantListCOLONLPARENRecordSectionListRPAREN Value) : Variant;
+    public sealed record VariantCaseConstantListCOLONLPARENRecordSectionListSEMICOLONVariantPartRPARENVariant(VariantCaseConstantListCOLONLPARENRecordSectionListSEMICOLONVariantPartRPAREN Value) : Variant;
+    public sealed record VariantCaseConstantListCOLONLPARENVariantPartRPARENVariant(VariantCaseConstantListCOLONLPARENVariantPartRPAREN Value) : Variant;
+
+    // Type derived for non-terminal VariantList
+    public abstract record VariantList;
+    public sealed record VariantListVariantListSEMICOLONVariantVariant(VariantListVariantListSEMICOLONVariant Value) : VariantList;
+    public sealed record VariantListVariantVariant(VariantListVariant Value) : VariantList;
+
+    // Type derived for non-terminal VariantPart
+    public abstract record VariantPart;
+    public sealed record VariantPartCASEVariantSelectorOFVariantListSEMICOLONVariant(VariantPartCASEVariantSelectorOFVariantListSEMICOLON Value) : VariantPart;
+    public sealed record VariantPartCASEVariantSelectorOFVariantListVariant(VariantPartCASEVariantSelectorOFVariantList Value) : VariantPart;
+    public sealed record VariantPartVariantPartEmptyVariant(VariantPartVariantPartEmpty Value) : VariantPart;
+
+    // Type derived for non-terminal VariantSelector
+    public abstract record VariantSelector;
+    public sealed record VariantSelectorTagFieldCOLONTagTypeVariant(VariantSelectorTagFieldCOLONTagType Value) : VariantSelector;
+    public sealed record VariantSelectorTagTypeVariant(VariantSelectorTagType Value) : VariantSelector;
+
+    // Type derived for non-terminal WHILE
+    public sealed record WHILE(Token WHILEValue);
+
+    // Type derived for non-terminal WITH
+    public sealed record WITH(Token WITHValue);
+
+    // Type derived for production 1
+    public sealed record PascalCsProgram(Program Program);
+
+    // Type derived for production 2
+    public sealed record PascalCsModule(Module Module);
+
+    // Type derived for production 4
+    public sealed record ProgramHeadingPROGRAMIDENTIFIER(PROGRAM PROGRAM, IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 5
+    public sealed record ProgramHeadingPROGRAMIDENTIFIERLPARENIdentifierListRPAREN(PROGRAM PROGRAM, IDENTIFIER IDENTIFIER, LPAREN LPAREN, IdentifierList IdentifierList, RPAREN RPAREN);
+
+    // Type derived for production 6
+    public sealed record IdentifierListIdentifierListCOMMAIDENTIFIER(IdentifierList IdentifierList, COMMA COMMA, IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 7
+    public sealed record IdentifierListIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 10
+    public sealed record LabelDeclarationPartLABELLabelListSEMICOLON(LABEL LABEL, LabelList LabelList, SEMICOLON SEMICOLON);
+
+    // Type derived for production 11
+    public sealed record LabelDeclarationPartLabelDeclarationPartEmpty();
+
+    // Type derived for production 12
+    public sealed record LabelListLabelListCOMMALabel(LabelList LabelList, COMMA COMMA, Label Label);
+
+    // Type derived for production 13
+    public sealed record LabelListLabel(Label Label);
+
+    // Type derived for production 15
+    public sealed record ConstantDefinitionPartCONSTConstantList(CONST CONST, ConstantList ConstantList);
+
+    // Type derived for production 16
+    public sealed record ConstantDefinitionPartConstantDefinitionPartEmpty();
+
+    // Type derived for production 17
+    public sealed record ConstantListConstantListConstantDefinition(ConstantList ConstantList, ConstantDefinition ConstantDefinition);
+
+    // Type derived for production 18
+    public sealed record ConstantListConstantDefinition(ConstantDefinition ConstantDefinition);
+
+    // Type derived for production 20
+    public sealed record CExpressionCSimpleExpression(CSimpleExpression CSimpleExpression);
+
+    // Type derived for production 21
+    public sealed record CExpressionCSimpleExpressionRelOpCSimpleExpression(CSimpleExpression CSimpleExpression, RelOp RelOp, CSimpleExpression CSimpleExpression0);
+
+    // Type derived for production 22
+    public sealed record CSimpleExpressionCTerm(CTerm CTerm);
+
+    // Type derived for production 23
+    public sealed record CSimpleExpressionCSimpleExpressionAddOpCTerm(CSimpleExpression CSimpleExpression, AddOp AddOp, CTerm CTerm);
+
+    // Type derived for production 24
+    public sealed record CTermCFactor(CFactor CFactor);
+
+    // Type derived for production 25
+    public sealed record CTermCTermMulOpCFactor(CTerm CTerm, MulOp MulOp, CFactor CFactor);
+
+    // Type derived for production 26
+    public sealed record CFactorSignCFactor(Sign Sign, CFactor CFactor);
+
+    // Type derived for production 27
+    public sealed record CFactorCExponentiation(CExponentiation CExponentiation);
+
+    // Type derived for production 28
+    public sealed record CExponentiationCPrimary(CPrimary CPrimary);
+
+    // Type derived for production 29
+    public sealed record CExponentiationCPrimarySTARSTARCExponentiation(CPrimary CPrimary, STARSTAR STARSTAR, CExponentiation CExponentiation);
+
+    // Type derived for production 30
+    public sealed record CPrimaryIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 31
+    public sealed record CPrimaryLPARENCExpressionRPAREN(LPAREN LPAREN, CExpression CExpression, RPAREN RPAREN);
+
+    // Type derived for production 32
+    public sealed record CPrimaryUnsignedConstant(UnsignedConstant UnsignedConstant);
+
+    // Type derived for production 33
+    public sealed record CPrimaryNOTCPrimary(NOT NOT, CPrimary CPrimary);
+
+    // Type derived for production 34
+    public sealed record ConstantNonString(NonString NonString);
+
+    // Type derived for production 35
+    public sealed record ConstantSignNonString(Sign Sign, NonString NonString);
+
+    // Type derived for production 36
+    public sealed record ConstantCHARACTERSTRING(CHARACTERSTRING CHARACTERSTRING);
+
+    // Type derived for production 37
+    public sealed record SignPLUS(PLUS PLUS);
+
+    // Type derived for production 38
+    public sealed record SignMINUS(MINUS MINUS);
+
+    // Type derived for production 39
+    public sealed record NonStringDIGSEQ(DIGSEQ DIGSEQ);
+
+    // Type derived for production 40
+    public sealed record NonStringIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 41
+    public sealed record NonStringREALNUMBER(REALNUMBER REALNUMBER);
+
+    // Type derived for production 42
+    public sealed record TypeDefinitionPartTYPETypeDefinitionList(TYPE TYPE, TypeDefinitionList TypeDefinitionList);
+
+    // Type derived for production 43
+    public sealed record TypeDefinitionPartTypeDefinitionPartEmpty();
+
+    // Type derived for production 44
+    public sealed record TypeDefinitionListTypeDefinitionListTypeDefinition(TypeDefinitionList TypeDefinitionList, TypeDefinition TypeDefinition);
+
+    // Type derived for production 45
+    public sealed record TypeDefinitionListTypeDefinition(TypeDefinition TypeDefinition);
+
+    // Type derived for production 47
+    public sealed record TypeDenoterIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 48
+    public sealed record TypeDenoterNewType(NewType NewType);
+
+    // Type derived for production 49
+    public sealed record NewTypeNewOrdinalType(NewOrdinalType NewOrdinalType);
+
+    // Type derived for production 50
+    public sealed record NewTypeNewStructuredType(NewStructuredType NewStructuredType);
+
+    // Type derived for production 51
+    public sealed record NewTypeNewPointerType(NewPointerType NewPointerType);
+
+    // Type derived for production 52
+    public sealed record NewOrdinalTypeEnumeratedType(EnumeratedType EnumeratedType);
+
+    // Type derived for production 53
+    public sealed record NewOrdinalTypeSubrangeType(SubrangeType SubrangeType);
+
+    // Type derived for production 56
+    public sealed record NewStructuredTypeStructuredType(StructuredType StructuredType);
+
+    // Type derived for production 57
+    public sealed record NewStructuredTypePACKEDStructuredType(PACKED PACKED, StructuredType StructuredType);
+
+    // Type derived for production 58
+    public sealed record StructuredTypeArrayType(ArrayType ArrayType);
+
+    // Type derived for production 59
+    public sealed record StructuredTypeRecordType(RecordType RecordType);
+
+    // Type derived for production 60
+    public sealed record StructuredTypeSetType(SetType SetType);
+
+    // Type derived for production 61
+    public sealed record StructuredTypeFileType(FileType FileType);
+
+    // Type derived for production 63
+    public sealed record IndexListIndexListCOMMAIndexType(IndexList IndexList, COMMA COMMA, IndexType IndexType);
+
+    // Type derived for production 64
+    public sealed record IndexListIndexType(IndexType IndexType);
+
+    // Type derived for production 66
+    public sealed record OrdinalTypeNewOrdinalType(NewOrdinalType NewOrdinalType);
+
+    // Type derived for production 67
+    public sealed record OrdinalTypeIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 69
+    public sealed record RecordTypeRECORDRecordSectionListEND(RECORD RECORD, RecordSectionList RecordSectionList, END END);
+
+    // Type derived for production 70
+    public sealed record RecordTypeRECORDRecordSectionListSEMICOLONVariantPartEND(RECORD RECORD, RecordSectionList RecordSectionList, SEMICOLON SEMICOLON, VariantPart VariantPart, END END);
+
+    // Type derived for production 71
+    public sealed record RecordTypeRECORDVariantPartEND(RECORD RECORD, VariantPart VariantPart, END END);
+
+    // Type derived for production 72
+    public sealed record RecordSectionListRecordSectionListSEMICOLONRecordSection(RecordSectionList RecordSectionList, SEMICOLON SEMICOLON, RecordSection RecordSection);
+
+    // Type derived for production 73
+    public sealed record RecordSectionListRecordSection(RecordSection RecordSection);
+
+    // Type derived for production 75
+    public sealed record VariantPartCASEVariantSelectorOFVariantListSEMICOLON(CASE CASE, VariantSelector VariantSelector, OF OF, VariantList VariantList, SEMICOLON SEMICOLON);
+
+    // Type derived for production 76
+    public sealed record VariantPartCASEVariantSelectorOFVariantList(CASE CASE, VariantSelector VariantSelector, OF OF, VariantList VariantList);
+
+    // Type derived for production 77
+    public sealed record VariantPartVariantPartEmpty();
+
+    // Type derived for production 78
+    public sealed record VariantSelectorTagFieldCOLONTagType(TagField TagField, COLON COLON, TagType TagType);
+
+    // Type derived for production 79
+    public sealed record VariantSelectorTagType(TagType TagType);
+
+    // Type derived for production 80
+    public sealed record VariantListVariantListSEMICOLONVariant(VariantList VariantList, SEMICOLON SEMICOLON, Variant Variant);
+
+    // Type derived for production 81
+    public sealed record VariantListVariant(Variant Variant);
+
+    // Type derived for production 82
+    public sealed record VariantCaseConstantListCOLONLPARENRecordSectionListRPAREN(CaseConstantList CaseConstantList, COLON COLON, LPAREN LPAREN, RecordSectionList RecordSectionList, RPAREN RPAREN);
+
+    // Type derived for production 83
+    public sealed record VariantCaseConstantListCOLONLPARENRecordSectionListSEMICOLONVariantPartRPAREN(CaseConstantList CaseConstantList, COLON COLON, LPAREN LPAREN, RecordSectionList RecordSectionList, SEMICOLON SEMICOLON, VariantPart VariantPart, RPAREN RPAREN);
+
+    // Type derived for production 84
+    public sealed record VariantCaseConstantListCOLONLPARENVariantPartRPAREN(CaseConstantList CaseConstantList, COLON COLON, LPAREN LPAREN, VariantPart VariantPart, RPAREN RPAREN);
+
+    // Type derived for production 85
+    public sealed record CaseConstantListCaseConstantListCOMMACaseConstant(CaseConstantList CaseConstantList, COMMA COMMA, CaseConstant CaseConstant);
+
+    // Type derived for production 86
+    public sealed record CaseConstantListCaseConstant(CaseConstant CaseConstant);
+
+    // Type derived for production 87
+    public sealed record CaseConstantConstant(Constant Constant);
+
+    // Type derived for production 88
+    public sealed record CaseConstantConstantDOTDOTConstant(Constant Constant, DOTDOT DOTDOT, Constant Constant0);
+
+    // Type derived for production 95
+    public sealed record VariableDeclarationPartVARVariableDeclarationListSEMICOLON(VAR VAR, VariableDeclarationList VariableDeclarationList, SEMICOLON SEMICOLON);
+
+    // Type derived for production 96
+    public sealed record VariableDeclarationPartVariableDeclarationPartEmpty();
+
+    // Type derived for production 97
+    public sealed record VariableDeclarationListVariableDeclarationListSEMICOLONVariableDeclaration(VariableDeclarationList VariableDeclarationList, SEMICOLON SEMICOLON, VariableDeclaration VariableDeclaration);
+
+    // Type derived for production 98
+    public sealed record VariableDeclarationListVariableDeclaration(VariableDeclaration VariableDeclaration);
+
+    // Type derived for production 100
+    public sealed record ProcedureAndFunctionDeclarationPartProcOrFuncDeclarationListSEMICOLON(ProcOrFuncDeclarationList ProcOrFuncDeclarationList, SEMICOLON SEMICOLON);
+
+    // Type derived for production 101
+    public sealed record ProcedureAndFunctionDeclarationPartProcedureAndFunctionDeclarationPartEmpty();
+
+    // Type derived for production 102
+    public sealed record ProcOrFuncDeclarationListProcOrFuncDeclarationListSEMICOLONProcOrFuncDeclaration(ProcOrFuncDeclarationList ProcOrFuncDeclarationList, SEMICOLON SEMICOLON, ProcOrFuncDeclaration ProcOrFuncDeclaration);
+
+    // Type derived for production 103
+    public sealed record ProcOrFuncDeclarationListProcOrFuncDeclaration(ProcOrFuncDeclaration ProcOrFuncDeclaration);
+
+    // Type derived for production 104
+    public sealed record ProcOrFuncDeclarationProcedureDeclaration(ProcedureDeclaration ProcedureDeclaration);
+
+    // Type derived for production 105
+    public sealed record ProcOrFuncDeclarationFunctionDeclaration(FunctionDeclaration FunctionDeclaration);
+
+    // Type derived for production 106
+    public sealed record ProcedureDeclarationProcedureHeadingSEMICOLONDirective(ProcedureHeading ProcedureHeading, SEMICOLON SEMICOLON, Directive Directive);
+
+    // Type derived for production 107
+    public sealed record ProcedureDeclarationProcedureHeadingSEMICOLONProcedureBlock(ProcedureHeading ProcedureHeading, SEMICOLON SEMICOLON, ProcedureBlock ProcedureBlock);
+
+    // Type derived for production 108
+    public sealed record ProcedureHeadingProcedureIdentification(ProcedureIdentification ProcedureIdentification);
+
+    // Type derived for production 109
+    public sealed record ProcedureHeadingProcedureIdentificationFormalParameterList(ProcedureIdentification ProcedureIdentification, FormalParameterList FormalParameterList);
+
+    // Type derived for production 110
+    public sealed record DirectiveFORWARD(FORWARD FORWARD);
+
+    // Type derived for production 111
+    public sealed record DirectiveEXTERNAL(EXTERNAL EXTERNAL);
+
+    // Type derived for production 113
+    public sealed record FormalParameterSectionListFormalParameterSectionListSEMICOLONFormalParameterSection(FormalParameterSectionList FormalParameterSectionList, SEMICOLON SEMICOLON, FormalParameterSection FormalParameterSection);
+
+    // Type derived for production 114
+    public sealed record FormalParameterSectionListFormalParameterSection(FormalParameterSection FormalParameterSection);
+
+    // Type derived for production 115
+    public sealed record FormalParameterSectionValueParameterSpecification(ValueParameterSpecification ValueParameterSpecification);
+
+    // Type derived for production 116
+    public sealed record FormalParameterSectionVariableParameterSpecification(VariableParameterSpecification VariableParameterSpecification);
+
+    // Type derived for production 117
+    public sealed record FormalParameterSectionProceduralParameterSpecification(ProceduralParameterSpecification ProceduralParameterSpecification);
+
+    // Type derived for production 118
+    public sealed record FormalParameterSectionFunctionalParameterSpecification(FunctionalParameterSpecification FunctionalParameterSpecification);
+
+    // Type derived for production 125
+    public sealed record FunctionDeclarationFunctionHeadingSEMICOLONDirective(FunctionHeading FunctionHeading, SEMICOLON SEMICOLON, Directive Directive);
+
+    // Type derived for production 126
+    public sealed record FunctionDeclarationFunctionIdentificationSEMICOLONFunctionBlock(FunctionIdentification FunctionIdentification, SEMICOLON SEMICOLON, FunctionBlock FunctionBlock);
+
+    // Type derived for production 127
+    public sealed record FunctionDeclarationFunctionHeadingSEMICOLONFunctionBlock(FunctionHeading FunctionHeading, SEMICOLON SEMICOLON, FunctionBlock FunctionBlock);
+
+    // Type derived for production 128
+    public sealed record FunctionHeadingFUNCTIONIDENTIFIERCOLONResultType(FUNCTION FUNCTION, IDENTIFIER IDENTIFIER, COLON COLON, ResultType ResultType);
+
+    // Type derived for production 129
+    public sealed record FunctionHeadingFUNCTIONIDENTIFIERFormalParameterListCOLONResultType(FUNCTION FUNCTION, IDENTIFIER IDENTIFIER, FormalParameterList FormalParameterList, COLON COLON, ResultType ResultType);
+
+    // Type derived for production 135
+    public sealed record StatementSequenceStatementSequenceSEMICOLONStatement(StatementSequence StatementSequence, SEMICOLON SEMICOLON, Statement Statement);
+
+    // Type derived for production 136
+    public sealed record StatementSequenceStatement(Statement Statement);
+
+    // Type derived for production 137
+    public sealed record StatementOpenStatement(OpenStatement OpenStatement);
+
+    // Type derived for production 138
+    public sealed record StatementClosedStatement(ClosedStatement ClosedStatement);
+
+    // Type derived for production 139
+    public sealed record OpenStatementLabelCOLONNonLabeledOpenStatement(Label Label, COLON COLON, NonLabeledOpenStatement NonLabeledOpenStatement);
+
+    // Type derived for production 140
+    public sealed record OpenStatementNonLabeledOpenStatement(NonLabeledOpenStatement NonLabeledOpenStatement);
+
+    // Type derived for production 141
+    public sealed record ClosedStatementLabelCOLONNonLabeledClosedStatement(Label Label, COLON COLON, NonLabeledClosedStatement NonLabeledClosedStatement);
+
+    // Type derived for production 142
+    public sealed record ClosedStatementNonLabeledClosedStatement(NonLabeledClosedStatement NonLabeledClosedStatement);
+
+    // Type derived for production 143
+    public sealed record NonLabeledClosedStatementAssignmentStatement(AssignmentStatement AssignmentStatement);
+
+    // Type derived for production 144
+    public sealed record NonLabeledClosedStatementProcedureStatement(ProcedureStatement ProcedureStatement);
+
+    // Type derived for production 145
+    public sealed record NonLabeledClosedStatementGotoStatement(GotoStatement GotoStatement);
+
+    // Type derived for production 146
+    public sealed record NonLabeledClosedStatementCompoundStatement(CompoundStatement CompoundStatement);
+
+    // Type derived for production 147
+    public sealed record NonLabeledClosedStatementCaseStatement(CaseStatement CaseStatement);
+
+    // Type derived for production 148
+    public sealed record NonLabeledClosedStatementRepeatStatement(RepeatStatement RepeatStatement);
+
+    // Type derived for production 149
+    public sealed record NonLabeledClosedStatementClosedWithStatement(ClosedWithStatement ClosedWithStatement);
+
+    // Type derived for production 150
+    public sealed record NonLabeledClosedStatementClosedIfStatement(ClosedIfStatement ClosedIfStatement);
+
+    // Type derived for production 151
+    public sealed record NonLabeledClosedStatementClosedWhileStatement(ClosedWhileStatement ClosedWhileStatement);
+
+    // Type derived for production 152
+    public sealed record NonLabeledClosedStatementClosedForStatement(ClosedForStatement ClosedForStatement);
+
+    // Type derived for production 153
+    public sealed record NonLabeledClosedStatementNonLabeledClosedStatementEmpty();
+
+    // Type derived for production 154
+    public sealed record NonLabeledOpenStatementOpenWithStatement(OpenWithStatement OpenWithStatement);
+
+    // Type derived for production 155
+    public sealed record NonLabeledOpenStatementOpenIfStatement(OpenIfStatement OpenIfStatement);
+
+    // Type derived for production 156
+    public sealed record NonLabeledOpenStatementOpenWhileStatement(OpenWhileStatement OpenWhileStatement);
+
+    // Type derived for production 157
+    public sealed record NonLabeledOpenStatementOpenForStatement(OpenForStatement OpenForStatement);
+
+    // Type derived for production 165
+    public sealed record OpenIfStatementIFExpressionTHENStatement(IF IF, Expression Expression, THEN THEN, Statement Statement);
+
+    // Type derived for production 166
+    public sealed record OpenIfStatementIFExpressionTHENClosedStatementELSEOpenStatement(IF IF, Expression Expression, THEN THEN, ClosedStatement ClosedStatement, ELSE ELSE, OpenStatement OpenStatement);
+
+    // Type derived for production 169
+    public sealed record VariableAccessIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 170
+    public sealed record VariableAccessIndexedVariable(IndexedVariable IndexedVariable);
+
+    // Type derived for production 171
+    public sealed record VariableAccessFieldDesignator(FieldDesignator FieldDesignator);
+
+    // Type derived for production 172
+    public sealed record VariableAccessVariableAccessUPARROW(VariableAccess VariableAccess, UPARROW UPARROW);
+
+    // Type derived for production 174
+    public sealed record IndexExpressionListIndexExpressionListCOMMAIndexExpression(IndexExpressionList IndexExpressionList, COMMA COMMA, IndexExpression IndexExpression);
+
+    // Type derived for production 175
+    public sealed record IndexExpressionListIndexExpression(IndexExpression IndexExpression);
+
+    // Type derived for production 178
+    public sealed record ProcedureStatementIDENTIFIERParams(IDENTIFIER IDENTIFIER, Params Params);
+
+    // Type derived for production 179
+    public sealed record ProcedureStatementIDENTIFIER(IDENTIFIER IDENTIFIER);
+
+    // Type derived for production 181
+    public sealed record ActualParameterListActualParameterListCOMMAActualParameter(ActualParameterList ActualParameterList, COMMA COMMA, ActualParameter ActualParameter);
+
+    // Type derived for production 182
+    public sealed record ActualParameterListActualParameter(ActualParameter ActualParameter);
+
+    // Type derived for production 183
+    public sealed record ActualParameterExpression(Expression Expression);
+
+    // Type derived for production 184
+    public sealed record ActualParameterExpressionCOLONExpression(Expression Expression, COLON COLON, Expression Expression0);
+
+    // Type derived for production 185
+    public sealed record ActualParameterExpressionCOLONExpressionCOLONExpression(Expression Expression, COLON COLON, Expression Expression0, COLON COLON0, Expression Expression1);
+
+    // Type derived for production 187
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListEND(CASE CASE, Expression Expression, OF OF, CaseListElementList CaseListElementList, END END);
+
+    // Type derived for production 188
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONEND(CASE CASE, Expression Expression, OF OF, CaseListElementList CaseListElementList, SEMICOLON SEMICOLON, END END);
+
+    // Type derived for production 189
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementEND(CASE CASE, Expression Expression, OF OF, CaseListElementList CaseListElementList, SEMICOLON SEMICOLON, OtherwisePart OtherwisePart, Statement Statement, END END);
+
+    // Type derived for production 190
+    public sealed record CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementSEMICOLONEND(CASE CASE, Expression Expression, OF OF, CaseListElementList CaseListElementList, SEMICOLON SEMICOLON, OtherwisePart OtherwisePart, Statement Statement, SEMICOLON SEMICOLON0, END END);
+
+    // Type derived for production 191
+    public sealed record CaseListElementListCaseListElementListSEMICOLONCaseListElement(CaseListElementList CaseListElementList, SEMICOLON SEMICOLON, CaseListElement CaseListElement);
+
+    // Type derived for production 192
+    public sealed record CaseListElementListCaseListElement(CaseListElement CaseListElement);
+
+    // Type derived for production 194
+    public sealed record OtherwisePartOTHERWISE(OTHERWISE OTHERWISE);
+
+    // Type derived for production 195
+    public sealed record OtherwisePartOTHERWISECOLON(OTHERWISE OTHERWISE, COLON COLON);
+
+    // Type derived for production 196
+    public sealed record DirectionTO(TO TO);
+
+    // Type derived for production 197
+    public sealed record DirectionDOWNTO(DOWNTO DOWNTO);
+
+    // Type derived for production 199
+    public sealed record RecordVariableListRecordVariableListCOMMAVariableAccess(RecordVariableList RecordVariableList, COMMA COMMA, VariableAccess VariableAccess);
+
+    // Type derived for production 200
+    public sealed record RecordVariableListVariableAccess(VariableAccess VariableAccess);
+
+    // Type derived for production 201
+    public sealed record ExpressionSimpleExpression(SimpleExpression SimpleExpression);
+
+    // Type derived for production 202
+    public sealed record ExpressionSimpleExpressionRelOpSimpleExpression(SimpleExpression SimpleExpression, RelOp RelOp, SimpleExpression SimpleExpression0);
+
+    // Type derived for production 203
+    public sealed record SimpleExpressionTerm(Term Term);
+
+    // Type derived for production 204
+    public sealed record SimpleExpressionSimpleExpressionAddOpTerm(SimpleExpression SimpleExpression, AddOp AddOp, Term Term);
+
+    // Type derived for production 205
+    public sealed record TermFactor(Factor Factor);
+
+    // Type derived for production 206
+    public sealed record TermTermMulOpFactor(Term Term, MulOp MulOp, Factor Factor);
+
+    // Type derived for production 207
+    public sealed record FactorSignFactor(Sign Sign, Factor Factor);
+
+    // Type derived for production 208
+    public sealed record FactorExponentiation(Exponentiation Exponentiation);
+
+    // Type derived for production 209
+    public sealed record ExponentiationPrimary(Primary Primary);
+
+    // Type derived for production 210
+    public sealed record ExponentiationPrimarySTARSTARExponentiation(Primary Primary, STARSTAR STARSTAR, Exponentiation Exponentiation);
+
+    // Type derived for production 211
+    public sealed record PrimaryVariableAccess(VariableAccess VariableAccess);
+
+    // Type derived for production 212
+    public sealed record PrimaryUnsignedConstant(UnsignedConstant UnsignedConstant);
+
+    // Type derived for production 213
+    public sealed record PrimaryFunctionDesignator(FunctionDesignator FunctionDesignator);
+
+    // Type derived for production 214
+    public sealed record PrimarySetConstructor(SetConstructor SetConstructor);
+
+    // Type derived for production 215
+    public sealed record PrimaryLPARENExpressionRPAREN(LPAREN LPAREN, Expression Expression, RPAREN RPAREN);
+
+    // Type derived for production 216
+    public sealed record PrimaryNOTPrimary(NOT NOT, Primary Primary);
+
+    // Type derived for production 217
+    public sealed record UnsignedConstantUnsignedNumber(UnsignedNumber UnsignedNumber);
+
+    // Type derived for production 218
+    public sealed record UnsignedConstantCHARACTERSTRING(CHARACTERSTRING CHARACTERSTRING);
+
+    // Type derived for production 219
+    public sealed record UnsignedConstantNIL(NIL NIL);
+
+    // Type derived for production 220
+    public sealed record UnsignedNumberDIGSEQ(DIGSEQ DIGSEQ);
+
+    // Type derived for production 221
+    public sealed record UnsignedNumberREALNUMBER(REALNUMBER REALNUMBER);
+
+    // Type derived for production 223
+    public sealed record SetConstructorLBRACMemberDesignatorListRBRAC(LBRAC LBRAC, MemberDesignatorList MemberDesignatorList, RBRAC RBRAC);
+
+    // Type derived for production 224
+    public sealed record SetConstructorLBRACRBRAC(LBRAC LBRAC, RBRAC RBRAC);
+
+    // Type derived for production 225
+    public sealed record MemberDesignatorListMemberDesignatorListCOMMAMemberDesignator(MemberDesignatorList MemberDesignatorList, COMMA COMMA, MemberDesignator MemberDesignator);
+
+    // Type derived for production 226
+    public sealed record MemberDesignatorListMemberDesignator(MemberDesignator MemberDesignator);
+
+    // Type derived for production 227
+    public sealed record MemberDesignatorMemberDesignatorDOTDOTExpression(MemberDesignator MemberDesignator, DOTDOT DOTDOT, Expression Expression);
+
+    // Type derived for production 228
+    public sealed record MemberDesignatorExpression(Expression Expression);
+
+    // Type derived for production 229
+    public sealed record AddOpPLUS(PLUS PLUS);
+
+    // Type derived for production 230
+    public sealed record AddOpMINUS(MINUS MINUS);
+
+    // Type derived for production 231
+    public sealed record AddOpOR(OR OR);
+
+    // Type derived for production 232
+    public sealed record MulOpSTAR(STAR STAR);
+
+    // Type derived for production 233
+    public sealed record MulOpSLASH(SLASH SLASH);
+
+    // Type derived for production 234
+    public sealed record MulOpDIV(DIV DIV);
+
+    // Type derived for production 235
+    public sealed record MulOpMOD(MOD MOD);
+
+    // Type derived for production 236
+    public sealed record MulOpAND(AND AND);
+
+    // Type derived for production 237
+    public sealed record RelOpEQUAL(EQUAL EQUAL);
+
+    // Type derived for production 238
+    public sealed record RelOpNOTEQUAL(NOTEQUAL NOTEQUAL);
+
+    // Type derived for production 239
+    public sealed record RelOpLT(LT LT);
+
+    // Type derived for production 240
+    public sealed record RelOpGT(GT GT);
+
+    // Type derived for production 241
+    public sealed record RelOpLE(LE LE);
+
+    // Type derived for production 242
+    public sealed record RelOpGE(GE GE);
+
+    // Type derived for production 243
+    public sealed record RelOpIN(IN IN);
 
     /// <summary>
     /// User actions interface for the PascalCs grammar.
@@ -28,8 +1366,566 @@ namespace PascalCs {
         /// User action for non-terminal PascalCs.
         void OnPascalCs(PascalCs arg);
 
-        /// User action for non-terminal HelloWorld.
-        void OnHelloWorld(HelloWorld arg);
+        /// User action for non-terminal Program.
+        void OnProgram(Program arg);
+
+        /// User action for non-terminal ProgramHeading.
+        void OnProgramHeading(ProgramHeading arg);
+
+        /// User action for non-terminal IdentifierList.
+        void OnIdentifierList(IdentifierList arg);
+
+        /// User action for non-terminal Block.
+        void OnBlock(Block arg);
+
+        /// User action for non-terminal Module.
+        void OnModule(Module arg);
+
+        /// User action for non-terminal LabelDeclarationPart.
+        void OnLabelDeclarationPart(LabelDeclarationPart arg);
+
+        /// User action for non-terminal LabelList.
+        void OnLabelList(LabelList arg);
+
+        /// User action for non-terminal Label.
+        void OnLabel(Label arg);
+
+        /// User action for non-terminal ConstantDefinitionPart.
+        void OnConstantDefinitionPart(ConstantDefinitionPart arg);
+
+        /// User action for non-terminal ConstantList.
+        void OnConstantList(ConstantList arg);
+
+        /// User action for non-terminal ConstantDefinition.
+        void OnConstantDefinition(ConstantDefinition arg);
+
+        /// User action for non-terminal CExpression.
+        void OnCExpression(CExpression arg);
+
+        /// User action for non-terminal CSimpleExpression.
+        void OnCSimpleExpression(CSimpleExpression arg);
+
+        /// User action for non-terminal CTerm.
+        void OnCTerm(CTerm arg);
+
+        /// User action for non-terminal CFactor.
+        void OnCFactor(CFactor arg);
+
+        /// User action for non-terminal CExponentiation.
+        void OnCExponentiation(CExponentiation arg);
+
+        /// User action for non-terminal CPrimary.
+        void OnCPrimary(CPrimary arg);
+
+        /// User action for non-terminal Constant.
+        void OnConstant(Constant arg);
+
+        /// User action for non-terminal Sign.
+        void OnSign(Sign arg);
+
+        /// User action for non-terminal NonString.
+        void OnNonString(NonString arg);
+
+        /// User action for non-terminal TypeDefinitionPart.
+        void OnTypeDefinitionPart(TypeDefinitionPart arg);
+
+        /// User action for non-terminal TypeDefinitionList.
+        void OnTypeDefinitionList(TypeDefinitionList arg);
+
+        /// User action for non-terminal TypeDefinition.
+        void OnTypeDefinition(TypeDefinition arg);
+
+        /// User action for non-terminal TypeDenoter.
+        void OnTypeDenoter(TypeDenoter arg);
+
+        /// User action for non-terminal NewType.
+        void OnNewType(NewType arg);
+
+        /// User action for non-terminal NewOrdinalType.
+        void OnNewOrdinalType(NewOrdinalType arg);
+
+        /// User action for non-terminal EnumeratedType.
+        void OnEnumeratedType(EnumeratedType arg);
+
+        /// User action for non-terminal SubrangeType.
+        void OnSubrangeType(SubrangeType arg);
+
+        /// User action for non-terminal NewStructuredType.
+        void OnNewStructuredType(NewStructuredType arg);
+
+        /// User action for non-terminal StructuredType.
+        void OnStructuredType(StructuredType arg);
+
+        /// User action for non-terminal ArrayType.
+        void OnArrayType(ArrayType arg);
+
+        /// User action for non-terminal IndexList.
+        void OnIndexList(IndexList arg);
+
+        /// User action for non-terminal IndexType.
+        void OnIndexType(IndexType arg);
+
+        /// User action for non-terminal OrdinalType.
+        void OnOrdinalType(OrdinalType arg);
+
+        /// User action for non-terminal ComponentType.
+        void OnComponentType(ComponentType arg);
+
+        /// User action for non-terminal RecordType.
+        void OnRecordType(RecordType arg);
+
+        /// User action for non-terminal RecordSectionList.
+        void OnRecordSectionList(RecordSectionList arg);
+
+        /// User action for non-terminal RecordSection.
+        void OnRecordSection(RecordSection arg);
+
+        /// User action for non-terminal VariantPart.
+        void OnVariantPart(VariantPart arg);
+
+        /// User action for non-terminal VariantSelector.
+        void OnVariantSelector(VariantSelector arg);
+
+        /// User action for non-terminal VariantList.
+        void OnVariantList(VariantList arg);
+
+        /// User action for non-terminal Variant.
+        void OnVariant(Variant arg);
+
+        /// User action for non-terminal CaseConstantList.
+        void OnCaseConstantList(CaseConstantList arg);
+
+        /// User action for non-terminal CaseConstant.
+        void OnCaseConstant(CaseConstant arg);
+
+        /// User action for non-terminal TagField.
+        void OnTagField(TagField arg);
+
+        /// User action for non-terminal TagType.
+        void OnTagType(TagType arg);
+
+        /// User action for non-terminal SetType.
+        void OnSetType(SetType arg);
+
+        /// User action for non-terminal FileType.
+        void OnFileType(FileType arg);
+
+        /// User action for non-terminal NewPointerType.
+        void OnNewPointerType(NewPointerType arg);
+
+        /// User action for non-terminal DomainType.
+        void OnDomainType(DomainType arg);
+
+        /// User action for non-terminal VariableDeclarationPart.
+        void OnVariableDeclarationPart(VariableDeclarationPart arg);
+
+        /// User action for non-terminal VariableDeclarationList.
+        void OnVariableDeclarationList(VariableDeclarationList arg);
+
+        /// User action for non-terminal VariableDeclaration.
+        void OnVariableDeclaration(VariableDeclaration arg);
+
+        /// User action for non-terminal ProcedureAndFunctionDeclarationPart.
+        void OnProcedureAndFunctionDeclarationPart(ProcedureAndFunctionDeclarationPart arg);
+
+        /// User action for non-terminal ProcOrFuncDeclarationList.
+        void OnProcOrFuncDeclarationList(ProcOrFuncDeclarationList arg);
+
+        /// User action for non-terminal ProcOrFuncDeclaration.
+        void OnProcOrFuncDeclaration(ProcOrFuncDeclaration arg);
+
+        /// User action for non-terminal ProcedureDeclaration.
+        void OnProcedureDeclaration(ProcedureDeclaration arg);
+
+        /// User action for non-terminal ProcedureHeading.
+        void OnProcedureHeading(ProcedureHeading arg);
+
+        /// User action for non-terminal Directive.
+        void OnDirective(Directive arg);
+
+        /// User action for non-terminal FormalParameterList.
+        void OnFormalParameterList(FormalParameterList arg);
+
+        /// User action for non-terminal FormalParameterSectionList.
+        void OnFormalParameterSectionList(FormalParameterSectionList arg);
+
+        /// User action for non-terminal FormalParameterSection.
+        void OnFormalParameterSection(FormalParameterSection arg);
+
+        /// User action for non-terminal ValueParameterSpecification.
+        void OnValueParameterSpecification(ValueParameterSpecification arg);
+
+        /// User action for non-terminal VariableParameterSpecification.
+        void OnVariableParameterSpecification(VariableParameterSpecification arg);
+
+        /// User action for non-terminal ProceduralParameterSpecification.
+        void OnProceduralParameterSpecification(ProceduralParameterSpecification arg);
+
+        /// User action for non-terminal FunctionalParameterSpecification.
+        void OnFunctionalParameterSpecification(FunctionalParameterSpecification arg);
+
+        /// User action for non-terminal ProcedureIdentification.
+        void OnProcedureIdentification(ProcedureIdentification arg);
+
+        /// User action for non-terminal ProcedureBlock.
+        void OnProcedureBlock(ProcedureBlock arg);
+
+        /// User action for non-terminal FunctionDeclaration.
+        void OnFunctionDeclaration(FunctionDeclaration arg);
+
+        /// User action for non-terminal FunctionHeading.
+        void OnFunctionHeading(FunctionHeading arg);
+
+        /// User action for non-terminal ResultType.
+        void OnResultType(ResultType arg);
+
+        /// User action for non-terminal FunctionIdentification.
+        void OnFunctionIdentification(FunctionIdentification arg);
+
+        /// User action for non-terminal FunctionBlock.
+        void OnFunctionBlock(FunctionBlock arg);
+
+        /// User action for non-terminal StatementPart.
+        void OnStatementPart(StatementPart arg);
+
+        /// User action for non-terminal CompoundStatement.
+        void OnCompoundStatement(CompoundStatement arg);
+
+        /// User action for non-terminal StatementSequence.
+        void OnStatementSequence(StatementSequence arg);
+
+        /// User action for non-terminal Statement.
+        void OnStatement(Statement arg);
+
+        /// User action for non-terminal OpenStatement.
+        void OnOpenStatement(OpenStatement arg);
+
+        /// User action for non-terminal ClosedStatement.
+        void OnClosedStatement(ClosedStatement arg);
+
+        /// User action for non-terminal NonLabeledClosedStatement.
+        void OnNonLabeledClosedStatement(NonLabeledClosedStatement arg);
+
+        /// User action for non-terminal NonLabeledOpenStatement.
+        void OnNonLabeledOpenStatement(NonLabeledOpenStatement arg);
+
+        /// User action for non-terminal RepeatStatement.
+        void OnRepeatStatement(RepeatStatement arg);
+
+        /// User action for non-terminal OpenWhileStatement.
+        void OnOpenWhileStatement(OpenWhileStatement arg);
+
+        /// User action for non-terminal ClosedWhileStatement.
+        void OnClosedWhileStatement(ClosedWhileStatement arg);
+
+        /// User action for non-terminal OpenForStatement.
+        void OnOpenForStatement(OpenForStatement arg);
+
+        /// User action for non-terminal ClosedForStatement.
+        void OnClosedForStatement(ClosedForStatement arg);
+
+        /// User action for non-terminal OpenWithStatement.
+        void OnOpenWithStatement(OpenWithStatement arg);
+
+        /// User action for non-terminal ClosedWithStatement.
+        void OnClosedWithStatement(ClosedWithStatement arg);
+
+        /// User action for non-terminal OpenIfStatement.
+        void OnOpenIfStatement(OpenIfStatement arg);
+
+        /// User action for non-terminal ClosedIfStatement.
+        void OnClosedIfStatement(ClosedIfStatement arg);
+
+        /// User action for non-terminal AssignmentStatement.
+        void OnAssignmentStatement(AssignmentStatement arg);
+
+        /// User action for non-terminal VariableAccess.
+        void OnVariableAccess(VariableAccess arg);
+
+        /// User action for non-terminal IndexedVariable.
+        void OnIndexedVariable(IndexedVariable arg);
+
+        /// User action for non-terminal IndexExpressionList.
+        void OnIndexExpressionList(IndexExpressionList arg);
+
+        /// User action for non-terminal IndexExpression.
+        void OnIndexExpression(IndexExpression arg);
+
+        /// User action for non-terminal FieldDesignator.
+        void OnFieldDesignator(FieldDesignator arg);
+
+        /// User action for non-terminal ProcedureStatement.
+        void OnProcedureStatement(ProcedureStatement arg);
+
+        /// User action for non-terminal Params.
+        void OnParams(Params arg);
+
+        /// User action for non-terminal ActualParameterList.
+        void OnActualParameterList(ActualParameterList arg);
+
+        /// User action for non-terminal ActualParameter.
+        void OnActualParameter(ActualParameter arg);
+
+        /// User action for non-terminal GotoStatement.
+        void OnGotoStatement(GotoStatement arg);
+
+        /// User action for non-terminal CaseStatement.
+        void OnCaseStatement(CaseStatement arg);
+
+        /// User action for non-terminal CaseListElementList.
+        void OnCaseListElementList(CaseListElementList arg);
+
+        /// User action for non-terminal CaseListElement.
+        void OnCaseListElement(CaseListElement arg);
+
+        /// User action for non-terminal OtherwisePart.
+        void OnOtherwisePart(OtherwisePart arg);
+
+        /// User action for non-terminal Direction.
+        void OnDirection(Direction arg);
+
+        /// User action for non-terminal FinalValue.
+        void OnFinalValue(FinalValue arg);
+
+        /// User action for non-terminal RecordVariableList.
+        void OnRecordVariableList(RecordVariableList arg);
+
+        /// User action for non-terminal Expression.
+        void OnExpression(Expression arg);
+
+        /// User action for non-terminal SimpleExpression.
+        void OnSimpleExpression(SimpleExpression arg);
+
+        /// User action for non-terminal Term.
+        void OnTerm(Term arg);
+
+        /// User action for non-terminal Factor.
+        void OnFactor(Factor arg);
+
+        /// User action for non-terminal Exponentiation.
+        void OnExponentiation(Exponentiation arg);
+
+        /// User action for non-terminal Primary.
+        void OnPrimary(Primary arg);
+
+        /// User action for non-terminal UnsignedConstant.
+        void OnUnsignedConstant(UnsignedConstant arg);
+
+        /// User action for non-terminal UnsignedNumber.
+        void OnUnsignedNumber(UnsignedNumber arg);
+
+        /// User action for non-terminal FunctionDesignator.
+        void OnFunctionDesignator(FunctionDesignator arg);
+
+        /// User action for non-terminal SetConstructor.
+        void OnSetConstructor(SetConstructor arg);
+
+        /// User action for non-terminal MemberDesignatorList.
+        void OnMemberDesignatorList(MemberDesignatorList arg);
+
+        /// User action for non-terminal MemberDesignator.
+        void OnMemberDesignator(MemberDesignator arg);
+
+        /// User action for non-terminal AddOp.
+        void OnAddOp(AddOp arg);
+
+        /// User action for non-terminal MulOp.
+        void OnMulOp(MulOp arg);
+
+        /// User action for non-terminal RelOp.
+        void OnRelOp(RelOp arg);
+
+        /// User action for non-terminal AND.
+        void OnAND(AND arg);
+
+        /// User action for non-terminal ARRAY.
+        void OnARRAY(ARRAY arg);
+
+        /// User action for non-terminal PBEGIN.
+        void OnPBEGIN(PBEGIN arg);
+
+        /// User action for non-terminal CASE.
+        void OnCASE(CASE arg);
+
+        /// User action for non-terminal CONST.
+        void OnCONST(CONST arg);
+
+        /// User action for non-terminal DIV.
+        void OnDIV(DIV arg);
+
+        /// User action for non-terminal DO.
+        void OnDO(DO arg);
+
+        /// User action for non-terminal DOWNTO.
+        void OnDOWNTO(DOWNTO arg);
+
+        /// User action for non-terminal ELSE.
+        void OnELSE(ELSE arg);
+
+        /// User action for non-terminal END.
+        void OnEND(END arg);
+
+        /// User action for non-terminal EXTERNAL.
+        void OnEXTERNAL(EXTERNAL arg);
+
+        /// User action for non-terminal PFILE.
+        void OnPFILE(PFILE arg);
+
+        /// User action for non-terminal FOR.
+        void OnFOR(FOR arg);
+
+        /// User action for non-terminal FORWARD.
+        void OnFORWARD(FORWARD arg);
+
+        /// User action for non-terminal FUNCTION.
+        void OnFUNCTION(FUNCTION arg);
+
+        /// User action for non-terminal GOTO.
+        void OnGOTO(GOTO arg);
+
+        /// User action for non-terminal IF.
+        void OnIF(IF arg);
+
+        /// User action for non-terminal IN.
+        void OnIN(IN arg);
+
+        /// User action for non-terminal LABEL.
+        void OnLABEL(LABEL arg);
+
+        /// User action for non-terminal MOD.
+        void OnMOD(MOD arg);
+
+        /// User action for non-terminal NIL.
+        void OnNIL(NIL arg);
+
+        /// User action for non-terminal NOT.
+        void OnNOT(NOT arg);
+
+        /// User action for non-terminal OF.
+        void OnOF(OF arg);
+
+        /// User action for non-terminal OR.
+        void OnOR(OR arg);
+
+        /// User action for non-terminal OTHERWISE.
+        void OnOTHERWISE(OTHERWISE arg);
+
+        /// User action for non-terminal PACKED.
+        void OnPACKED(PACKED arg);
+
+        /// User action for non-terminal PROCEDURE.
+        void OnPROCEDURE(PROCEDURE arg);
+
+        /// User action for non-terminal PROGRAM.
+        void OnPROGRAM(PROGRAM arg);
+
+        /// User action for non-terminal RECORD.
+        void OnRECORD(RECORD arg);
+
+        /// User action for non-terminal REPEAT.
+        void OnREPEAT(REPEAT arg);
+
+        /// User action for non-terminal SET.
+        void OnSET(SET arg);
+
+        /// User action for non-terminal THEN.
+        void OnTHEN(THEN arg);
+
+        /// User action for non-terminal TO.
+        void OnTO(TO arg);
+
+        /// User action for non-terminal TYPE.
+        void OnTYPE(TYPE arg);
+
+        /// User action for non-terminal UNTIL.
+        void OnUNTIL(UNTIL arg);
+
+        /// User action for non-terminal VAR.
+        void OnVAR(VAR arg);
+
+        /// User action for non-terminal WHILE.
+        void OnWHILE(WHILE arg);
+
+        /// User action for non-terminal WITH.
+        void OnWITH(WITH arg);
+
+        /// User action for non-terminal IDENTIFIER.
+        void OnIDENTIFIER(IDENTIFIER arg);
+
+        /// User action for non-terminal ASSIGNMENT.
+        void OnASSIGNMENT(ASSIGNMENT arg);
+
+        /// User action for non-terminal COLON.
+        void OnCOLON(COLON arg);
+
+        /// User action for non-terminal COMMA.
+        void OnCOMMA(COMMA arg);
+
+        /// User action for non-terminal DOTDOT.
+        void OnDOTDOT(DOTDOT arg);
+
+        /// User action for non-terminal DOT.
+        void OnDOT(DOT arg);
+
+        /// User action for non-terminal EQUAL.
+        void OnEQUAL(EQUAL arg);
+
+        /// User action for non-terminal LPAREN.
+        void OnLPAREN(LPAREN arg);
+
+        /// User action for non-terminal RPAREN.
+        void OnRPAREN(RPAREN arg);
+
+        /// User action for non-terminal LBRAC.
+        void OnLBRAC(LBRAC arg);
+
+        /// User action for non-terminal RBRAC.
+        void OnRBRAC(RBRAC arg);
+
+        /// User action for non-terminal PLUS.
+        void OnPLUS(PLUS arg);
+
+        /// User action for non-terminal MINUS.
+        void OnMINUS(MINUS arg);
+
+        /// User action for non-terminal SLASH.
+        void OnSLASH(SLASH arg);
+
+        /// User action for non-terminal STARSTAR.
+        void OnSTARSTAR(STARSTAR arg);
+
+        /// User action for non-terminal STAR.
+        void OnSTAR(STAR arg);
+
+        /// User action for non-terminal NOTEQUAL.
+        void OnNOTEQUAL(NOTEQUAL arg);
+
+        /// User action for non-terminal LE.
+        void OnLE(LE arg);
+
+        /// User action for non-terminal LT.
+        void OnLT(LT arg);
+
+        /// User action for non-terminal GE.
+        void OnGE(GE arg);
+
+        /// User action for non-terminal GT.
+        void OnGT(GT arg);
+
+        /// User action for non-terminal SEMICOLON.
+        void OnSEMICOLON(SEMICOLON arg);
+
+        /// User action for non-terminal UPARROW.
+        void OnUPARROW(UPARROW arg);
+
+        /// User action for non-terminal REALNUMBER.
+        void OnREALNUMBER(REALNUMBER arg);
+
+        /// User action for non-terminal DIGSEQ.
+        void OnDIGSEQ(DIGSEQ arg);
+
+        /// User action for non-terminal CHARACTER_STRING.
+        void OnCHARACTERSTRING(CHARACTERSTRING arg);
 
     }
 
@@ -40,10 +1936,314 @@ namespace PascalCs {
         /// <inheritdoc/>
         public virtual object CallSemanticActionForProductionNumber(int productionNumber, object[] children) {
             switch (productionNumber) {
-                case 0: { var value = MapPascalCs(children); OnPascalCs(value); return value; }
-                case 1: return MapPascalCsOpt0(children);
-                case 2: return MapPascalCsOpt1(children);
-                case 3: { var value = MapHelloWorld(children); OnHelloWorld(value); return value; }
+                case 0: return MapPascalCs0_P0(children);
+                case 1: { var value = MapPascalCs0_P1(children); OnPascalCs(value); return value; }
+                case 2: { var value = MapPascalCs1_P2(children); OnPascalCs(value); return value; }
+                case 3: { var value = MapProgram_P3(children); OnProgram(value); return value; }
+                case 4: { var value = MapProgramHeading0_P4(children); OnProgramHeading(value); return value; }
+                case 5: { var value = MapProgramHeading1_P5(children); OnProgramHeading(value); return value; }
+                case 6: { var value = MapIdentifierList0_P6(children); OnIdentifierList(value); return value; }
+                case 7: { var value = MapIdentifierList1_P7(children); OnIdentifierList(value); return value; }
+                case 8: { var value = MapBlock_P8(children); OnBlock(value); return value; }
+                case 9: { var value = MapModule_P9(children); OnModule(value); return value; }
+                case 10: { var value = MapLabelDeclarationPart0_P10(children); OnLabelDeclarationPart(value); return value; }
+                case 11: { var value = MapLabelDeclarationPart1_P11(children); OnLabelDeclarationPart(value); return value; }
+                case 12: { var value = MapLabelList0_P12(children); OnLabelList(value); return value; }
+                case 13: { var value = MapLabelList1_P13(children); OnLabelList(value); return value; }
+                case 14: { var value = MapLabel_P14(children); OnLabel(value); return value; }
+                case 15: { var value = MapConstantDefinitionPart0_P15(children); OnConstantDefinitionPart(value); return value; }
+                case 16: { var value = MapConstantDefinitionPart1_P16(children); OnConstantDefinitionPart(value); return value; }
+                case 17: { var value = MapConstantList0_P17(children); OnConstantList(value); return value; }
+                case 18: { var value = MapConstantList1_P18(children); OnConstantList(value); return value; }
+                case 19: { var value = MapConstantDefinition_P19(children); OnConstantDefinition(value); return value; }
+                case 20: { var value = MapCExpression0_P20(children); OnCExpression(value); return value; }
+                case 21: { var value = MapCExpression1_P21(children); OnCExpression(value); return value; }
+                case 22: { var value = MapCSimpleExpression0_P22(children); OnCSimpleExpression(value); return value; }
+                case 23: { var value = MapCSimpleExpression1_P23(children); OnCSimpleExpression(value); return value; }
+                case 24: { var value = MapCTerm0_P24(children); OnCTerm(value); return value; }
+                case 25: { var value = MapCTerm1_P25(children); OnCTerm(value); return value; }
+                case 26: { var value = MapCFactor0_P26(children); OnCFactor(value); return value; }
+                case 27: { var value = MapCFactor1_P27(children); OnCFactor(value); return value; }
+                case 28: { var value = MapCExponentiation0_P28(children); OnCExponentiation(value); return value; }
+                case 29: { var value = MapCExponentiation1_P29(children); OnCExponentiation(value); return value; }
+                case 30: { var value = MapCPrimary0_P30(children); OnCPrimary(value); return value; }
+                case 31: { var value = MapCPrimary1_P31(children); OnCPrimary(value); return value; }
+                case 32: { var value = MapCPrimary2_P32(children); OnCPrimary(value); return value; }
+                case 33: { var value = MapCPrimary3_P33(children); OnCPrimary(value); return value; }
+                case 34: { var value = MapConstant0_P34(children); OnConstant(value); return value; }
+                case 35: { var value = MapConstant1_P35(children); OnConstant(value); return value; }
+                case 36: { var value = MapConstant2_P36(children); OnConstant(value); return value; }
+                case 37: { var value = MapSign0_P37(children); OnSign(value); return value; }
+                case 38: { var value = MapSign1_P38(children); OnSign(value); return value; }
+                case 39: { var value = MapNonString0_P39(children); OnNonString(value); return value; }
+                case 40: { var value = MapNonString1_P40(children); OnNonString(value); return value; }
+                case 41: { var value = MapNonString2_P41(children); OnNonString(value); return value; }
+                case 42: { var value = MapTypeDefinitionPart0_P42(children); OnTypeDefinitionPart(value); return value; }
+                case 43: { var value = MapTypeDefinitionPart1_P43(children); OnTypeDefinitionPart(value); return value; }
+                case 44: { var value = MapTypeDefinitionList0_P44(children); OnTypeDefinitionList(value); return value; }
+                case 45: { var value = MapTypeDefinitionList1_P45(children); OnTypeDefinitionList(value); return value; }
+                case 46: { var value = MapTypeDefinition_P46(children); OnTypeDefinition(value); return value; }
+                case 47: { var value = MapTypeDenoter0_P47(children); OnTypeDenoter(value); return value; }
+                case 48: { var value = MapTypeDenoter1_P48(children); OnTypeDenoter(value); return value; }
+                case 49: { var value = MapNewType0_P49(children); OnNewType(value); return value; }
+                case 50: { var value = MapNewType1_P50(children); OnNewType(value); return value; }
+                case 51: { var value = MapNewType2_P51(children); OnNewType(value); return value; }
+                case 52: { var value = MapNewOrdinalType0_P52(children); OnNewOrdinalType(value); return value; }
+                case 53: { var value = MapNewOrdinalType1_P53(children); OnNewOrdinalType(value); return value; }
+                case 54: { var value = MapEnumeratedType_P54(children); OnEnumeratedType(value); return value; }
+                case 55: { var value = MapSubrangeType_P55(children); OnSubrangeType(value); return value; }
+                case 56: { var value = MapNewStructuredType0_P56(children); OnNewStructuredType(value); return value; }
+                case 57: { var value = MapNewStructuredType1_P57(children); OnNewStructuredType(value); return value; }
+                case 58: { var value = MapStructuredType0_P58(children); OnStructuredType(value); return value; }
+                case 59: { var value = MapStructuredType1_P59(children); OnStructuredType(value); return value; }
+                case 60: { var value = MapStructuredType2_P60(children); OnStructuredType(value); return value; }
+                case 61: { var value = MapStructuredType3_P61(children); OnStructuredType(value); return value; }
+                case 62: { var value = MapArrayType_P62(children); OnArrayType(value); return value; }
+                case 63: { var value = MapIndexList0_P63(children); OnIndexList(value); return value; }
+                case 64: { var value = MapIndexList1_P64(children); OnIndexList(value); return value; }
+                case 65: { var value = MapIndexType_P65(children); OnIndexType(value); return value; }
+                case 66: { var value = MapOrdinalType0_P66(children); OnOrdinalType(value); return value; }
+                case 67: { var value = MapOrdinalType1_P67(children); OnOrdinalType(value); return value; }
+                case 68: { var value = MapComponentType_P68(children); OnComponentType(value); return value; }
+                case 69: { var value = MapRecordType0_P69(children); OnRecordType(value); return value; }
+                case 70: { var value = MapRecordType1_P70(children); OnRecordType(value); return value; }
+                case 71: { var value = MapRecordType2_P71(children); OnRecordType(value); return value; }
+                case 72: { var value = MapRecordSectionList0_P72(children); OnRecordSectionList(value); return value; }
+                case 73: { var value = MapRecordSectionList1_P73(children); OnRecordSectionList(value); return value; }
+                case 74: { var value = MapRecordSection_P74(children); OnRecordSection(value); return value; }
+                case 75: { var value = MapVariantPart0_P75(children); OnVariantPart(value); return value; }
+                case 76: { var value = MapVariantPart1_P76(children); OnVariantPart(value); return value; }
+                case 77: { var value = MapVariantPart2_P77(children); OnVariantPart(value); return value; }
+                case 78: { var value = MapVariantSelector0_P78(children); OnVariantSelector(value); return value; }
+                case 79: { var value = MapVariantSelector1_P79(children); OnVariantSelector(value); return value; }
+                case 80: { var value = MapVariantList0_P80(children); OnVariantList(value); return value; }
+                case 81: { var value = MapVariantList1_P81(children); OnVariantList(value); return value; }
+                case 82: { var value = MapVariant0_P82(children); OnVariant(value); return value; }
+                case 83: { var value = MapVariant1_P83(children); OnVariant(value); return value; }
+                case 84: { var value = MapVariant2_P84(children); OnVariant(value); return value; }
+                case 85: { var value = MapCaseConstantList0_P85(children); OnCaseConstantList(value); return value; }
+                case 86: { var value = MapCaseConstantList1_P86(children); OnCaseConstantList(value); return value; }
+                case 87: { var value = MapCaseConstant0_P87(children); OnCaseConstant(value); return value; }
+                case 88: { var value = MapCaseConstant1_P88(children); OnCaseConstant(value); return value; }
+                case 89: { var value = MapTagField_P89(children); OnTagField(value); return value; }
+                case 90: { var value = MapTagType_P90(children); OnTagType(value); return value; }
+                case 91: { var value = MapSetType_P91(children); OnSetType(value); return value; }
+                case 92: { var value = MapFileType_P92(children); OnFileType(value); return value; }
+                case 93: { var value = MapNewPointerType_P93(children); OnNewPointerType(value); return value; }
+                case 94: { var value = MapDomainType_P94(children); OnDomainType(value); return value; }
+                case 95: { var value = MapVariableDeclarationPart0_P95(children); OnVariableDeclarationPart(value); return value; }
+                case 96: { var value = MapVariableDeclarationPart1_P96(children); OnVariableDeclarationPart(value); return value; }
+                case 97: { var value = MapVariableDeclarationList0_P97(children); OnVariableDeclarationList(value); return value; }
+                case 98: { var value = MapVariableDeclarationList1_P98(children); OnVariableDeclarationList(value); return value; }
+                case 99: { var value = MapVariableDeclaration_P99(children); OnVariableDeclaration(value); return value; }
+                case 100: { var value = MapProcedureAndFunctionDeclarationPart0_P100(children); OnProcedureAndFunctionDeclarationPart(value); return value; }
+                case 101: { var value = MapProcedureAndFunctionDeclarationPart1_P101(children); OnProcedureAndFunctionDeclarationPart(value); return value; }
+                case 102: { var value = MapProcOrFuncDeclarationList0_P102(children); OnProcOrFuncDeclarationList(value); return value; }
+                case 103: { var value = MapProcOrFuncDeclarationList1_P103(children); OnProcOrFuncDeclarationList(value); return value; }
+                case 104: { var value = MapProcOrFuncDeclaration0_P104(children); OnProcOrFuncDeclaration(value); return value; }
+                case 105: { var value = MapProcOrFuncDeclaration1_P105(children); OnProcOrFuncDeclaration(value); return value; }
+                case 106: { var value = MapProcedureDeclaration0_P106(children); OnProcedureDeclaration(value); return value; }
+                case 107: { var value = MapProcedureDeclaration1_P107(children); OnProcedureDeclaration(value); return value; }
+                case 108: { var value = MapProcedureHeading0_P108(children); OnProcedureHeading(value); return value; }
+                case 109: { var value = MapProcedureHeading1_P109(children); OnProcedureHeading(value); return value; }
+                case 110: { var value = MapDirective0_P110(children); OnDirective(value); return value; }
+                case 111: { var value = MapDirective1_P111(children); OnDirective(value); return value; }
+                case 112: { var value = MapFormalParameterList_P112(children); OnFormalParameterList(value); return value; }
+                case 113: { var value = MapFormalParameterSectionList0_P113(children); OnFormalParameterSectionList(value); return value; }
+                case 114: { var value = MapFormalParameterSectionList1_P114(children); OnFormalParameterSectionList(value); return value; }
+                case 115: { var value = MapFormalParameterSection0_P115(children); OnFormalParameterSection(value); return value; }
+                case 116: { var value = MapFormalParameterSection1_P116(children); OnFormalParameterSection(value); return value; }
+                case 117: { var value = MapFormalParameterSection2_P117(children); OnFormalParameterSection(value); return value; }
+                case 118: { var value = MapFormalParameterSection3_P118(children); OnFormalParameterSection(value); return value; }
+                case 119: { var value = MapValueParameterSpecification_P119(children); OnValueParameterSpecification(value); return value; }
+                case 120: { var value = MapVariableParameterSpecification_P120(children); OnVariableParameterSpecification(value); return value; }
+                case 121: { var value = MapProceduralParameterSpecification_P121(children); OnProceduralParameterSpecification(value); return value; }
+                case 122: { var value = MapFunctionalParameterSpecification_P122(children); OnFunctionalParameterSpecification(value); return value; }
+                case 123: { var value = MapProcedureIdentification_P123(children); OnProcedureIdentification(value); return value; }
+                case 124: { var value = MapProcedureBlock_P124(children); OnProcedureBlock(value); return value; }
+                case 125: { var value = MapFunctionDeclaration0_P125(children); OnFunctionDeclaration(value); return value; }
+                case 126: { var value = MapFunctionDeclaration1_P126(children); OnFunctionDeclaration(value); return value; }
+                case 127: { var value = MapFunctionDeclaration2_P127(children); OnFunctionDeclaration(value); return value; }
+                case 128: { var value = MapFunctionHeading0_P128(children); OnFunctionHeading(value); return value; }
+                case 129: { var value = MapFunctionHeading1_P129(children); OnFunctionHeading(value); return value; }
+                case 130: { var value = MapResultType_P130(children); OnResultType(value); return value; }
+                case 131: { var value = MapFunctionIdentification_P131(children); OnFunctionIdentification(value); return value; }
+                case 132: { var value = MapFunctionBlock_P132(children); OnFunctionBlock(value); return value; }
+                case 133: { var value = MapStatementPart_P133(children); OnStatementPart(value); return value; }
+                case 134: { var value = MapCompoundStatement_P134(children); OnCompoundStatement(value); return value; }
+                case 135: { var value = MapStatementSequence0_P135(children); OnStatementSequence(value); return value; }
+                case 136: { var value = MapStatementSequence1_P136(children); OnStatementSequence(value); return value; }
+                case 137: { var value = MapStatement0_P137(children); OnStatement(value); return value; }
+                case 138: { var value = MapStatement1_P138(children); OnStatement(value); return value; }
+                case 139: { var value = MapOpenStatement0_P139(children); OnOpenStatement(value); return value; }
+                case 140: { var value = MapOpenStatement1_P140(children); OnOpenStatement(value); return value; }
+                case 141: { var value = MapClosedStatement0_P141(children); OnClosedStatement(value); return value; }
+                case 142: { var value = MapClosedStatement1_P142(children); OnClosedStatement(value); return value; }
+                case 143: { var value = MapNonLabeledClosedStatement0_P143(children); OnNonLabeledClosedStatement(value); return value; }
+                case 144: { var value = MapNonLabeledClosedStatement1_P144(children); OnNonLabeledClosedStatement(value); return value; }
+                case 145: { var value = MapNonLabeledClosedStatement2_P145(children); OnNonLabeledClosedStatement(value); return value; }
+                case 146: { var value = MapNonLabeledClosedStatement3_P146(children); OnNonLabeledClosedStatement(value); return value; }
+                case 147: { var value = MapNonLabeledClosedStatement4_P147(children); OnNonLabeledClosedStatement(value); return value; }
+                case 148: { var value = MapNonLabeledClosedStatement5_P148(children); OnNonLabeledClosedStatement(value); return value; }
+                case 149: { var value = MapNonLabeledClosedStatement6_P149(children); OnNonLabeledClosedStatement(value); return value; }
+                case 150: { var value = MapNonLabeledClosedStatement7_P150(children); OnNonLabeledClosedStatement(value); return value; }
+                case 151: { var value = MapNonLabeledClosedStatement8_P151(children); OnNonLabeledClosedStatement(value); return value; }
+                case 152: { var value = MapNonLabeledClosedStatement9_P152(children); OnNonLabeledClosedStatement(value); return value; }
+                case 153: { var value = MapNonLabeledClosedStatement10_P153(children); OnNonLabeledClosedStatement(value); return value; }
+                case 154: { var value = MapNonLabeledOpenStatement0_P154(children); OnNonLabeledOpenStatement(value); return value; }
+                case 155: { var value = MapNonLabeledOpenStatement1_P155(children); OnNonLabeledOpenStatement(value); return value; }
+                case 156: { var value = MapNonLabeledOpenStatement2_P156(children); OnNonLabeledOpenStatement(value); return value; }
+                case 157: { var value = MapNonLabeledOpenStatement3_P157(children); OnNonLabeledOpenStatement(value); return value; }
+                case 158: { var value = MapRepeatStatement_P158(children); OnRepeatStatement(value); return value; }
+                case 159: { var value = MapOpenWhileStatement_P159(children); OnOpenWhileStatement(value); return value; }
+                case 160: { var value = MapClosedWhileStatement_P160(children); OnClosedWhileStatement(value); return value; }
+                case 161: { var value = MapOpenForStatement_P161(children); OnOpenForStatement(value); return value; }
+                case 162: { var value = MapClosedForStatement_P162(children); OnClosedForStatement(value); return value; }
+                case 163: { var value = MapOpenWithStatement_P163(children); OnOpenWithStatement(value); return value; }
+                case 164: { var value = MapClosedWithStatement_P164(children); OnClosedWithStatement(value); return value; }
+                case 165: { var value = MapOpenIfStatement0_P165(children); OnOpenIfStatement(value); return value; }
+                case 166: { var value = MapOpenIfStatement1_P166(children); OnOpenIfStatement(value); return value; }
+                case 167: { var value = MapClosedIfStatement_P167(children); OnClosedIfStatement(value); return value; }
+                case 168: { var value = MapAssignmentStatement_P168(children); OnAssignmentStatement(value); return value; }
+                case 169: { var value = MapVariableAccess0_P169(children); OnVariableAccess(value); return value; }
+                case 170: { var value = MapVariableAccess1_P170(children); OnVariableAccess(value); return value; }
+                case 171: { var value = MapVariableAccess2_P171(children); OnVariableAccess(value); return value; }
+                case 172: { var value = MapVariableAccess3_P172(children); OnVariableAccess(value); return value; }
+                case 173: { var value = MapIndexedVariable_P173(children); OnIndexedVariable(value); return value; }
+                case 174: { var value = MapIndexExpressionList0_P174(children); OnIndexExpressionList(value); return value; }
+                case 175: { var value = MapIndexExpressionList1_P175(children); OnIndexExpressionList(value); return value; }
+                case 176: { var value = MapIndexExpression_P176(children); OnIndexExpression(value); return value; }
+                case 177: { var value = MapFieldDesignator_P177(children); OnFieldDesignator(value); return value; }
+                case 178: { var value = MapProcedureStatement0_P178(children); OnProcedureStatement(value); return value; }
+                case 179: { var value = MapProcedureStatement1_P179(children); OnProcedureStatement(value); return value; }
+                case 180: { var value = MapParams_P180(children); OnParams(value); return value; }
+                case 181: { var value = MapActualParameterList0_P181(children); OnActualParameterList(value); return value; }
+                case 182: { var value = MapActualParameterList1_P182(children); OnActualParameterList(value); return value; }
+                case 183: { var value = MapActualParameter0_P183(children); OnActualParameter(value); return value; }
+                case 184: { var value = MapActualParameter1_P184(children); OnActualParameter(value); return value; }
+                case 185: { var value = MapActualParameter2_P185(children); OnActualParameter(value); return value; }
+                case 186: { var value = MapGotoStatement_P186(children); OnGotoStatement(value); return value; }
+                case 187: { var value = MapCaseStatement0_P187(children); OnCaseStatement(value); return value; }
+                case 188: { var value = MapCaseStatement1_P188(children); OnCaseStatement(value); return value; }
+                case 189: { var value = MapCaseStatement2_P189(children); OnCaseStatement(value); return value; }
+                case 190: { var value = MapCaseStatement3_P190(children); OnCaseStatement(value); return value; }
+                case 191: { var value = MapCaseListElementList0_P191(children); OnCaseListElementList(value); return value; }
+                case 192: { var value = MapCaseListElementList1_P192(children); OnCaseListElementList(value); return value; }
+                case 193: { var value = MapCaseListElement_P193(children); OnCaseListElement(value); return value; }
+                case 194: { var value = MapOtherwisePart0_P194(children); OnOtherwisePart(value); return value; }
+                case 195: { var value = MapOtherwisePart1_P195(children); OnOtherwisePart(value); return value; }
+                case 196: { var value = MapDirection0_P196(children); OnDirection(value); return value; }
+                case 197: { var value = MapDirection1_P197(children); OnDirection(value); return value; }
+                case 198: { var value = MapFinalValue_P198(children); OnFinalValue(value); return value; }
+                case 199: { var value = MapRecordVariableList0_P199(children); OnRecordVariableList(value); return value; }
+                case 200: { var value = MapRecordVariableList1_P200(children); OnRecordVariableList(value); return value; }
+                case 201: { var value = MapExpression0_P201(children); OnExpression(value); return value; }
+                case 202: { var value = MapExpression1_P202(children); OnExpression(value); return value; }
+                case 203: { var value = MapSimpleExpression0_P203(children); OnSimpleExpression(value); return value; }
+                case 204: { var value = MapSimpleExpression1_P204(children); OnSimpleExpression(value); return value; }
+                case 205: { var value = MapTerm0_P205(children); OnTerm(value); return value; }
+                case 206: { var value = MapTerm1_P206(children); OnTerm(value); return value; }
+                case 207: { var value = MapFactor0_P207(children); OnFactor(value); return value; }
+                case 208: { var value = MapFactor1_P208(children); OnFactor(value); return value; }
+                case 209: { var value = MapExponentiation0_P209(children); OnExponentiation(value); return value; }
+                case 210: { var value = MapExponentiation1_P210(children); OnExponentiation(value); return value; }
+                case 211: { var value = MapPrimary0_P211(children); OnPrimary(value); return value; }
+                case 212: { var value = MapPrimary1_P212(children); OnPrimary(value); return value; }
+                case 213: { var value = MapPrimary2_P213(children); OnPrimary(value); return value; }
+                case 214: { var value = MapPrimary3_P214(children); OnPrimary(value); return value; }
+                case 215: { var value = MapPrimary4_P215(children); OnPrimary(value); return value; }
+                case 216: { var value = MapPrimary5_P216(children); OnPrimary(value); return value; }
+                case 217: { var value = MapUnsignedConstant0_P217(children); OnUnsignedConstant(value); return value; }
+                case 218: { var value = MapUnsignedConstant1_P218(children); OnUnsignedConstant(value); return value; }
+                case 219: { var value = MapUnsignedConstant2_P219(children); OnUnsignedConstant(value); return value; }
+                case 220: { var value = MapUnsignedNumber0_P220(children); OnUnsignedNumber(value); return value; }
+                case 221: { var value = MapUnsignedNumber1_P221(children); OnUnsignedNumber(value); return value; }
+                case 222: { var value = MapFunctionDesignator_P222(children); OnFunctionDesignator(value); return value; }
+                case 223: { var value = MapSetConstructor0_P223(children); OnSetConstructor(value); return value; }
+                case 224: { var value = MapSetConstructor1_P224(children); OnSetConstructor(value); return value; }
+                case 225: { var value = MapMemberDesignatorList0_P225(children); OnMemberDesignatorList(value); return value; }
+                case 226: { var value = MapMemberDesignatorList1_P226(children); OnMemberDesignatorList(value); return value; }
+                case 227: { var value = MapMemberDesignator0_P227(children); OnMemberDesignator(value); return value; }
+                case 228: { var value = MapMemberDesignator1_P228(children); OnMemberDesignator(value); return value; }
+                case 229: { var value = MapAddOp0_P229(children); OnAddOp(value); return value; }
+                case 230: { var value = MapAddOp1_P230(children); OnAddOp(value); return value; }
+                case 231: { var value = MapAddOp2_P231(children); OnAddOp(value); return value; }
+                case 232: { var value = MapMulOp0_P232(children); OnMulOp(value); return value; }
+                case 233: { var value = MapMulOp1_P233(children); OnMulOp(value); return value; }
+                case 234: { var value = MapMulOp2_P234(children); OnMulOp(value); return value; }
+                case 235: { var value = MapMulOp3_P235(children); OnMulOp(value); return value; }
+                case 236: { var value = MapMulOp4_P236(children); OnMulOp(value); return value; }
+                case 237: { var value = MapRelOp0_P237(children); OnRelOp(value); return value; }
+                case 238: { var value = MapRelOp1_P238(children); OnRelOp(value); return value; }
+                case 239: { var value = MapRelOp2_P239(children); OnRelOp(value); return value; }
+                case 240: { var value = MapRelOp3_P240(children); OnRelOp(value); return value; }
+                case 241: { var value = MapRelOp4_P241(children); OnRelOp(value); return value; }
+                case 242: { var value = MapRelOp5_P242(children); OnRelOp(value); return value; }
+                case 243: { var value = MapRelOp6_P243(children); OnRelOp(value); return value; }
+                case 244: { var value = MapAND_P244(children); OnAND(value); return value; }
+                case 245: { var value = MapARRAY_P245(children); OnARRAY(value); return value; }
+                case 246: { var value = MapPBEGIN_P246(children); OnPBEGIN(value); return value; }
+                case 247: { var value = MapCASE_P247(children); OnCASE(value); return value; }
+                case 248: { var value = MapCONST_P248(children); OnCONST(value); return value; }
+                case 249: { var value = MapDIV_P249(children); OnDIV(value); return value; }
+                case 250: { var value = MapDO_P250(children); OnDO(value); return value; }
+                case 251: { var value = MapDOWNTO_P251(children); OnDOWNTO(value); return value; }
+                case 252: { var value = MapELSE_P252(children); OnELSE(value); return value; }
+                case 253: { var value = MapEND_P253(children); OnEND(value); return value; }
+                case 254: { var value = MapEXTERNAL_P254(children); OnEXTERNAL(value); return value; }
+                case 255: { var value = MapPFILE_P255(children); OnPFILE(value); return value; }
+                case 256: { var value = MapFOR_P256(children); OnFOR(value); return value; }
+                case 257: { var value = MapFORWARD_P257(children); OnFORWARD(value); return value; }
+                case 258: { var value = MapFUNCTION_P258(children); OnFUNCTION(value); return value; }
+                case 259: { var value = MapGOTO_P259(children); OnGOTO(value); return value; }
+                case 260: { var value = MapIF_P260(children); OnIF(value); return value; }
+                case 261: { var value = MapIN_P261(children); OnIN(value); return value; }
+                case 262: { var value = MapLABEL_P262(children); OnLABEL(value); return value; }
+                case 263: { var value = MapMOD_P263(children); OnMOD(value); return value; }
+                case 264: { var value = MapNIL_P264(children); OnNIL(value); return value; }
+                case 265: { var value = MapNOT_P265(children); OnNOT(value); return value; }
+                case 266: { var value = MapOF_P266(children); OnOF(value); return value; }
+                case 267: { var value = MapOR_P267(children); OnOR(value); return value; }
+                case 268: { var value = MapOTHERWISE_P268(children); OnOTHERWISE(value); return value; }
+                case 269: { var value = MapPACKED_P269(children); OnPACKED(value); return value; }
+                case 270: { var value = MapPROCEDURE_P270(children); OnPROCEDURE(value); return value; }
+                case 271: { var value = MapPROGRAM_P271(children); OnPROGRAM(value); return value; }
+                case 272: { var value = MapRECORD_P272(children); OnRECORD(value); return value; }
+                case 273: { var value = MapREPEAT_P273(children); OnREPEAT(value); return value; }
+                case 274: { var value = MapSET_P274(children); OnSET(value); return value; }
+                case 275: { var value = MapTHEN_P275(children); OnTHEN(value); return value; }
+                case 276: { var value = MapTO_P276(children); OnTO(value); return value; }
+                case 277: { var value = MapTYPE_P277(children); OnTYPE(value); return value; }
+                case 278: { var value = MapUNTIL_P278(children); OnUNTIL(value); return value; }
+                case 279: { var value = MapVAR_P279(children); OnVAR(value); return value; }
+                case 280: { var value = MapWHILE_P280(children); OnWHILE(value); return value; }
+                case 281: { var value = MapWITH_P281(children); OnWITH(value); return value; }
+                case 282: { var value = MapIDENTIFIER_P282(children); OnIDENTIFIER(value); return value; }
+                case 283: { var value = MapASSIGNMENT_P283(children); OnASSIGNMENT(value); return value; }
+                case 284: { var value = MapCOLON_P284(children); OnCOLON(value); return value; }
+                case 285: { var value = MapCOMMA_P285(children); OnCOMMA(value); return value; }
+                case 286: { var value = MapDOTDOT_P286(children); OnDOTDOT(value); return value; }
+                case 287: { var value = MapDOT_P287(children); OnDOT(value); return value; }
+                case 288: { var value = MapEQUAL_P288(children); OnEQUAL(value); return value; }
+                case 289: { var value = MapLPAREN_P289(children); OnLPAREN(value); return value; }
+                case 290: { var value = MapRPAREN_P290(children); OnRPAREN(value); return value; }
+                case 291: { var value = MapLBRAC_P291(children); OnLBRAC(value); return value; }
+                case 292: { var value = MapRBRAC_P292(children); OnRBRAC(value); return value; }
+                case 293: { var value = MapPLUS_P293(children); OnPLUS(value); return value; }
+                case 294: { var value = MapMINUS_P294(children); OnMINUS(value); return value; }
+                case 295: { var value = MapSLASH_P295(children); OnSLASH(value); return value; }
+                case 296: { var value = MapSTARSTAR_P296(children); OnSTARSTAR(value); return value; }
+                case 297: { var value = MapSTAR_P297(children); OnSTAR(value); return value; }
+                case 298: { var value = MapNOTEQUAL_P298(children); OnNOTEQUAL(value); return value; }
+                case 299: { var value = MapLE_P299(children); OnLE(value); return value; }
+                case 300: { var value = MapLT_P300(children); OnLT(value); return value; }
+                case 301: { var value = MapGE_P301(children); OnGE(value); return value; }
+                case 302: { var value = MapGT_P302(children); OnGT(value); return value; }
+                case 303: { var value = MapSEMICOLON_P303(children); OnSEMICOLON(value); return value; }
+                case 304: { var value = MapUPARROW_P304(children); OnUPARROW(value); return value; }
+                case 305: { var value = MapREALNUMBER_P305(children); OnREALNUMBER(value); return value; }
+                case 306: { var value = MapDIGSEQ_P306(children); OnDIGSEQ(value); return value; }
+                case 307: { var value = MapCHARACTERSTRING_P307(children); OnCHARACTERSTRING(value); return value; }
                 default: throw new ArgumentException($"Invalid production number {productionNumber}");
             }
         }
@@ -90,46 +2290,4295 @@ namespace PascalCs {
         public virtual void OnPascalCs(PascalCs arg) { }
 
         /// <summary>
-        /// Default implementation of user-facing action for non-terminal HelloWorld.
+        /// Default implementation of user-facing action for non-terminal Program.
         /// </summary>
-        public virtual void OnHelloWorld(HelloWorld arg) { }
+        public virtual void OnProgram(Program arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProgramHeading.
+        /// </summary>
+        public virtual void OnProgramHeading(ProgramHeading arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IdentifierList.
+        /// </summary>
+        public virtual void OnIdentifierList(IdentifierList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Block.
+        /// </summary>
+        public virtual void OnBlock(Block arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Module.
+        /// </summary>
+        public virtual void OnModule(Module arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LabelDeclarationPart.
+        /// </summary>
+        public virtual void OnLabelDeclarationPart(LabelDeclarationPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LabelList.
+        /// </summary>
+        public virtual void OnLabelList(LabelList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Label.
+        /// </summary>
+        public virtual void OnLabel(Label arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ConstantDefinitionPart.
+        /// </summary>
+        public virtual void OnConstantDefinitionPart(ConstantDefinitionPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ConstantList.
+        /// </summary>
+        public virtual void OnConstantList(ConstantList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ConstantDefinition.
+        /// </summary>
+        public virtual void OnConstantDefinition(ConstantDefinition arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CExpression.
+        /// </summary>
+        public virtual void OnCExpression(CExpression arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CSimpleExpression.
+        /// </summary>
+        public virtual void OnCSimpleExpression(CSimpleExpression arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CTerm.
+        /// </summary>
+        public virtual void OnCTerm(CTerm arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CFactor.
+        /// </summary>
+        public virtual void OnCFactor(CFactor arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CExponentiation.
+        /// </summary>
+        public virtual void OnCExponentiation(CExponentiation arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CPrimary.
+        /// </summary>
+        public virtual void OnCPrimary(CPrimary arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Constant.
+        /// </summary>
+        public virtual void OnConstant(Constant arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Sign.
+        /// </summary>
+        public virtual void OnSign(Sign arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NonString.
+        /// </summary>
+        public virtual void OnNonString(NonString arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TypeDefinitionPart.
+        /// </summary>
+        public virtual void OnTypeDefinitionPart(TypeDefinitionPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TypeDefinitionList.
+        /// </summary>
+        public virtual void OnTypeDefinitionList(TypeDefinitionList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TypeDefinition.
+        /// </summary>
+        public virtual void OnTypeDefinition(TypeDefinition arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TypeDenoter.
+        /// </summary>
+        public virtual void OnTypeDenoter(TypeDenoter arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NewType.
+        /// </summary>
+        public virtual void OnNewType(NewType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NewOrdinalType.
+        /// </summary>
+        public virtual void OnNewOrdinalType(NewOrdinalType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal EnumeratedType.
+        /// </summary>
+        public virtual void OnEnumeratedType(EnumeratedType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SubrangeType.
+        /// </summary>
+        public virtual void OnSubrangeType(SubrangeType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NewStructuredType.
+        /// </summary>
+        public virtual void OnNewStructuredType(NewStructuredType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal StructuredType.
+        /// </summary>
+        public virtual void OnStructuredType(StructuredType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ArrayType.
+        /// </summary>
+        public virtual void OnArrayType(ArrayType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IndexList.
+        /// </summary>
+        public virtual void OnIndexList(IndexList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IndexType.
+        /// </summary>
+        public virtual void OnIndexType(IndexType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OrdinalType.
+        /// </summary>
+        public virtual void OnOrdinalType(OrdinalType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ComponentType.
+        /// </summary>
+        public virtual void OnComponentType(ComponentType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RecordType.
+        /// </summary>
+        public virtual void OnRecordType(RecordType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RecordSectionList.
+        /// </summary>
+        public virtual void OnRecordSectionList(RecordSectionList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RecordSection.
+        /// </summary>
+        public virtual void OnRecordSection(RecordSection arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariantPart.
+        /// </summary>
+        public virtual void OnVariantPart(VariantPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariantSelector.
+        /// </summary>
+        public virtual void OnVariantSelector(VariantSelector arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariantList.
+        /// </summary>
+        public virtual void OnVariantList(VariantList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Variant.
+        /// </summary>
+        public virtual void OnVariant(Variant arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CaseConstantList.
+        /// </summary>
+        public virtual void OnCaseConstantList(CaseConstantList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CaseConstant.
+        /// </summary>
+        public virtual void OnCaseConstant(CaseConstant arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TagField.
+        /// </summary>
+        public virtual void OnTagField(TagField arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TagType.
+        /// </summary>
+        public virtual void OnTagType(TagType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SetType.
+        /// </summary>
+        public virtual void OnSetType(SetType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FileType.
+        /// </summary>
+        public virtual void OnFileType(FileType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NewPointerType.
+        /// </summary>
+        public virtual void OnNewPointerType(NewPointerType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DomainType.
+        /// </summary>
+        public virtual void OnDomainType(DomainType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariableDeclarationPart.
+        /// </summary>
+        public virtual void OnVariableDeclarationPart(VariableDeclarationPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariableDeclarationList.
+        /// </summary>
+        public virtual void OnVariableDeclarationList(VariableDeclarationList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariableDeclaration.
+        /// </summary>
+        public virtual void OnVariableDeclaration(VariableDeclaration arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureAndFunctionDeclarationPart.
+        /// </summary>
+        public virtual void OnProcedureAndFunctionDeclarationPart(ProcedureAndFunctionDeclarationPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcOrFuncDeclarationList.
+        /// </summary>
+        public virtual void OnProcOrFuncDeclarationList(ProcOrFuncDeclarationList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcOrFuncDeclaration.
+        /// </summary>
+        public virtual void OnProcOrFuncDeclaration(ProcOrFuncDeclaration arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureDeclaration.
+        /// </summary>
+        public virtual void OnProcedureDeclaration(ProcedureDeclaration arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureHeading.
+        /// </summary>
+        public virtual void OnProcedureHeading(ProcedureHeading arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Directive.
+        /// </summary>
+        public virtual void OnDirective(Directive arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FormalParameterList.
+        /// </summary>
+        public virtual void OnFormalParameterList(FormalParameterList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FormalParameterSectionList.
+        /// </summary>
+        public virtual void OnFormalParameterSectionList(FormalParameterSectionList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FormalParameterSection.
+        /// </summary>
+        public virtual void OnFormalParameterSection(FormalParameterSection arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ValueParameterSpecification.
+        /// </summary>
+        public virtual void OnValueParameterSpecification(ValueParameterSpecification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariableParameterSpecification.
+        /// </summary>
+        public virtual void OnVariableParameterSpecification(VariableParameterSpecification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProceduralParameterSpecification.
+        /// </summary>
+        public virtual void OnProceduralParameterSpecification(ProceduralParameterSpecification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionalParameterSpecification.
+        /// </summary>
+        public virtual void OnFunctionalParameterSpecification(FunctionalParameterSpecification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureIdentification.
+        /// </summary>
+        public virtual void OnProcedureIdentification(ProcedureIdentification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureBlock.
+        /// </summary>
+        public virtual void OnProcedureBlock(ProcedureBlock arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionDeclaration.
+        /// </summary>
+        public virtual void OnFunctionDeclaration(FunctionDeclaration arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionHeading.
+        /// </summary>
+        public virtual void OnFunctionHeading(FunctionHeading arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ResultType.
+        /// </summary>
+        public virtual void OnResultType(ResultType arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionIdentification.
+        /// </summary>
+        public virtual void OnFunctionIdentification(FunctionIdentification arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionBlock.
+        /// </summary>
+        public virtual void OnFunctionBlock(FunctionBlock arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal StatementPart.
+        /// </summary>
+        public virtual void OnStatementPart(StatementPart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CompoundStatement.
+        /// </summary>
+        public virtual void OnCompoundStatement(CompoundStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal StatementSequence.
+        /// </summary>
+        public virtual void OnStatementSequence(StatementSequence arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Statement.
+        /// </summary>
+        public virtual void OnStatement(Statement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OpenStatement.
+        /// </summary>
+        public virtual void OnOpenStatement(OpenStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ClosedStatement.
+        /// </summary>
+        public virtual void OnClosedStatement(ClosedStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NonLabeledClosedStatement.
+        /// </summary>
+        public virtual void OnNonLabeledClosedStatement(NonLabeledClosedStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NonLabeledOpenStatement.
+        /// </summary>
+        public virtual void OnNonLabeledOpenStatement(NonLabeledOpenStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RepeatStatement.
+        /// </summary>
+        public virtual void OnRepeatStatement(RepeatStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OpenWhileStatement.
+        /// </summary>
+        public virtual void OnOpenWhileStatement(OpenWhileStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ClosedWhileStatement.
+        /// </summary>
+        public virtual void OnClosedWhileStatement(ClosedWhileStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OpenForStatement.
+        /// </summary>
+        public virtual void OnOpenForStatement(OpenForStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ClosedForStatement.
+        /// </summary>
+        public virtual void OnClosedForStatement(ClosedForStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OpenWithStatement.
+        /// </summary>
+        public virtual void OnOpenWithStatement(OpenWithStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ClosedWithStatement.
+        /// </summary>
+        public virtual void OnClosedWithStatement(ClosedWithStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OpenIfStatement.
+        /// </summary>
+        public virtual void OnOpenIfStatement(OpenIfStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ClosedIfStatement.
+        /// </summary>
+        public virtual void OnClosedIfStatement(ClosedIfStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal AssignmentStatement.
+        /// </summary>
+        public virtual void OnAssignmentStatement(AssignmentStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VariableAccess.
+        /// </summary>
+        public virtual void OnVariableAccess(VariableAccess arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IndexedVariable.
+        /// </summary>
+        public virtual void OnIndexedVariable(IndexedVariable arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IndexExpressionList.
+        /// </summary>
+        public virtual void OnIndexExpressionList(IndexExpressionList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IndexExpression.
+        /// </summary>
+        public virtual void OnIndexExpression(IndexExpression arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FieldDesignator.
+        /// </summary>
+        public virtual void OnFieldDesignator(FieldDesignator arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ProcedureStatement.
+        /// </summary>
+        public virtual void OnProcedureStatement(ProcedureStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Params.
+        /// </summary>
+        public virtual void OnParams(Params arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ActualParameterList.
+        /// </summary>
+        public virtual void OnActualParameterList(ActualParameterList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ActualParameter.
+        /// </summary>
+        public virtual void OnActualParameter(ActualParameter arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal GotoStatement.
+        /// </summary>
+        public virtual void OnGotoStatement(GotoStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CaseStatement.
+        /// </summary>
+        public virtual void OnCaseStatement(CaseStatement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CaseListElementList.
+        /// </summary>
+        public virtual void OnCaseListElementList(CaseListElementList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CaseListElement.
+        /// </summary>
+        public virtual void OnCaseListElement(CaseListElement arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OtherwisePart.
+        /// </summary>
+        public virtual void OnOtherwisePart(OtherwisePart arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Direction.
+        /// </summary>
+        public virtual void OnDirection(Direction arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FinalValue.
+        /// </summary>
+        public virtual void OnFinalValue(FinalValue arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RecordVariableList.
+        /// </summary>
+        public virtual void OnRecordVariableList(RecordVariableList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Expression.
+        /// </summary>
+        public virtual void OnExpression(Expression arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SimpleExpression.
+        /// </summary>
+        public virtual void OnSimpleExpression(SimpleExpression arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Term.
+        /// </summary>
+        public virtual void OnTerm(Term arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Factor.
+        /// </summary>
+        public virtual void OnFactor(Factor arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Exponentiation.
+        /// </summary>
+        public virtual void OnExponentiation(Exponentiation arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal Primary.
+        /// </summary>
+        public virtual void OnPrimary(Primary arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal UnsignedConstant.
+        /// </summary>
+        public virtual void OnUnsignedConstant(UnsignedConstant arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal UnsignedNumber.
+        /// </summary>
+        public virtual void OnUnsignedNumber(UnsignedNumber arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FunctionDesignator.
+        /// </summary>
+        public virtual void OnFunctionDesignator(FunctionDesignator arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SetConstructor.
+        /// </summary>
+        public virtual void OnSetConstructor(SetConstructor arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal MemberDesignatorList.
+        /// </summary>
+        public virtual void OnMemberDesignatorList(MemberDesignatorList arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal MemberDesignator.
+        /// </summary>
+        public virtual void OnMemberDesignator(MemberDesignator arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal AddOp.
+        /// </summary>
+        public virtual void OnAddOp(AddOp arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal MulOp.
+        /// </summary>
+        public virtual void OnMulOp(MulOp arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RelOp.
+        /// </summary>
+        public virtual void OnRelOp(RelOp arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal AND.
+        /// </summary>
+        public virtual void OnAND(AND arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ARRAY.
+        /// </summary>
+        public virtual void OnARRAY(ARRAY arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PBEGIN.
+        /// </summary>
+        public virtual void OnPBEGIN(PBEGIN arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CASE.
+        /// </summary>
+        public virtual void OnCASE(CASE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CONST.
+        /// </summary>
+        public virtual void OnCONST(CONST arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DIV.
+        /// </summary>
+        public virtual void OnDIV(DIV arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DO.
+        /// </summary>
+        public virtual void OnDO(DO arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DOWNTO.
+        /// </summary>
+        public virtual void OnDOWNTO(DOWNTO arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ELSE.
+        /// </summary>
+        public virtual void OnELSE(ELSE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal END.
+        /// </summary>
+        public virtual void OnEND(END arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal EXTERNAL.
+        /// </summary>
+        public virtual void OnEXTERNAL(EXTERNAL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PFILE.
+        /// </summary>
+        public virtual void OnPFILE(PFILE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FOR.
+        /// </summary>
+        public virtual void OnFOR(FOR arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FORWARD.
+        /// </summary>
+        public virtual void OnFORWARD(FORWARD arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal FUNCTION.
+        /// </summary>
+        public virtual void OnFUNCTION(FUNCTION arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal GOTO.
+        /// </summary>
+        public virtual void OnGOTO(GOTO arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IF.
+        /// </summary>
+        public virtual void OnIF(IF arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IN.
+        /// </summary>
+        public virtual void OnIN(IN arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LABEL.
+        /// </summary>
+        public virtual void OnLABEL(LABEL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal MOD.
+        /// </summary>
+        public virtual void OnMOD(MOD arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NIL.
+        /// </summary>
+        public virtual void OnNIL(NIL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NOT.
+        /// </summary>
+        public virtual void OnNOT(NOT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OF.
+        /// </summary>
+        public virtual void OnOF(OF arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OR.
+        /// </summary>
+        public virtual void OnOR(OR arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal OTHERWISE.
+        /// </summary>
+        public virtual void OnOTHERWISE(OTHERWISE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PACKED.
+        /// </summary>
+        public virtual void OnPACKED(PACKED arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PROCEDURE.
+        /// </summary>
+        public virtual void OnPROCEDURE(PROCEDURE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PROGRAM.
+        /// </summary>
+        public virtual void OnPROGRAM(PROGRAM arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RECORD.
+        /// </summary>
+        public virtual void OnRECORD(RECORD arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal REPEAT.
+        /// </summary>
+        public virtual void OnREPEAT(REPEAT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SET.
+        /// </summary>
+        public virtual void OnSET(SET arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal THEN.
+        /// </summary>
+        public virtual void OnTHEN(THEN arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TO.
+        /// </summary>
+        public virtual void OnTO(TO arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal TYPE.
+        /// </summary>
+        public virtual void OnTYPE(TYPE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal UNTIL.
+        /// </summary>
+        public virtual void OnUNTIL(UNTIL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal VAR.
+        /// </summary>
+        public virtual void OnVAR(VAR arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal WHILE.
+        /// </summary>
+        public virtual void OnWHILE(WHILE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal WITH.
+        /// </summary>
+        public virtual void OnWITH(WITH arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal IDENTIFIER.
+        /// </summary>
+        public virtual void OnIDENTIFIER(IDENTIFIER arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal ASSIGNMENT.
+        /// </summary>
+        public virtual void OnASSIGNMENT(ASSIGNMENT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal COLON.
+        /// </summary>
+        public virtual void OnCOLON(COLON arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal COMMA.
+        /// </summary>
+        public virtual void OnCOMMA(COMMA arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DOTDOT.
+        /// </summary>
+        public virtual void OnDOTDOT(DOTDOT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DOT.
+        /// </summary>
+        public virtual void OnDOT(DOT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal EQUAL.
+        /// </summary>
+        public virtual void OnEQUAL(EQUAL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LPAREN.
+        /// </summary>
+        public virtual void OnLPAREN(LPAREN arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RPAREN.
+        /// </summary>
+        public virtual void OnRPAREN(RPAREN arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LBRAC.
+        /// </summary>
+        public virtual void OnLBRAC(LBRAC arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal RBRAC.
+        /// </summary>
+        public virtual void OnRBRAC(RBRAC arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal PLUS.
+        /// </summary>
+        public virtual void OnPLUS(PLUS arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal MINUS.
+        /// </summary>
+        public virtual void OnMINUS(MINUS arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SLASH.
+        /// </summary>
+        public virtual void OnSLASH(SLASH arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal STARSTAR.
+        /// </summary>
+        public virtual void OnSTARSTAR(STARSTAR arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal STAR.
+        /// </summary>
+        public virtual void OnSTAR(STAR arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal NOTEQUAL.
+        /// </summary>
+        public virtual void OnNOTEQUAL(NOTEQUAL arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LE.
+        /// </summary>
+        public virtual void OnLE(LE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal LT.
+        /// </summary>
+        public virtual void OnLT(LT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal GE.
+        /// </summary>
+        public virtual void OnGE(GE arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal GT.
+        /// </summary>
+        public virtual void OnGT(GT arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal SEMICOLON.
+        /// </summary>
+        public virtual void OnSEMICOLON(SEMICOLON arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal UPARROW.
+        /// </summary>
+        public virtual void OnUPARROW(UPARROW arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal REALNUMBER.
+        /// </summary>
+        public virtual void OnREALNUMBER(REALNUMBER arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal DIGSEQ.
+        /// </summary>
+        public virtual void OnDIGSEQ(DIGSEQ arg) { }
+
+        /// <summary>
+        /// Default implementation of user-facing action for non-terminal CHARACTER_STRING.
+        /// </summary>
+        public virtual void OnCHARACTERSTRING(CHARACTERSTRING arg) { }
 
 
-        // Mapping method for production 0: PascalCs: PascalCsOpt /* Option */;
-        private static PascalCs MapPascalCs(object[] children) {
+        // Mapping method for production 0: PascalCs0: PascalCs;
+        private static PascalCs0 MapPascalCs0_P0(object[] children) {
             if (children == null) throw new ArgumentNullException(nameof(children));
-            if (children.Length == 1 ) return new PascalCs((PascalCsOpt)children[0 + 0]);
+            if (children.Length == 1 ) return new PascalCs0((PascalCs)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PascalCs0 directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 0 (PascalCs0: PascalCs;)");
+        }
+
+
+        // Mapping method for production 1: PascalCs: Program;
+        private static PascalCs MapPascalCs0_P1(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new PascalCsProgram((Program)children[0 + 0]);
+                return new PascalCsProgramVariant(value);
+            }
             if (children.Length == 1 && children[0] is PascalCs directValue) return directValue;
-            throw new InvalidOperationException("Unsupported C# mapping for production 0 (PascalCs: PascalCsOpt /* Option */;)");
+            throw new InvalidOperationException("Unsupported C# mapping for production 1 (PascalCs: Program;)");
         }
 
 
-        // Mapping method for production 1: PascalCsOpt: HelloWorld;
-        private static PascalCsOpt MapPascalCsOpt0(object[] children) {
+        // Mapping method for production 2: PascalCs: Module;
+        private static PascalCs MapPascalCs1_P2(object[] children) {
             if (children == null) throw new ArgumentNullException(nameof(children));
-            if (children.Length == 1) return new PascalCsOpt((HelloWorld)children[0]);
-            if (children.Length == 1 ) return new PascalCsOpt((HelloWorld)children[0 + 0]);
-            if (children.Length == 1 && children[0] is PascalCsOpt directValue) return directValue;
-            throw new InvalidOperationException("Unsupported C# mapping for production 1 (PascalCsOpt: HelloWorld;)");
+            if (children.Length == 1) {
+                var value = new PascalCsModule((Module)children[0 + 0]);
+                return new PascalCsModuleVariant(value);
+            }
+            if (children.Length == 1 && children[0] is PascalCs directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 2 (PascalCs: Module;)");
         }
 
 
-        // Mapping method for production 2: PascalCsOpt: ;
-        private static PascalCsOpt MapPascalCsOpt1(object[] children) {
+        // Mapping method for production 3: Program: ProgramHeading SEMICOLON Block DOT;
+        private static Program MapProgram_P3(object[] children) {
             if (children == null) throw new ArgumentNullException(nameof(children));
-            if (children.Length == 0) return new PascalCsOpt(default!);
-            if (children.Length == 1 ) return new PascalCsOpt((HelloWorld)children[0 + 0]);
-            if (children.Length == 1 && children[0] is PascalCsOpt directValue) return directValue;
-            throw new InvalidOperationException("Unsupported C# mapping for production 2 (PascalCsOpt: ;)");
+            if (children.Length == 4 ) return new Program((ProgramHeading)children[0 + 0], (SEMICOLON)children[0 + 1], (Block)children[0 + 2], (DOT)children[0 + 3]);
+            if (children.Length == 1 && children[0] is Program directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 3 (Program: ProgramHeading SEMICOLON Block DOT;)");
         }
 
 
-        // Mapping method for production 3: HelloWorld: "Hello world!";
-        private static HelloWorld MapHelloWorld(object[] children) {
+        // Mapping method for production 4: ProgramHeading: PROGRAM IDENTIFIER;
+        private static ProgramHeading MapProgramHeading0_P4(object[] children) {
             if (children == null) throw new ArgumentNullException(nameof(children));
-            if (children.Length == 1 ) return new HelloWorld((Token)children[0 + 0]);
-            if (children.Length == 1 && children[0] is HelloWorld directValue) return directValue;
-            throw new InvalidOperationException("Unsupported C# mapping for production 3 (HelloWorld: \"Hello world!\";)");
+            if (children.Length == 2) {
+                var value = new ProgramHeadingPROGRAMIDENTIFIER((PROGRAM)children[0 + 0], (IDENTIFIER)children[0 + 1]);
+                return new ProgramHeadingPROGRAMIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProgramHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 4 (ProgramHeading: PROGRAM IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 5: ProgramHeading: PROGRAM IDENTIFIER LPAREN IdentifierList RPAREN;
+        private static ProgramHeading MapProgramHeading1_P5(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new ProgramHeadingPROGRAMIDENTIFIERLPARENIdentifierListRPAREN((PROGRAM)children[0 + 0], (IDENTIFIER)children[0 + 1], (LPAREN)children[0 + 2], (IdentifierList)children[0 + 3], (RPAREN)children[0 + 4]);
+                return new ProgramHeadingPROGRAMIDENTIFIERLPARENIdentifierListRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProgramHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 5 (ProgramHeading: PROGRAM IDENTIFIER LPAREN IdentifierList RPAREN;)");
+        }
+
+
+        // Mapping method for production 6: IdentifierList: IdentifierList COMMA IDENTIFIER;
+        private static IdentifierList MapIdentifierList0_P6(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new IdentifierListIdentifierListCOMMAIDENTIFIER((IdentifierList)children[0 + 0], (COMMA)children[0 + 1], (IDENTIFIER)children[0 + 2]);
+                return new IdentifierListIdentifierListCOMMAIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IdentifierList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 6 (IdentifierList: IdentifierList COMMA IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 7: IdentifierList: IDENTIFIER;
+        private static IdentifierList MapIdentifierList1_P7(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new IdentifierListIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new IdentifierListIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IdentifierList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 7 (IdentifierList: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 8: Block: LabelDeclarationPart ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart StatementPart;
+        private static Block MapBlock_P8(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 6 ) return new Block((LabelDeclarationPart)children[0 + 0], (ConstantDefinitionPart)children[0 + 1], (TypeDefinitionPart)children[0 + 2], (VariableDeclarationPart)children[0 + 3], (ProcedureAndFunctionDeclarationPart)children[0 + 4], (StatementPart)children[0 + 5]);
+            if (children.Length == 1 && children[0] is Block directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 8 (Block: LabelDeclarationPart ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart StatementPart;)");
+        }
+
+
+        // Mapping method for production 9: Module: ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart;
+        private static Module MapModule_P9(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new Module((ConstantDefinitionPart)children[0 + 0], (TypeDefinitionPart)children[0 + 1], (VariableDeclarationPart)children[0 + 2], (ProcedureAndFunctionDeclarationPart)children[0 + 3]);
+            if (children.Length == 1 && children[0] is Module directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 9 (Module: ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart;)");
+        }
+
+
+        // Mapping method for production 10: LabelDeclarationPart: LABEL LabelList SEMICOLON;
+        private static LabelDeclarationPart MapLabelDeclarationPart0_P10(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new LabelDeclarationPartLABELLabelListSEMICOLON((LABEL)children[0 + 0], (LabelList)children[0 + 1], (SEMICOLON)children[0 + 2]);
+                return new LabelDeclarationPartLABELLabelListSEMICOLONVariant(value);
+            }
+            if (children.Length == 1 && children[0] is LabelDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 10 (LabelDeclarationPart: LABEL LabelList SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 11: LabelDeclarationPart: ;
+        private static LabelDeclarationPart MapLabelDeclarationPart1_P11(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new LabelDeclarationPartLabelDeclarationPartEmpty();
+                return new LabelDeclarationPartLabelDeclarationPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is LabelDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 11 (LabelDeclarationPart: ;)");
+        }
+
+
+        // Mapping method for production 12: LabelList: LabelList COMMA Label;
+        private static LabelList MapLabelList0_P12(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new LabelListLabelListCOMMALabel((LabelList)children[0 + 0], (COMMA)children[0 + 1], (Label)children[0 + 2]);
+                return new LabelListLabelListCOMMALabelVariant(value);
+            }
+            if (children.Length == 1 && children[0] is LabelList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 12 (LabelList: LabelList COMMA Label;)");
+        }
+
+
+        // Mapping method for production 13: LabelList: Label;
+        private static LabelList MapLabelList1_P13(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new LabelListLabel((Label)children[0 + 0]);
+                return new LabelListLabelVariant(value);
+            }
+            if (children.Length == 1 && children[0] is LabelList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 13 (LabelList: Label;)");
+        }
+
+
+        // Mapping method for production 14: Label: DIGSEQ;
+        private static Label MapLabel_P14(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new Label((DIGSEQ)children[0 + 0]);
+            if (children.Length == 1 && children[0] is Label directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 14 (Label: DIGSEQ;)");
+        }
+
+
+        // Mapping method for production 15: ConstantDefinitionPart: CONST ConstantList;
+        private static ConstantDefinitionPart MapConstantDefinitionPart0_P15(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ConstantDefinitionPartCONSTConstantList((CONST)children[0 + 0], (ConstantList)children[0 + 1]);
+                return new ConstantDefinitionPartCONSTConstantListVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ConstantDefinitionPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 15 (ConstantDefinitionPart: CONST ConstantList;)");
+        }
+
+
+        // Mapping method for production 16: ConstantDefinitionPart: ;
+        private static ConstantDefinitionPart MapConstantDefinitionPart1_P16(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new ConstantDefinitionPartConstantDefinitionPartEmpty();
+                return new ConstantDefinitionPartConstantDefinitionPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ConstantDefinitionPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 16 (ConstantDefinitionPart: ;)");
+        }
+
+
+        // Mapping method for production 17: ConstantList: ConstantList ConstantDefinition;
+        private static ConstantList MapConstantList0_P17(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ConstantListConstantListConstantDefinition((ConstantList)children[0 + 0], (ConstantDefinition)children[0 + 1]);
+                return new ConstantListConstantListConstantDefinitionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ConstantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 17 (ConstantList: ConstantList ConstantDefinition;)");
+        }
+
+
+        // Mapping method for production 18: ConstantList: ConstantDefinition;
+        private static ConstantList MapConstantList1_P18(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ConstantListConstantDefinition((ConstantDefinition)children[0 + 0]);
+                return new ConstantListConstantDefinitionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ConstantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 18 (ConstantList: ConstantDefinition;)");
+        }
+
+
+        // Mapping method for production 19: ConstantDefinition: IDENTIFIER EQUAL CExpression SEMICOLON;
+        private static ConstantDefinition MapConstantDefinition_P19(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new ConstantDefinition((IDENTIFIER)children[0 + 0], (EQUAL)children[0 + 1], (CExpression)children[0 + 2], (SEMICOLON)children[0 + 3]);
+            if (children.Length == 1 && children[0] is ConstantDefinition directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 19 (ConstantDefinition: IDENTIFIER EQUAL CExpression SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 20: CExpression: CSimpleExpression;
+        private static CExpression MapCExpression0_P20(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CExpressionCSimpleExpression((CSimpleExpression)children[0 + 0]);
+                return new CExpressionCSimpleExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 20 (CExpression: CSimpleExpression;)");
+        }
+
+
+        // Mapping method for production 21: CExpression: CSimpleExpression RelOp CSimpleExpression;
+        private static CExpression MapCExpression1_P21(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CExpressionCSimpleExpressionRelOpCSimpleExpression((CSimpleExpression)children[0 + 0], (RelOp)children[0 + 1], (CSimpleExpression)children[0 + 2]);
+                return new CExpressionCSimpleExpressionRelOpCSimpleExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 21 (CExpression: CSimpleExpression RelOp CSimpleExpression;)");
+        }
+
+
+        // Mapping method for production 22: CSimpleExpression: CTerm;
+        private static CSimpleExpression MapCSimpleExpression0_P22(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CSimpleExpressionCTerm((CTerm)children[0 + 0]);
+                return new CSimpleExpressionCTermVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CSimpleExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 22 (CSimpleExpression: CTerm;)");
+        }
+
+
+        // Mapping method for production 23: CSimpleExpression: CSimpleExpression AddOp CTerm;
+        private static CSimpleExpression MapCSimpleExpression1_P23(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CSimpleExpressionCSimpleExpressionAddOpCTerm((CSimpleExpression)children[0 + 0], (AddOp)children[0 + 1], (CTerm)children[0 + 2]);
+                return new CSimpleExpressionCSimpleExpressionAddOpCTermVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CSimpleExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 23 (CSimpleExpression: CSimpleExpression AddOp CTerm;)");
+        }
+
+
+        // Mapping method for production 24: CTerm: CFactor;
+        private static CTerm MapCTerm0_P24(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CTermCFactor((CFactor)children[0 + 0]);
+                return new CTermCFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CTerm directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 24 (CTerm: CFactor;)");
+        }
+
+
+        // Mapping method for production 25: CTerm: CTerm MulOp CFactor;
+        private static CTerm MapCTerm1_P25(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CTermCTermMulOpCFactor((CTerm)children[0 + 0], (MulOp)children[0 + 1], (CFactor)children[0 + 2]);
+                return new CTermCTermMulOpCFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CTerm directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 25 (CTerm: CTerm MulOp CFactor;)");
+        }
+
+
+        // Mapping method for production 26: CFactor: Sign CFactor;
+        private static CFactor MapCFactor0_P26(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new CFactorSignCFactor((Sign)children[0 + 0], (CFactor)children[0 + 1]);
+                return new CFactorSignCFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CFactor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 26 (CFactor: Sign CFactor;)");
+        }
+
+
+        // Mapping method for production 27: CFactor: CExponentiation;
+        private static CFactor MapCFactor1_P27(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CFactorCExponentiation((CExponentiation)children[0 + 0]);
+                return new CFactorCExponentiationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CFactor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 27 (CFactor: CExponentiation;)");
+        }
+
+
+        // Mapping method for production 28: CExponentiation: CPrimary;
+        private static CExponentiation MapCExponentiation0_P28(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CExponentiationCPrimary((CPrimary)children[0 + 0]);
+                return new CExponentiationCPrimaryVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CExponentiation directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 28 (CExponentiation: CPrimary;)");
+        }
+
+
+        // Mapping method for production 29: CExponentiation: CPrimary STARSTAR CExponentiation;
+        private static CExponentiation MapCExponentiation1_P29(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CExponentiationCPrimarySTARSTARCExponentiation((CPrimary)children[0 + 0], (STARSTAR)children[0 + 1], (CExponentiation)children[0 + 2]);
+                return new CExponentiationCPrimarySTARSTARCExponentiationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CExponentiation directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 29 (CExponentiation: CPrimary STARSTAR CExponentiation;)");
+        }
+
+
+        // Mapping method for production 30: CPrimary: IDENTIFIER;
+        private static CPrimary MapCPrimary0_P30(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CPrimaryIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new CPrimaryIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CPrimary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 30 (CPrimary: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 31: CPrimary: LPAREN CExpression RPAREN;
+        private static CPrimary MapCPrimary1_P31(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CPrimaryLPARENCExpressionRPAREN((LPAREN)children[0 + 0], (CExpression)children[0 + 1], (RPAREN)children[0 + 2]);
+                return new CPrimaryLPARENCExpressionRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CPrimary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 31 (CPrimary: LPAREN CExpression RPAREN;)");
+        }
+
+
+        // Mapping method for production 32: CPrimary: UnsignedConstant;
+        private static CPrimary MapCPrimary2_P32(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CPrimaryUnsignedConstant((UnsignedConstant)children[0 + 0]);
+                return new CPrimaryUnsignedConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CPrimary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 32 (CPrimary: UnsignedConstant;)");
+        }
+
+
+        // Mapping method for production 33: CPrimary: NOT CPrimary;
+        private static CPrimary MapCPrimary3_P33(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new CPrimaryNOTCPrimary((NOT)children[0 + 0], (CPrimary)children[0 + 1]);
+                return new CPrimaryNOTCPrimaryVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CPrimary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 33 (CPrimary: NOT CPrimary;)");
+        }
+
+
+        // Mapping method for production 34: Constant: NonString;
+        private static Constant MapConstant0_P34(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ConstantNonString((NonString)children[0 + 0]);
+                return new ConstantNonStringVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Constant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 34 (Constant: NonString;)");
+        }
+
+
+        // Mapping method for production 35: Constant: Sign NonString;
+        private static Constant MapConstant1_P35(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ConstantSignNonString((Sign)children[0 + 0], (NonString)children[0 + 1]);
+                return new ConstantSignNonStringVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Constant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 35 (Constant: Sign NonString;)");
+        }
+
+
+        // Mapping method for production 36: Constant: CHARACTER_STRING;
+        private static Constant MapConstant2_P36(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ConstantCHARACTERSTRING((CHARACTERSTRING)children[0 + 0]);
+                return new ConstantCHARACTERSTRINGVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Constant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 36 (Constant: CHARACTER_STRING;)");
+        }
+
+
+        // Mapping method for production 37: Sign: PLUS;
+        private static Sign MapSign0_P37(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new SignPLUS((PLUS)children[0 + 0]);
+                return new SignPLUSVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Sign directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 37 (Sign: PLUS;)");
+        }
+
+
+        // Mapping method for production 38: Sign: MINUS;
+        private static Sign MapSign1_P38(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new SignMINUS((MINUS)children[0 + 0]);
+                return new SignMINUSVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Sign directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 38 (Sign: MINUS;)");
+        }
+
+
+        // Mapping method for production 39: NonString: DIGSEQ;
+        private static NonString MapNonString0_P39(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonStringDIGSEQ((DIGSEQ)children[0 + 0]);
+                return new NonStringDIGSEQVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonString directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 39 (NonString: DIGSEQ;)");
+        }
+
+
+        // Mapping method for production 40: NonString: IDENTIFIER;
+        private static NonString MapNonString1_P40(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonStringIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new NonStringIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonString directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 40 (NonString: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 41: NonString: REALNUMBER;
+        private static NonString MapNonString2_P41(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonStringREALNUMBER((REALNUMBER)children[0 + 0]);
+                return new NonStringREALNUMBERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonString directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 41 (NonString: REALNUMBER;)");
+        }
+
+
+        // Mapping method for production 42: TypeDefinitionPart: TYPE TypeDefinitionList;
+        private static TypeDefinitionPart MapTypeDefinitionPart0_P42(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new TypeDefinitionPartTYPETypeDefinitionList((TYPE)children[0 + 0], (TypeDefinitionList)children[0 + 1]);
+                return new TypeDefinitionPartTYPETypeDefinitionListVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDefinitionPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 42 (TypeDefinitionPart: TYPE TypeDefinitionList;)");
+        }
+
+
+        // Mapping method for production 43: TypeDefinitionPart: ;
+        private static TypeDefinitionPart MapTypeDefinitionPart1_P43(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new TypeDefinitionPartTypeDefinitionPartEmpty();
+                return new TypeDefinitionPartTypeDefinitionPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDefinitionPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 43 (TypeDefinitionPart: ;)");
+        }
+
+
+        // Mapping method for production 44: TypeDefinitionList: TypeDefinitionList TypeDefinition;
+        private static TypeDefinitionList MapTypeDefinitionList0_P44(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new TypeDefinitionListTypeDefinitionListTypeDefinition((TypeDefinitionList)children[0 + 0], (TypeDefinition)children[0 + 1]);
+                return new TypeDefinitionListTypeDefinitionListTypeDefinitionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDefinitionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 44 (TypeDefinitionList: TypeDefinitionList TypeDefinition;)");
+        }
+
+
+        // Mapping method for production 45: TypeDefinitionList: TypeDefinition;
+        private static TypeDefinitionList MapTypeDefinitionList1_P45(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new TypeDefinitionListTypeDefinition((TypeDefinition)children[0 + 0]);
+                return new TypeDefinitionListTypeDefinitionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDefinitionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 45 (TypeDefinitionList: TypeDefinition;)");
+        }
+
+
+        // Mapping method for production 46: TypeDefinition: IDENTIFIER EQUAL TypeDenoter SEMICOLON;
+        private static TypeDefinition MapTypeDefinition_P46(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new TypeDefinition((IDENTIFIER)children[0 + 0], (EQUAL)children[0 + 1], (TypeDenoter)children[0 + 2], (SEMICOLON)children[0 + 3]);
+            if (children.Length == 1 && children[0] is TypeDefinition directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 46 (TypeDefinition: IDENTIFIER EQUAL TypeDenoter SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 47: TypeDenoter: IDENTIFIER;
+        private static TypeDenoter MapTypeDenoter0_P47(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new TypeDenoterIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new TypeDenoterIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDenoter directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 47 (TypeDenoter: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 48: TypeDenoter: NewType;
+        private static TypeDenoter MapTypeDenoter1_P48(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new TypeDenoterNewType((NewType)children[0 + 0]);
+                return new TypeDenoterNewTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is TypeDenoter directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 48 (TypeDenoter: NewType;)");
+        }
+
+
+        // Mapping method for production 49: NewType: NewOrdinalType;
+        private static NewType MapNewType0_P49(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewTypeNewOrdinalType((NewOrdinalType)children[0 + 0]);
+                return new NewTypeNewOrdinalTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 49 (NewType: NewOrdinalType;)");
+        }
+
+
+        // Mapping method for production 50: NewType: NewStructuredType;
+        private static NewType MapNewType1_P50(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewTypeNewStructuredType((NewStructuredType)children[0 + 0]);
+                return new NewTypeNewStructuredTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 50 (NewType: NewStructuredType;)");
+        }
+
+
+        // Mapping method for production 51: NewType: NewPointerType;
+        private static NewType MapNewType2_P51(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewTypeNewPointerType((NewPointerType)children[0 + 0]);
+                return new NewTypeNewPointerTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 51 (NewType: NewPointerType;)");
+        }
+
+
+        // Mapping method for production 52: NewOrdinalType: EnumeratedType;
+        private static NewOrdinalType MapNewOrdinalType0_P52(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewOrdinalTypeEnumeratedType((EnumeratedType)children[0 + 0]);
+                return new NewOrdinalTypeEnumeratedTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewOrdinalType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 52 (NewOrdinalType: EnumeratedType;)");
+        }
+
+
+        // Mapping method for production 53: NewOrdinalType: SubrangeType;
+        private static NewOrdinalType MapNewOrdinalType1_P53(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewOrdinalTypeSubrangeType((SubrangeType)children[0 + 0]);
+                return new NewOrdinalTypeSubrangeTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewOrdinalType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 53 (NewOrdinalType: SubrangeType;)");
+        }
+
+
+        // Mapping method for production 54: EnumeratedType: LPAREN IdentifierList RPAREN;
+        private static EnumeratedType MapEnumeratedType_P54(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new EnumeratedType((LPAREN)children[0 + 0], (IdentifierList)children[0 + 1], (RPAREN)children[0 + 2]);
+            if (children.Length == 1 && children[0] is EnumeratedType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 54 (EnumeratedType: LPAREN IdentifierList RPAREN;)");
+        }
+
+
+        // Mapping method for production 55: SubrangeType: Constant DOTDOT Constant;
+        private static SubrangeType MapSubrangeType_P55(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new SubrangeType((Constant)children[0 + 0], (DOTDOT)children[0 + 1], (Constant)children[0 + 2]);
+            if (children.Length == 1 && children[0] is SubrangeType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 55 (SubrangeType: Constant DOTDOT Constant;)");
+        }
+
+
+        // Mapping method for production 56: NewStructuredType: StructuredType;
+        private static NewStructuredType MapNewStructuredType0_P56(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NewStructuredTypeStructuredType((StructuredType)children[0 + 0]);
+                return new NewStructuredTypeStructuredTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewStructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 56 (NewStructuredType: StructuredType;)");
+        }
+
+
+        // Mapping method for production 57: NewStructuredType: PACKED StructuredType;
+        private static NewStructuredType MapNewStructuredType1_P57(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new NewStructuredTypePACKEDStructuredType((PACKED)children[0 + 0], (StructuredType)children[0 + 1]);
+                return new NewStructuredTypePACKEDStructuredTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NewStructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 57 (NewStructuredType: PACKED StructuredType;)");
+        }
+
+
+        // Mapping method for production 58: StructuredType: ArrayType;
+        private static StructuredType MapStructuredType0_P58(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StructuredTypeArrayType((ArrayType)children[0 + 0]);
+                return new StructuredTypeArrayTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 58 (StructuredType: ArrayType;)");
+        }
+
+
+        // Mapping method for production 59: StructuredType: RecordType;
+        private static StructuredType MapStructuredType1_P59(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StructuredTypeRecordType((RecordType)children[0 + 0]);
+                return new StructuredTypeRecordTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 59 (StructuredType: RecordType;)");
+        }
+
+
+        // Mapping method for production 60: StructuredType: SetType;
+        private static StructuredType MapStructuredType2_P60(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StructuredTypeSetType((SetType)children[0 + 0]);
+                return new StructuredTypeSetTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 60 (StructuredType: SetType;)");
+        }
+
+
+        // Mapping method for production 61: StructuredType: FileType;
+        private static StructuredType MapStructuredType3_P61(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StructuredTypeFileType((FileType)children[0 + 0]);
+                return new StructuredTypeFileTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StructuredType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 61 (StructuredType: FileType;)");
+        }
+
+
+        // Mapping method for production 62: ArrayType: ARRAY LBRAC IndexList RBRAC OF ComponentType;
+        private static ArrayType MapArrayType_P62(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 6 ) return new ArrayType((ARRAY)children[0 + 0], (LBRAC)children[0 + 1], (IndexList)children[0 + 2], (RBRAC)children[0 + 3], (OF)children[0 + 4], (ComponentType)children[0 + 5]);
+            if (children.Length == 1 && children[0] is ArrayType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 62 (ArrayType: ARRAY LBRAC IndexList RBRAC OF ComponentType;)");
+        }
+
+
+        // Mapping method for production 63: IndexList: IndexList COMMA IndexType;
+        private static IndexList MapIndexList0_P63(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new IndexListIndexListCOMMAIndexType((IndexList)children[0 + 0], (COMMA)children[0 + 1], (IndexType)children[0 + 2]);
+                return new IndexListIndexListCOMMAIndexTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IndexList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 63 (IndexList: IndexList COMMA IndexType;)");
+        }
+
+
+        // Mapping method for production 64: IndexList: IndexType;
+        private static IndexList MapIndexList1_P64(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new IndexListIndexType((IndexType)children[0 + 0]);
+                return new IndexListIndexTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IndexList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 64 (IndexList: IndexType;)");
+        }
+
+
+        // Mapping method for production 65: IndexType: OrdinalType;
+        private static IndexType MapIndexType_P65(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new IndexType((OrdinalType)children[0 + 0]);
+            if (children.Length == 1 && children[0] is IndexType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 65 (IndexType: OrdinalType;)");
+        }
+
+
+        // Mapping method for production 66: OrdinalType: NewOrdinalType;
+        private static OrdinalType MapOrdinalType0_P66(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new OrdinalTypeNewOrdinalType((NewOrdinalType)children[0 + 0]);
+                return new OrdinalTypeNewOrdinalTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OrdinalType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 66 (OrdinalType: NewOrdinalType;)");
+        }
+
+
+        // Mapping method for production 67: OrdinalType: IDENTIFIER;
+        private static OrdinalType MapOrdinalType1_P67(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new OrdinalTypeIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new OrdinalTypeIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OrdinalType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 67 (OrdinalType: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 68: ComponentType: TypeDenoter;
+        private static ComponentType MapComponentType_P68(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ComponentType((TypeDenoter)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ComponentType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 68 (ComponentType: TypeDenoter;)");
+        }
+
+
+        // Mapping method for production 69: RecordType: RECORD RecordSectionList END;
+        private static RecordType MapRecordType0_P69(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new RecordTypeRECORDRecordSectionListEND((RECORD)children[0 + 0], (RecordSectionList)children[0 + 1], (END)children[0 + 2]);
+                return new RecordTypeRECORDRecordSectionListENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 69 (RecordType: RECORD RecordSectionList END;)");
+        }
+
+
+        // Mapping method for production 70: RecordType: RECORD RecordSectionList SEMICOLON VariantPart END;
+        private static RecordType MapRecordType1_P70(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new RecordTypeRECORDRecordSectionListSEMICOLONVariantPartEND((RECORD)children[0 + 0], (RecordSectionList)children[0 + 1], (SEMICOLON)children[0 + 2], (VariantPart)children[0 + 3], (END)children[0 + 4]);
+                return new RecordTypeRECORDRecordSectionListSEMICOLONVariantPartENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 70 (RecordType: RECORD RecordSectionList SEMICOLON VariantPart END;)");
+        }
+
+
+        // Mapping method for production 71: RecordType: RECORD VariantPart END;
+        private static RecordType MapRecordType2_P71(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new RecordTypeRECORDVariantPartEND((RECORD)children[0 + 0], (VariantPart)children[0 + 1], (END)children[0 + 2]);
+                return new RecordTypeRECORDVariantPartENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 71 (RecordType: RECORD VariantPart END;)");
+        }
+
+
+        // Mapping method for production 72: RecordSectionList: RecordSectionList SEMICOLON RecordSection;
+        private static RecordSectionList MapRecordSectionList0_P72(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new RecordSectionListRecordSectionListSEMICOLONRecordSection((RecordSectionList)children[0 + 0], (SEMICOLON)children[0 + 1], (RecordSection)children[0 + 2]);
+                return new RecordSectionListRecordSectionListSEMICOLONRecordSectionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordSectionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 72 (RecordSectionList: RecordSectionList SEMICOLON RecordSection;)");
+        }
+
+
+        // Mapping method for production 73: RecordSectionList: RecordSection;
+        private static RecordSectionList MapRecordSectionList1_P73(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RecordSectionListRecordSection((RecordSection)children[0 + 0]);
+                return new RecordSectionListRecordSectionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordSectionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 73 (RecordSectionList: RecordSection;)");
+        }
+
+
+        // Mapping method for production 74: RecordSection: IdentifierList COLON TypeDenoter;
+        private static RecordSection MapRecordSection_P74(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new RecordSection((IdentifierList)children[0 + 0], (COLON)children[0 + 1], (TypeDenoter)children[0 + 2]);
+            if (children.Length == 1 && children[0] is RecordSection directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 74 (RecordSection: IdentifierList COLON TypeDenoter;)");
+        }
+
+
+        // Mapping method for production 75: VariantPart: CASE VariantSelector OF VariantList SEMICOLON;
+        private static VariantPart MapVariantPart0_P75(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new VariantPartCASEVariantSelectorOFVariantListSEMICOLON((CASE)children[0 + 0], (VariantSelector)children[0 + 1], (OF)children[0 + 2], (VariantList)children[0 + 3], (SEMICOLON)children[0 + 4]);
+                return new VariantPartCASEVariantSelectorOFVariantListSEMICOLONVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 75 (VariantPart: CASE VariantSelector OF VariantList SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 76: VariantPart: CASE VariantSelector OF VariantList;
+        private static VariantPart MapVariantPart1_P76(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4) {
+                var value = new VariantPartCASEVariantSelectorOFVariantList((CASE)children[0 + 0], (VariantSelector)children[0 + 1], (OF)children[0 + 2], (VariantList)children[0 + 3]);
+                return new VariantPartCASEVariantSelectorOFVariantListVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 76 (VariantPart: CASE VariantSelector OF VariantList;)");
+        }
+
+
+        // Mapping method for production 77: VariantPart: ;
+        private static VariantPart MapVariantPart2_P77(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new VariantPartVariantPartEmpty();
+                return new VariantPartVariantPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 77 (VariantPart: ;)");
+        }
+
+
+        // Mapping method for production 78: VariantSelector: TagField COLON TagType;
+        private static VariantSelector MapVariantSelector0_P78(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new VariantSelectorTagFieldCOLONTagType((TagField)children[0 + 0], (COLON)children[0 + 1], (TagType)children[0 + 2]);
+                return new VariantSelectorTagFieldCOLONTagTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantSelector directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 78 (VariantSelector: TagField COLON TagType;)");
+        }
+
+
+        // Mapping method for production 79: VariantSelector: TagType;
+        private static VariantSelector MapVariantSelector1_P79(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariantSelectorTagType((TagType)children[0 + 0]);
+                return new VariantSelectorTagTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantSelector directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 79 (VariantSelector: TagType;)");
+        }
+
+
+        // Mapping method for production 80: VariantList: VariantList SEMICOLON Variant;
+        private static VariantList MapVariantList0_P80(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new VariantListVariantListSEMICOLONVariant((VariantList)children[0 + 0], (SEMICOLON)children[0 + 1], (Variant)children[0 + 2]);
+                return new VariantListVariantListSEMICOLONVariantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 80 (VariantList: VariantList SEMICOLON Variant;)");
+        }
+
+
+        // Mapping method for production 81: VariantList: Variant;
+        private static VariantList MapVariantList1_P81(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariantListVariant((Variant)children[0 + 0]);
+                return new VariantListVariantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 81 (VariantList: Variant;)");
+        }
+
+
+        // Mapping method for production 82: Variant: CaseConstantList COLON LPAREN RecordSectionList RPAREN;
+        private static Variant MapVariant0_P82(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new VariantCaseConstantListCOLONLPARENRecordSectionListRPAREN((CaseConstantList)children[0 + 0], (COLON)children[0 + 1], (LPAREN)children[0 + 2], (RecordSectionList)children[0 + 3], (RPAREN)children[0 + 4]);
+                return new VariantCaseConstantListCOLONLPARENRecordSectionListRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Variant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 82 (Variant: CaseConstantList COLON LPAREN RecordSectionList RPAREN;)");
+        }
+
+
+        // Mapping method for production 83: Variant: CaseConstantList COLON LPAREN RecordSectionList SEMICOLON VariantPart RPAREN;
+        private static Variant MapVariant1_P83(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 7) {
+                var value = new VariantCaseConstantListCOLONLPARENRecordSectionListSEMICOLONVariantPartRPAREN((CaseConstantList)children[0 + 0], (COLON)children[0 + 1], (LPAREN)children[0 + 2], (RecordSectionList)children[0 + 3], (SEMICOLON)children[0 + 4], (VariantPart)children[0 + 5], (RPAREN)children[0 + 6]);
+                return new VariantCaseConstantListCOLONLPARENRecordSectionListSEMICOLONVariantPartRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Variant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 83 (Variant: CaseConstantList COLON LPAREN RecordSectionList SEMICOLON VariantPart RPAREN;)");
+        }
+
+
+        // Mapping method for production 84: Variant: CaseConstantList COLON LPAREN VariantPart RPAREN;
+        private static Variant MapVariant2_P84(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new VariantCaseConstantListCOLONLPARENVariantPartRPAREN((CaseConstantList)children[0 + 0], (COLON)children[0 + 1], (LPAREN)children[0 + 2], (VariantPart)children[0 + 3], (RPAREN)children[0 + 4]);
+                return new VariantCaseConstantListCOLONLPARENVariantPartRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Variant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 84 (Variant: CaseConstantList COLON LPAREN VariantPart RPAREN;)");
+        }
+
+
+        // Mapping method for production 85: CaseConstantList: CaseConstantList COMMA CaseConstant;
+        private static CaseConstantList MapCaseConstantList0_P85(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CaseConstantListCaseConstantListCOMMACaseConstant((CaseConstantList)children[0 + 0], (COMMA)children[0 + 1], (CaseConstant)children[0 + 2]);
+                return new CaseConstantListCaseConstantListCOMMACaseConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseConstantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 85 (CaseConstantList: CaseConstantList COMMA CaseConstant;)");
+        }
+
+
+        // Mapping method for production 86: CaseConstantList: CaseConstant;
+        private static CaseConstantList MapCaseConstantList1_P86(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CaseConstantListCaseConstant((CaseConstant)children[0 + 0]);
+                return new CaseConstantListCaseConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseConstantList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 86 (CaseConstantList: CaseConstant;)");
+        }
+
+
+        // Mapping method for production 87: CaseConstant: Constant;
+        private static CaseConstant MapCaseConstant0_P87(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CaseConstantConstant((Constant)children[0 + 0]);
+                return new CaseConstantConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseConstant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 87 (CaseConstant: Constant;)");
+        }
+
+
+        // Mapping method for production 88: CaseConstant: Constant DOTDOT Constant;
+        private static CaseConstant MapCaseConstant1_P88(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CaseConstantConstantDOTDOTConstant((Constant)children[0 + 0], (DOTDOT)children[0 + 1], (Constant)children[0 + 2]);
+                return new CaseConstantConstantDOTDOTConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseConstant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 88 (CaseConstant: Constant DOTDOT Constant;)");
+        }
+
+
+        // Mapping method for production 89: TagField: IDENTIFIER;
+        private static TagField MapTagField_P89(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new TagField((IDENTIFIER)children[0 + 0]);
+            if (children.Length == 1 && children[0] is TagField directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 89 (TagField: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 90: TagType: IDENTIFIER;
+        private static TagType MapTagType_P90(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new TagType((IDENTIFIER)children[0 + 0]);
+            if (children.Length == 1 && children[0] is TagType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 90 (TagType: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 91: SetType: SET OF OrdinalType;
+        private static SetType MapSetType_P91(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new SetType((SET)children[0 + 0], (OF)children[0 + 1], (OrdinalType)children[0 + 2]);
+            if (children.Length == 1 && children[0] is SetType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 91 (SetType: SET OF OrdinalType;)");
+        }
+
+
+        // Mapping method for production 92: FileType: PFILE OF ComponentType;
+        private static FileType MapFileType_P92(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new FileType((PFILE)children[0 + 0], (OF)children[0 + 1], (ComponentType)children[0 + 2]);
+            if (children.Length == 1 && children[0] is FileType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 92 (FileType: PFILE OF ComponentType;)");
+        }
+
+
+        // Mapping method for production 93: NewPointerType: UPARROW DomainType;
+        private static NewPointerType MapNewPointerType_P93(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2 ) return new NewPointerType((UPARROW)children[0 + 0], (DomainType)children[0 + 1]);
+            if (children.Length == 1 && children[0] is NewPointerType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 93 (NewPointerType: UPARROW DomainType;)");
+        }
+
+
+        // Mapping method for production 94: DomainType: IDENTIFIER;
+        private static DomainType MapDomainType_P94(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DomainType((IDENTIFIER)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DomainType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 94 (DomainType: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 95: VariableDeclarationPart: VAR VariableDeclarationList SEMICOLON;
+        private static VariableDeclarationPart MapVariableDeclarationPart0_P95(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new VariableDeclarationPartVARVariableDeclarationListSEMICOLON((VAR)children[0 + 0], (VariableDeclarationList)children[0 + 1], (SEMICOLON)children[0 + 2]);
+                return new VariableDeclarationPartVARVariableDeclarationListSEMICOLONVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 95 (VariableDeclarationPart: VAR VariableDeclarationList SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 96: VariableDeclarationPart: ;
+        private static VariableDeclarationPart MapVariableDeclarationPart1_P96(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new VariableDeclarationPartVariableDeclarationPartEmpty();
+                return new VariableDeclarationPartVariableDeclarationPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 96 (VariableDeclarationPart: ;)");
+        }
+
+
+        // Mapping method for production 97: VariableDeclarationList: VariableDeclarationList SEMICOLON VariableDeclaration;
+        private static VariableDeclarationList MapVariableDeclarationList0_P97(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new VariableDeclarationListVariableDeclarationListSEMICOLONVariableDeclaration((VariableDeclarationList)children[0 + 0], (SEMICOLON)children[0 + 1], (VariableDeclaration)children[0 + 2]);
+                return new VariableDeclarationListVariableDeclarationListSEMICOLONVariableDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableDeclarationList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 97 (VariableDeclarationList: VariableDeclarationList SEMICOLON VariableDeclaration;)");
+        }
+
+
+        // Mapping method for production 98: VariableDeclarationList: VariableDeclaration;
+        private static VariableDeclarationList MapVariableDeclarationList1_P98(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariableDeclarationListVariableDeclaration((VariableDeclaration)children[0 + 0]);
+                return new VariableDeclarationListVariableDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableDeclarationList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 98 (VariableDeclarationList: VariableDeclaration;)");
+        }
+
+
+        // Mapping method for production 99: VariableDeclaration: IdentifierList COLON TypeDenoter;
+        private static VariableDeclaration MapVariableDeclaration_P99(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new VariableDeclaration((IdentifierList)children[0 + 0], (COLON)children[0 + 1], (TypeDenoter)children[0 + 2]);
+            if (children.Length == 1 && children[0] is VariableDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 99 (VariableDeclaration: IdentifierList COLON TypeDenoter;)");
+        }
+
+
+        // Mapping method for production 100: ProcedureAndFunctionDeclarationPart: ProcOrFuncDeclarationList SEMICOLON;
+        private static ProcedureAndFunctionDeclarationPart MapProcedureAndFunctionDeclarationPart0_P100(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ProcedureAndFunctionDeclarationPartProcOrFuncDeclarationListSEMICOLON((ProcOrFuncDeclarationList)children[0 + 0], (SEMICOLON)children[0 + 1]);
+                return new ProcedureAndFunctionDeclarationPartProcOrFuncDeclarationListSEMICOLONVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureAndFunctionDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 100 (ProcedureAndFunctionDeclarationPart: ProcOrFuncDeclarationList SEMICOLON;)");
+        }
+
+
+        // Mapping method for production 101: ProcedureAndFunctionDeclarationPart: ;
+        private static ProcedureAndFunctionDeclarationPart MapProcedureAndFunctionDeclarationPart1_P101(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new ProcedureAndFunctionDeclarationPartProcedureAndFunctionDeclarationPartEmpty();
+                return new ProcedureAndFunctionDeclarationPartProcedureAndFunctionDeclarationPartEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureAndFunctionDeclarationPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 101 (ProcedureAndFunctionDeclarationPart: ;)");
+        }
+
+
+        // Mapping method for production 102: ProcOrFuncDeclarationList: ProcOrFuncDeclarationList SEMICOLON ProcOrFuncDeclaration;
+        private static ProcOrFuncDeclarationList MapProcOrFuncDeclarationList0_P102(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ProcOrFuncDeclarationListProcOrFuncDeclarationListSEMICOLONProcOrFuncDeclaration((ProcOrFuncDeclarationList)children[0 + 0], (SEMICOLON)children[0 + 1], (ProcOrFuncDeclaration)children[0 + 2]);
+                return new ProcOrFuncDeclarationListProcOrFuncDeclarationListSEMICOLONProcOrFuncDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcOrFuncDeclarationList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 102 (ProcOrFuncDeclarationList: ProcOrFuncDeclarationList SEMICOLON ProcOrFuncDeclaration;)");
+        }
+
+
+        // Mapping method for production 103: ProcOrFuncDeclarationList: ProcOrFuncDeclaration;
+        private static ProcOrFuncDeclarationList MapProcOrFuncDeclarationList1_P103(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ProcOrFuncDeclarationListProcOrFuncDeclaration((ProcOrFuncDeclaration)children[0 + 0]);
+                return new ProcOrFuncDeclarationListProcOrFuncDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcOrFuncDeclarationList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 103 (ProcOrFuncDeclarationList: ProcOrFuncDeclaration;)");
+        }
+
+
+        // Mapping method for production 104: ProcOrFuncDeclaration: ProcedureDeclaration;
+        private static ProcOrFuncDeclaration MapProcOrFuncDeclaration0_P104(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ProcOrFuncDeclarationProcedureDeclaration((ProcedureDeclaration)children[0 + 0]);
+                return new ProcOrFuncDeclarationProcedureDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcOrFuncDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 104 (ProcOrFuncDeclaration: ProcedureDeclaration;)");
+        }
+
+
+        // Mapping method for production 105: ProcOrFuncDeclaration: FunctionDeclaration;
+        private static ProcOrFuncDeclaration MapProcOrFuncDeclaration1_P105(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ProcOrFuncDeclarationFunctionDeclaration((FunctionDeclaration)children[0 + 0]);
+                return new ProcOrFuncDeclarationFunctionDeclarationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcOrFuncDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 105 (ProcOrFuncDeclaration: FunctionDeclaration;)");
+        }
+
+
+        // Mapping method for production 106: ProcedureDeclaration: ProcedureHeading SEMICOLON Directive;
+        private static ProcedureDeclaration MapProcedureDeclaration0_P106(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ProcedureDeclarationProcedureHeadingSEMICOLONDirective((ProcedureHeading)children[0 + 0], (SEMICOLON)children[0 + 1], (Directive)children[0 + 2]);
+                return new ProcedureDeclarationProcedureHeadingSEMICOLONDirectiveVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 106 (ProcedureDeclaration: ProcedureHeading SEMICOLON Directive;)");
+        }
+
+
+        // Mapping method for production 107: ProcedureDeclaration: ProcedureHeading SEMICOLON ProcedureBlock;
+        private static ProcedureDeclaration MapProcedureDeclaration1_P107(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ProcedureDeclarationProcedureHeadingSEMICOLONProcedureBlock((ProcedureHeading)children[0 + 0], (SEMICOLON)children[0 + 1], (ProcedureBlock)children[0 + 2]);
+                return new ProcedureDeclarationProcedureHeadingSEMICOLONProcedureBlockVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 107 (ProcedureDeclaration: ProcedureHeading SEMICOLON ProcedureBlock;)");
+        }
+
+
+        // Mapping method for production 108: ProcedureHeading: ProcedureIdentification;
+        private static ProcedureHeading MapProcedureHeading0_P108(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ProcedureHeadingProcedureIdentification((ProcedureIdentification)children[0 + 0]);
+                return new ProcedureHeadingProcedureIdentificationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 108 (ProcedureHeading: ProcedureIdentification;)");
+        }
+
+
+        // Mapping method for production 109: ProcedureHeading: ProcedureIdentification FormalParameterList;
+        private static ProcedureHeading MapProcedureHeading1_P109(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ProcedureHeadingProcedureIdentificationFormalParameterList((ProcedureIdentification)children[0 + 0], (FormalParameterList)children[0 + 1]);
+                return new ProcedureHeadingProcedureIdentificationFormalParameterListVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 109 (ProcedureHeading: ProcedureIdentification FormalParameterList;)");
+        }
+
+
+        // Mapping method for production 110: Directive: FORWARD;
+        private static Directive MapDirective0_P110(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new DirectiveFORWARD((FORWARD)children[0 + 0]);
+                return new DirectiveFORWARDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Directive directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 110 (Directive: FORWARD;)");
+        }
+
+
+        // Mapping method for production 111: Directive: EXTERNAL;
+        private static Directive MapDirective1_P111(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new DirectiveEXTERNAL((EXTERNAL)children[0 + 0]);
+                return new DirectiveEXTERNALVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Directive directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 111 (Directive: EXTERNAL;)");
+        }
+
+
+        // Mapping method for production 112: FormalParameterList: LPAREN FormalParameterSectionList RPAREN;
+        private static FormalParameterList MapFormalParameterList_P112(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new FormalParameterList((LPAREN)children[0 + 0], (FormalParameterSectionList)children[0 + 1], (RPAREN)children[0 + 2]);
+            if (children.Length == 1 && children[0] is FormalParameterList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 112 (FormalParameterList: LPAREN FormalParameterSectionList RPAREN;)");
+        }
+
+
+        // Mapping method for production 113: FormalParameterSectionList: FormalParameterSectionList SEMICOLON FormalParameterSection;
+        private static FormalParameterSectionList MapFormalParameterSectionList0_P113(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new FormalParameterSectionListFormalParameterSectionListSEMICOLONFormalParameterSection((FormalParameterSectionList)children[0 + 0], (SEMICOLON)children[0 + 1], (FormalParameterSection)children[0 + 2]);
+                return new FormalParameterSectionListFormalParameterSectionListSEMICOLONFormalParameterSectionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSectionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 113 (FormalParameterSectionList: FormalParameterSectionList SEMICOLON FormalParameterSection;)");
+        }
+
+
+        // Mapping method for production 114: FormalParameterSectionList: FormalParameterSection;
+        private static FormalParameterSectionList MapFormalParameterSectionList1_P114(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FormalParameterSectionListFormalParameterSection((FormalParameterSection)children[0 + 0]);
+                return new FormalParameterSectionListFormalParameterSectionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSectionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 114 (FormalParameterSectionList: FormalParameterSection;)");
+        }
+
+
+        // Mapping method for production 115: FormalParameterSection: ValueParameterSpecification;
+        private static FormalParameterSection MapFormalParameterSection0_P115(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FormalParameterSectionValueParameterSpecification((ValueParameterSpecification)children[0 + 0]);
+                return new FormalParameterSectionValueParameterSpecificationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSection directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 115 (FormalParameterSection: ValueParameterSpecification;)");
+        }
+
+
+        // Mapping method for production 116: FormalParameterSection: VariableParameterSpecification;
+        private static FormalParameterSection MapFormalParameterSection1_P116(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FormalParameterSectionVariableParameterSpecification((VariableParameterSpecification)children[0 + 0]);
+                return new FormalParameterSectionVariableParameterSpecificationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSection directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 116 (FormalParameterSection: VariableParameterSpecification;)");
+        }
+
+
+        // Mapping method for production 117: FormalParameterSection: ProceduralParameterSpecification;
+        private static FormalParameterSection MapFormalParameterSection2_P117(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FormalParameterSectionProceduralParameterSpecification((ProceduralParameterSpecification)children[0 + 0]);
+                return new FormalParameterSectionProceduralParameterSpecificationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSection directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 117 (FormalParameterSection: ProceduralParameterSpecification;)");
+        }
+
+
+        // Mapping method for production 118: FormalParameterSection: FunctionalParameterSpecification;
+        private static FormalParameterSection MapFormalParameterSection3_P118(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FormalParameterSectionFunctionalParameterSpecification((FunctionalParameterSpecification)children[0 + 0]);
+                return new FormalParameterSectionFunctionalParameterSpecificationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FormalParameterSection directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 118 (FormalParameterSection: FunctionalParameterSpecification;)");
+        }
+
+
+        // Mapping method for production 119: ValueParameterSpecification: IdentifierList COLON IDENTIFIER;
+        private static ValueParameterSpecification MapValueParameterSpecification_P119(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new ValueParameterSpecification((IdentifierList)children[0 + 0], (COLON)children[0 + 1], (IDENTIFIER)children[0 + 2]);
+            if (children.Length == 1 && children[0] is ValueParameterSpecification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 119 (ValueParameterSpecification: IdentifierList COLON IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 120: VariableParameterSpecification: VAR IdentifierList COLON IDENTIFIER;
+        private static VariableParameterSpecification MapVariableParameterSpecification_P120(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new VariableParameterSpecification((VAR)children[0 + 0], (IdentifierList)children[0 + 1], (COLON)children[0 + 2], (IDENTIFIER)children[0 + 3]);
+            if (children.Length == 1 && children[0] is VariableParameterSpecification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 120 (VariableParameterSpecification: VAR IdentifierList COLON IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 121: ProceduralParameterSpecification: ProcedureHeading;
+        private static ProceduralParameterSpecification MapProceduralParameterSpecification_P121(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ProceduralParameterSpecification((ProcedureHeading)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ProceduralParameterSpecification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 121 (ProceduralParameterSpecification: ProcedureHeading;)");
+        }
+
+
+        // Mapping method for production 122: FunctionalParameterSpecification: FunctionHeading;
+        private static FunctionalParameterSpecification MapFunctionalParameterSpecification_P122(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FunctionalParameterSpecification((FunctionHeading)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FunctionalParameterSpecification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 122 (FunctionalParameterSpecification: FunctionHeading;)");
+        }
+
+
+        // Mapping method for production 123: ProcedureIdentification: PROCEDURE IDENTIFIER;
+        private static ProcedureIdentification MapProcedureIdentification_P123(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2 ) return new ProcedureIdentification((PROCEDURE)children[0 + 0], (IDENTIFIER)children[0 + 1]);
+            if (children.Length == 1 && children[0] is ProcedureIdentification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 123 (ProcedureIdentification: PROCEDURE IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 124: ProcedureBlock: Block;
+        private static ProcedureBlock MapProcedureBlock_P124(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ProcedureBlock((Block)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ProcedureBlock directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 124 (ProcedureBlock: Block;)");
+        }
+
+
+        // Mapping method for production 125: FunctionDeclaration: FunctionHeading SEMICOLON Directive;
+        private static FunctionDeclaration MapFunctionDeclaration0_P125(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new FunctionDeclarationFunctionHeadingSEMICOLONDirective((FunctionHeading)children[0 + 0], (SEMICOLON)children[0 + 1], (Directive)children[0 + 2]);
+                return new FunctionDeclarationFunctionHeadingSEMICOLONDirectiveVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FunctionDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 125 (FunctionDeclaration: FunctionHeading SEMICOLON Directive;)");
+        }
+
+
+        // Mapping method for production 126: FunctionDeclaration: FunctionIdentification SEMICOLON FunctionBlock;
+        private static FunctionDeclaration MapFunctionDeclaration1_P126(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new FunctionDeclarationFunctionIdentificationSEMICOLONFunctionBlock((FunctionIdentification)children[0 + 0], (SEMICOLON)children[0 + 1], (FunctionBlock)children[0 + 2]);
+                return new FunctionDeclarationFunctionIdentificationSEMICOLONFunctionBlockVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FunctionDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 126 (FunctionDeclaration: FunctionIdentification SEMICOLON FunctionBlock;)");
+        }
+
+
+        // Mapping method for production 127: FunctionDeclaration: FunctionHeading SEMICOLON FunctionBlock;
+        private static FunctionDeclaration MapFunctionDeclaration2_P127(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new FunctionDeclarationFunctionHeadingSEMICOLONFunctionBlock((FunctionHeading)children[0 + 0], (SEMICOLON)children[0 + 1], (FunctionBlock)children[0 + 2]);
+                return new FunctionDeclarationFunctionHeadingSEMICOLONFunctionBlockVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FunctionDeclaration directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 127 (FunctionDeclaration: FunctionHeading SEMICOLON FunctionBlock;)");
+        }
+
+
+        // Mapping method for production 128: FunctionHeading: FUNCTION IDENTIFIER COLON ResultType;
+        private static FunctionHeading MapFunctionHeading0_P128(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4) {
+                var value = new FunctionHeadingFUNCTIONIDENTIFIERCOLONResultType((FUNCTION)children[0 + 0], (IDENTIFIER)children[0 + 1], (COLON)children[0 + 2], (ResultType)children[0 + 3]);
+                return new FunctionHeadingFUNCTIONIDENTIFIERCOLONResultTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FunctionHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 128 (FunctionHeading: FUNCTION IDENTIFIER COLON ResultType;)");
+        }
+
+
+        // Mapping method for production 129: FunctionHeading: FUNCTION IDENTIFIER FormalParameterList COLON ResultType;
+        private static FunctionHeading MapFunctionHeading1_P129(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new FunctionHeadingFUNCTIONIDENTIFIERFormalParameterListCOLONResultType((FUNCTION)children[0 + 0], (IDENTIFIER)children[0 + 1], (FormalParameterList)children[0 + 2], (COLON)children[0 + 3], (ResultType)children[0 + 4]);
+                return new FunctionHeadingFUNCTIONIDENTIFIERFormalParameterListCOLONResultTypeVariant(value);
+            }
+            if (children.Length == 1 && children[0] is FunctionHeading directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 129 (FunctionHeading: FUNCTION IDENTIFIER FormalParameterList COLON ResultType;)");
+        }
+
+
+        // Mapping method for production 130: ResultType: IDENTIFIER;
+        private static ResultType MapResultType_P130(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ResultType((IDENTIFIER)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ResultType directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 130 (ResultType: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 131: FunctionIdentification: FUNCTION IDENTIFIER;
+        private static FunctionIdentification MapFunctionIdentification_P131(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2 ) return new FunctionIdentification((FUNCTION)children[0 + 0], (IDENTIFIER)children[0 + 1]);
+            if (children.Length == 1 && children[0] is FunctionIdentification directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 131 (FunctionIdentification: FUNCTION IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 132: FunctionBlock: Block;
+        private static FunctionBlock MapFunctionBlock_P132(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FunctionBlock((Block)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FunctionBlock directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 132 (FunctionBlock: Block;)");
+        }
+
+
+        // Mapping method for production 133: StatementPart: CompoundStatement;
+        private static StatementPart MapStatementPart_P133(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new StatementPart((CompoundStatement)children[0 + 0]);
+            if (children.Length == 1 && children[0] is StatementPart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 133 (StatementPart: CompoundStatement;)");
+        }
+
+
+        // Mapping method for production 134: CompoundStatement: PBEGIN StatementSequence END;
+        private static CompoundStatement MapCompoundStatement_P134(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new CompoundStatement((PBEGIN)children[0 + 0], (StatementSequence)children[0 + 1], (END)children[0 + 2]);
+            if (children.Length == 1 && children[0] is CompoundStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 134 (CompoundStatement: PBEGIN StatementSequence END;)");
+        }
+
+
+        // Mapping method for production 135: StatementSequence: StatementSequence SEMICOLON Statement;
+        private static StatementSequence MapStatementSequence0_P135(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new StatementSequenceStatementSequenceSEMICOLONStatement((StatementSequence)children[0 + 0], (SEMICOLON)children[0 + 1], (Statement)children[0 + 2]);
+                return new StatementSequenceStatementSequenceSEMICOLONStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StatementSequence directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 135 (StatementSequence: StatementSequence SEMICOLON Statement;)");
+        }
+
+
+        // Mapping method for production 136: StatementSequence: Statement;
+        private static StatementSequence MapStatementSequence1_P136(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StatementSequenceStatement((Statement)children[0 + 0]);
+                return new StatementSequenceStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is StatementSequence directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 136 (StatementSequence: Statement;)");
+        }
+
+
+        // Mapping method for production 137: Statement: OpenStatement;
+        private static Statement MapStatement0_P137(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StatementOpenStatement((OpenStatement)children[0 + 0]);
+                return new StatementOpenStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Statement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 137 (Statement: OpenStatement;)");
+        }
+
+
+        // Mapping method for production 138: Statement: ClosedStatement;
+        private static Statement MapStatement1_P138(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new StatementClosedStatement((ClosedStatement)children[0 + 0]);
+                return new StatementClosedStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Statement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 138 (Statement: ClosedStatement;)");
+        }
+
+
+        // Mapping method for production 139: OpenStatement: Label COLON NonLabeledOpenStatement;
+        private static OpenStatement MapOpenStatement0_P139(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new OpenStatementLabelCOLONNonLabeledOpenStatement((Label)children[0 + 0], (COLON)children[0 + 1], (NonLabeledOpenStatement)children[0 + 2]);
+                return new OpenStatementLabelCOLONNonLabeledOpenStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 139 (OpenStatement: Label COLON NonLabeledOpenStatement;)");
+        }
+
+
+        // Mapping method for production 140: OpenStatement: NonLabeledOpenStatement;
+        private static OpenStatement MapOpenStatement1_P140(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new OpenStatementNonLabeledOpenStatement((NonLabeledOpenStatement)children[0 + 0]);
+                return new OpenStatementNonLabeledOpenStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 140 (OpenStatement: NonLabeledOpenStatement;)");
+        }
+
+
+        // Mapping method for production 141: ClosedStatement: Label COLON NonLabeledClosedStatement;
+        private static ClosedStatement MapClosedStatement0_P141(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ClosedStatementLabelCOLONNonLabeledClosedStatement((Label)children[0 + 0], (COLON)children[0 + 1], (NonLabeledClosedStatement)children[0 + 2]);
+                return new ClosedStatementLabelCOLONNonLabeledClosedStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 141 (ClosedStatement: Label COLON NonLabeledClosedStatement;)");
+        }
+
+
+        // Mapping method for production 142: ClosedStatement: NonLabeledClosedStatement;
+        private static ClosedStatement MapClosedStatement1_P142(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ClosedStatementNonLabeledClosedStatement((NonLabeledClosedStatement)children[0 + 0]);
+                return new ClosedStatementNonLabeledClosedStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 142 (ClosedStatement: NonLabeledClosedStatement;)");
+        }
+
+
+        // Mapping method for production 143: NonLabeledClosedStatement: AssignmentStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement0_P143(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementAssignmentStatement((AssignmentStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementAssignmentStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 143 (NonLabeledClosedStatement: AssignmentStatement;)");
+        }
+
+
+        // Mapping method for production 144: NonLabeledClosedStatement: ProcedureStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement1_P144(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementProcedureStatement((ProcedureStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementProcedureStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 144 (NonLabeledClosedStatement: ProcedureStatement;)");
+        }
+
+
+        // Mapping method for production 145: NonLabeledClosedStatement: GotoStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement2_P145(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementGotoStatement((GotoStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementGotoStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 145 (NonLabeledClosedStatement: GotoStatement;)");
+        }
+
+
+        // Mapping method for production 146: NonLabeledClosedStatement: CompoundStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement3_P146(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementCompoundStatement((CompoundStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementCompoundStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 146 (NonLabeledClosedStatement: CompoundStatement;)");
+        }
+
+
+        // Mapping method for production 147: NonLabeledClosedStatement: CaseStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement4_P147(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementCaseStatement((CaseStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementCaseStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 147 (NonLabeledClosedStatement: CaseStatement;)");
+        }
+
+
+        // Mapping method for production 148: NonLabeledClosedStatement: RepeatStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement5_P148(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementRepeatStatement((RepeatStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementRepeatStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 148 (NonLabeledClosedStatement: RepeatStatement;)");
+        }
+
+
+        // Mapping method for production 149: NonLabeledClosedStatement: ClosedWithStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement6_P149(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementClosedWithStatement((ClosedWithStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementClosedWithStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 149 (NonLabeledClosedStatement: ClosedWithStatement;)");
+        }
+
+
+        // Mapping method for production 150: NonLabeledClosedStatement: ClosedIfStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement7_P150(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementClosedIfStatement((ClosedIfStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementClosedIfStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 150 (NonLabeledClosedStatement: ClosedIfStatement;)");
+        }
+
+
+        // Mapping method for production 151: NonLabeledClosedStatement: ClosedWhileStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement8_P151(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementClosedWhileStatement((ClosedWhileStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementClosedWhileStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 151 (NonLabeledClosedStatement: ClosedWhileStatement;)");
+        }
+
+
+        // Mapping method for production 152: NonLabeledClosedStatement: ClosedForStatement;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement9_P152(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledClosedStatementClosedForStatement((ClosedForStatement)children[0 + 0]);
+                return new NonLabeledClosedStatementClosedForStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 152 (NonLabeledClosedStatement: ClosedForStatement;)");
+        }
+
+
+        // Mapping method for production 153: NonLabeledClosedStatement: ;
+        private static NonLabeledClosedStatement MapNonLabeledClosedStatement10_P153(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 0) {
+                var value = new NonLabeledClosedStatementNonLabeledClosedStatementEmpty();
+                return new NonLabeledClosedStatementNonLabeledClosedStatementEmptyVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledClosedStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 153 (NonLabeledClosedStatement: ;)");
+        }
+
+
+        // Mapping method for production 154: NonLabeledOpenStatement: OpenWithStatement;
+        private static NonLabeledOpenStatement MapNonLabeledOpenStatement0_P154(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledOpenStatementOpenWithStatement((OpenWithStatement)children[0 + 0]);
+                return new NonLabeledOpenStatementOpenWithStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledOpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 154 (NonLabeledOpenStatement: OpenWithStatement;)");
+        }
+
+
+        // Mapping method for production 155: NonLabeledOpenStatement: OpenIfStatement;
+        private static NonLabeledOpenStatement MapNonLabeledOpenStatement1_P155(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledOpenStatementOpenIfStatement((OpenIfStatement)children[0 + 0]);
+                return new NonLabeledOpenStatementOpenIfStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledOpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 155 (NonLabeledOpenStatement: OpenIfStatement;)");
+        }
+
+
+        // Mapping method for production 156: NonLabeledOpenStatement: OpenWhileStatement;
+        private static NonLabeledOpenStatement MapNonLabeledOpenStatement2_P156(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledOpenStatementOpenWhileStatement((OpenWhileStatement)children[0 + 0]);
+                return new NonLabeledOpenStatementOpenWhileStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledOpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 156 (NonLabeledOpenStatement: OpenWhileStatement;)");
+        }
+
+
+        // Mapping method for production 157: NonLabeledOpenStatement: OpenForStatement;
+        private static NonLabeledOpenStatement MapNonLabeledOpenStatement3_P157(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new NonLabeledOpenStatementOpenForStatement((OpenForStatement)children[0 + 0]);
+                return new NonLabeledOpenStatementOpenForStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is NonLabeledOpenStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 157 (NonLabeledOpenStatement: OpenForStatement;)");
+        }
+
+
+        // Mapping method for production 158: RepeatStatement: REPEAT StatementSequence UNTIL Expression;
+        private static RepeatStatement MapRepeatStatement_P158(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new RepeatStatement((REPEAT)children[0 + 0], (StatementSequence)children[0 + 1], (UNTIL)children[0 + 2], (Expression)children[0 + 3]);
+            if (children.Length == 1 && children[0] is RepeatStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 158 (RepeatStatement: REPEAT StatementSequence UNTIL Expression;)");
+        }
+
+
+        // Mapping method for production 159: OpenWhileStatement: WHILE Expression DO OpenStatement;
+        private static OpenWhileStatement MapOpenWhileStatement_P159(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new OpenWhileStatement((WHILE)children[0 + 0], (Expression)children[0 + 1], (DO)children[0 + 2], (OpenStatement)children[0 + 3]);
+            if (children.Length == 1 && children[0] is OpenWhileStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 159 (OpenWhileStatement: WHILE Expression DO OpenStatement;)");
+        }
+
+
+        // Mapping method for production 160: ClosedWhileStatement: WHILE Expression DO ClosedStatement;
+        private static ClosedWhileStatement MapClosedWhileStatement_P160(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new ClosedWhileStatement((WHILE)children[0 + 0], (Expression)children[0 + 1], (DO)children[0 + 2], (ClosedStatement)children[0 + 3]);
+            if (children.Length == 1 && children[0] is ClosedWhileStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 160 (ClosedWhileStatement: WHILE Expression DO ClosedStatement;)");
+        }
+
+
+        // Mapping method for production 161: OpenForStatement: FOR IDENTIFIER ASSIGNMENT Expression Direction FinalValue DO OpenStatement;
+        private static OpenForStatement MapOpenForStatement_P161(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 8 ) return new OpenForStatement((FOR)children[0 + 0], (IDENTIFIER)children[0 + 1], (ASSIGNMENT)children[0 + 2], (Expression)children[0 + 3], (Direction)children[0 + 4], (FinalValue)children[0 + 5], (DO)children[0 + 6], (OpenStatement)children[0 + 7]);
+            if (children.Length == 1 && children[0] is OpenForStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 161 (OpenForStatement: FOR IDENTIFIER ASSIGNMENT Expression Direction FinalValue DO OpenStatement;)");
+        }
+
+
+        // Mapping method for production 162: ClosedForStatement: FOR IDENTIFIER ASSIGNMENT Expression Direction FinalValue DO ClosedStatement;
+        private static ClosedForStatement MapClosedForStatement_P162(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 8 ) return new ClosedForStatement((FOR)children[0 + 0], (IDENTIFIER)children[0 + 1], (ASSIGNMENT)children[0 + 2], (Expression)children[0 + 3], (Direction)children[0 + 4], (FinalValue)children[0 + 5], (DO)children[0 + 6], (ClosedStatement)children[0 + 7]);
+            if (children.Length == 1 && children[0] is ClosedForStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 162 (ClosedForStatement: FOR IDENTIFIER ASSIGNMENT Expression Direction FinalValue DO ClosedStatement;)");
+        }
+
+
+        // Mapping method for production 163: OpenWithStatement: WITH RecordVariableList DO OpenStatement;
+        private static OpenWithStatement MapOpenWithStatement_P163(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new OpenWithStatement((WITH)children[0 + 0], (RecordVariableList)children[0 + 1], (DO)children[0 + 2], (OpenStatement)children[0 + 3]);
+            if (children.Length == 1 && children[0] is OpenWithStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 163 (OpenWithStatement: WITH RecordVariableList DO OpenStatement;)");
+        }
+
+
+        // Mapping method for production 164: ClosedWithStatement: WITH RecordVariableList DO ClosedStatement;
+        private static ClosedWithStatement MapClosedWithStatement_P164(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new ClosedWithStatement((WITH)children[0 + 0], (RecordVariableList)children[0 + 1], (DO)children[0 + 2], (ClosedStatement)children[0 + 3]);
+            if (children.Length == 1 && children[0] is ClosedWithStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 164 (ClosedWithStatement: WITH RecordVariableList DO ClosedStatement;)");
+        }
+
+
+        // Mapping method for production 165: OpenIfStatement: IF Expression THEN Statement;
+        private static OpenIfStatement MapOpenIfStatement0_P165(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4) {
+                var value = new OpenIfStatementIFExpressionTHENStatement((IF)children[0 + 0], (Expression)children[0 + 1], (THEN)children[0 + 2], (Statement)children[0 + 3]);
+                return new OpenIfStatementIFExpressionTHENStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OpenIfStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 165 (OpenIfStatement: IF Expression THEN Statement;)");
+        }
+
+
+        // Mapping method for production 166: OpenIfStatement: IF Expression THEN ClosedStatement ELSE OpenStatement;
+        private static OpenIfStatement MapOpenIfStatement1_P166(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 6) {
+                var value = new OpenIfStatementIFExpressionTHENClosedStatementELSEOpenStatement((IF)children[0 + 0], (Expression)children[0 + 1], (THEN)children[0 + 2], (ClosedStatement)children[0 + 3], (ELSE)children[0 + 4], (OpenStatement)children[0 + 5]);
+                return new OpenIfStatementIFExpressionTHENClosedStatementELSEOpenStatementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OpenIfStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 166 (OpenIfStatement: IF Expression THEN ClosedStatement ELSE OpenStatement;)");
+        }
+
+
+        // Mapping method for production 167: ClosedIfStatement: IF Expression THEN ClosedStatement ELSE ClosedStatement;
+        private static ClosedIfStatement MapClosedIfStatement_P167(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 6 ) return new ClosedIfStatement((IF)children[0 + 0], (Expression)children[0 + 1], (THEN)children[0 + 2], (ClosedStatement)children[0 + 3], (ELSE)children[0 + 4], (ClosedStatement)children[0 + 5]);
+            if (children.Length == 1 && children[0] is ClosedIfStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 167 (ClosedIfStatement: IF Expression THEN ClosedStatement ELSE ClosedStatement;)");
+        }
+
+
+        // Mapping method for production 168: AssignmentStatement: VariableAccess ASSIGNMENT Expression;
+        private static AssignmentStatement MapAssignmentStatement_P168(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new AssignmentStatement((VariableAccess)children[0 + 0], (ASSIGNMENT)children[0 + 1], (Expression)children[0 + 2]);
+            if (children.Length == 1 && children[0] is AssignmentStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 168 (AssignmentStatement: VariableAccess ASSIGNMENT Expression;)");
+        }
+
+
+        // Mapping method for production 169: VariableAccess: IDENTIFIER;
+        private static VariableAccess MapVariableAccess0_P169(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariableAccessIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new VariableAccessIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableAccess directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 169 (VariableAccess: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 170: VariableAccess: IndexedVariable;
+        private static VariableAccess MapVariableAccess1_P170(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariableAccessIndexedVariable((IndexedVariable)children[0 + 0]);
+                return new VariableAccessIndexedVariableVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableAccess directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 170 (VariableAccess: IndexedVariable;)");
+        }
+
+
+        // Mapping method for production 171: VariableAccess: FieldDesignator;
+        private static VariableAccess MapVariableAccess2_P171(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new VariableAccessFieldDesignator((FieldDesignator)children[0 + 0]);
+                return new VariableAccessFieldDesignatorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableAccess directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 171 (VariableAccess: FieldDesignator;)");
+        }
+
+
+        // Mapping method for production 172: VariableAccess: VariableAccess UPARROW;
+        private static VariableAccess MapVariableAccess3_P172(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new VariableAccessVariableAccessUPARROW((VariableAccess)children[0 + 0], (UPARROW)children[0 + 1]);
+                return new VariableAccessVariableAccessUPARROWVariant(value);
+            }
+            if (children.Length == 1 && children[0] is VariableAccess directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 172 (VariableAccess: VariableAccess UPARROW;)");
+        }
+
+
+        // Mapping method for production 173: IndexedVariable: VariableAccess LBRAC IndexExpressionList RBRAC;
+        private static IndexedVariable MapIndexedVariable_P173(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 4 ) return new IndexedVariable((VariableAccess)children[0 + 0], (LBRAC)children[0 + 1], (IndexExpressionList)children[0 + 2], (RBRAC)children[0 + 3]);
+            if (children.Length == 1 && children[0] is IndexedVariable directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 173 (IndexedVariable: VariableAccess LBRAC IndexExpressionList RBRAC;)");
+        }
+
+
+        // Mapping method for production 174: IndexExpressionList: IndexExpressionList COMMA IndexExpression;
+        private static IndexExpressionList MapIndexExpressionList0_P174(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new IndexExpressionListIndexExpressionListCOMMAIndexExpression((IndexExpressionList)children[0 + 0], (COMMA)children[0 + 1], (IndexExpression)children[0 + 2]);
+                return new IndexExpressionListIndexExpressionListCOMMAIndexExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IndexExpressionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 174 (IndexExpressionList: IndexExpressionList COMMA IndexExpression;)");
+        }
+
+
+        // Mapping method for production 175: IndexExpressionList: IndexExpression;
+        private static IndexExpressionList MapIndexExpressionList1_P175(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new IndexExpressionListIndexExpression((IndexExpression)children[0 + 0]);
+                return new IndexExpressionListIndexExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is IndexExpressionList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 175 (IndexExpressionList: IndexExpression;)");
+        }
+
+
+        // Mapping method for production 176: IndexExpression: Expression;
+        private static IndexExpression MapIndexExpression_P176(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new IndexExpression((Expression)children[0 + 0]);
+            if (children.Length == 1 && children[0] is IndexExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 176 (IndexExpression: Expression;)");
+        }
+
+
+        // Mapping method for production 177: FieldDesignator: VariableAccess DOT IDENTIFIER;
+        private static FieldDesignator MapFieldDesignator_P177(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new FieldDesignator((VariableAccess)children[0 + 0], (DOT)children[0 + 1], (IDENTIFIER)children[0 + 2]);
+            if (children.Length == 1 && children[0] is FieldDesignator directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 177 (FieldDesignator: VariableAccess DOT IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 178: ProcedureStatement: IDENTIFIER Params;
+        private static ProcedureStatement MapProcedureStatement0_P178(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new ProcedureStatementIDENTIFIERParams((IDENTIFIER)children[0 + 0], (Params)children[0 + 1]);
+                return new ProcedureStatementIDENTIFIERParamsVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 178 (ProcedureStatement: IDENTIFIER Params;)");
+        }
+
+
+        // Mapping method for production 179: ProcedureStatement: IDENTIFIER;
+        private static ProcedureStatement MapProcedureStatement1_P179(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ProcedureStatementIDENTIFIER((IDENTIFIER)children[0 + 0]);
+                return new ProcedureStatementIDENTIFIERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ProcedureStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 179 (ProcedureStatement: IDENTIFIER;)");
+        }
+
+
+        // Mapping method for production 180: Params: LPAREN ActualParameterList RPAREN;
+        private static Params MapParams_P180(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new Params((LPAREN)children[0 + 0], (ActualParameterList)children[0 + 1], (RPAREN)children[0 + 2]);
+            if (children.Length == 1 && children[0] is Params directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 180 (Params: LPAREN ActualParameterList RPAREN;)");
+        }
+
+
+        // Mapping method for production 181: ActualParameterList: ActualParameterList COMMA ActualParameter;
+        private static ActualParameterList MapActualParameterList0_P181(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ActualParameterListActualParameterListCOMMAActualParameter((ActualParameterList)children[0 + 0], (COMMA)children[0 + 1], (ActualParameter)children[0 + 2]);
+                return new ActualParameterListActualParameterListCOMMAActualParameterVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ActualParameterList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 181 (ActualParameterList: ActualParameterList COMMA ActualParameter;)");
+        }
+
+
+        // Mapping method for production 182: ActualParameterList: ActualParameter;
+        private static ActualParameterList MapActualParameterList1_P182(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ActualParameterListActualParameter((ActualParameter)children[0 + 0]);
+                return new ActualParameterListActualParameterVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ActualParameterList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 182 (ActualParameterList: ActualParameter;)");
+        }
+
+
+        // Mapping method for production 183: ActualParameter: Expression;
+        private static ActualParameter MapActualParameter0_P183(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ActualParameterExpression((Expression)children[0 + 0]);
+                return new ActualParameterExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ActualParameter directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 183 (ActualParameter: Expression;)");
+        }
+
+
+        // Mapping method for production 184: ActualParameter: Expression COLON Expression;
+        private static ActualParameter MapActualParameter1_P184(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ActualParameterExpressionCOLONExpression((Expression)children[0 + 0], (COLON)children[0 + 1], (Expression)children[0 + 2]);
+                return new ActualParameterExpressionCOLONExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ActualParameter directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 184 (ActualParameter: Expression COLON Expression;)");
+        }
+
+
+        // Mapping method for production 185: ActualParameter: Expression COLON Expression COLON Expression;
+        private static ActualParameter MapActualParameter2_P185(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new ActualParameterExpressionCOLONExpressionCOLONExpression((Expression)children[0 + 0], (COLON)children[0 + 1], (Expression)children[0 + 2], (COLON)children[0 + 3], (Expression)children[0 + 4]);
+                return new ActualParameterExpressionCOLONExpressionCOLONExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is ActualParameter directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 185 (ActualParameter: Expression COLON Expression COLON Expression;)");
+        }
+
+
+        // Mapping method for production 186: GotoStatement: GOTO Label;
+        private static GotoStatement MapGotoStatement_P186(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2 ) return new GotoStatement((GOTO)children[0 + 0], (Label)children[0 + 1]);
+            if (children.Length == 1 && children[0] is GotoStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 186 (GotoStatement: GOTO Label;)");
+        }
+
+
+        // Mapping method for production 187: CaseStatement: CASE Expression OF CaseListElementList END;
+        private static CaseStatement MapCaseStatement0_P187(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 5) {
+                var value = new CaseStatementCASEExpressionOFCaseListElementListEND((CASE)children[0 + 0], (Expression)children[0 + 1], (OF)children[0 + 2], (CaseListElementList)children[0 + 3], (END)children[0 + 4]);
+                return new CaseStatementCASEExpressionOFCaseListElementListENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 187 (CaseStatement: CASE Expression OF CaseListElementList END;)");
+        }
+
+
+        // Mapping method for production 188: CaseStatement: CASE Expression OF CaseListElementList SEMICOLON END;
+        private static CaseStatement MapCaseStatement1_P188(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 6) {
+                var value = new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONEND((CASE)children[0 + 0], (Expression)children[0 + 1], (OF)children[0 + 2], (CaseListElementList)children[0 + 3], (SEMICOLON)children[0 + 4], (END)children[0 + 5]);
+                return new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 188 (CaseStatement: CASE Expression OF CaseListElementList SEMICOLON END;)");
+        }
+
+
+        // Mapping method for production 189: CaseStatement: CASE Expression OF CaseListElementList SEMICOLON OtherwisePart Statement END;
+        private static CaseStatement MapCaseStatement2_P189(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 8) {
+                var value = new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementEND((CASE)children[0 + 0], (Expression)children[0 + 1], (OF)children[0 + 2], (CaseListElementList)children[0 + 3], (SEMICOLON)children[0 + 4], (OtherwisePart)children[0 + 5], (Statement)children[0 + 6], (END)children[0 + 7]);
+                return new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 189 (CaseStatement: CASE Expression OF CaseListElementList SEMICOLON OtherwisePart Statement END;)");
+        }
+
+
+        // Mapping method for production 190: CaseStatement: CASE Expression OF CaseListElementList SEMICOLON OtherwisePart Statement SEMICOLON END;
+        private static CaseStatement MapCaseStatement3_P190(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 9) {
+                var value = new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementSEMICOLONEND((CASE)children[0 + 0], (Expression)children[0 + 1], (OF)children[0 + 2], (CaseListElementList)children[0 + 3], (SEMICOLON)children[0 + 4], (OtherwisePart)children[0 + 5], (Statement)children[0 + 6], (SEMICOLON)children[0 + 7], (END)children[0 + 8]);
+                return new CaseStatementCASEExpressionOFCaseListElementListSEMICOLONOtherwisePartStatementSEMICOLONENDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseStatement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 190 (CaseStatement: CASE Expression OF CaseListElementList SEMICOLON OtherwisePart Statement SEMICOLON END;)");
+        }
+
+
+        // Mapping method for production 191: CaseListElementList: CaseListElementList SEMICOLON CaseListElement;
+        private static CaseListElementList MapCaseListElementList0_P191(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new CaseListElementListCaseListElementListSEMICOLONCaseListElement((CaseListElementList)children[0 + 0], (SEMICOLON)children[0 + 1], (CaseListElement)children[0 + 2]);
+                return new CaseListElementListCaseListElementListSEMICOLONCaseListElementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseListElementList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 191 (CaseListElementList: CaseListElementList SEMICOLON CaseListElement;)");
+        }
+
+
+        // Mapping method for production 192: CaseListElementList: CaseListElement;
+        private static CaseListElementList MapCaseListElementList1_P192(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new CaseListElementListCaseListElement((CaseListElement)children[0 + 0]);
+                return new CaseListElementListCaseListElementVariant(value);
+            }
+            if (children.Length == 1 && children[0] is CaseListElementList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 192 (CaseListElementList: CaseListElement;)");
+        }
+
+
+        // Mapping method for production 193: CaseListElement: CaseConstantList COLON Statement;
+        private static CaseListElement MapCaseListElement_P193(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3 ) return new CaseListElement((CaseConstantList)children[0 + 0], (COLON)children[0 + 1], (Statement)children[0 + 2]);
+            if (children.Length == 1 && children[0] is CaseListElement directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 193 (CaseListElement: CaseConstantList COLON Statement;)");
+        }
+
+
+        // Mapping method for production 194: OtherwisePart: OTHERWISE;
+        private static OtherwisePart MapOtherwisePart0_P194(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new OtherwisePartOTHERWISE((OTHERWISE)children[0 + 0]);
+                return new OtherwisePartOTHERWISEVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OtherwisePart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 194 (OtherwisePart: OTHERWISE;)");
+        }
+
+
+        // Mapping method for production 195: OtherwisePart: OTHERWISE COLON;
+        private static OtherwisePart MapOtherwisePart1_P195(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new OtherwisePartOTHERWISECOLON((OTHERWISE)children[0 + 0], (COLON)children[0 + 1]);
+                return new OtherwisePartOTHERWISECOLONVariant(value);
+            }
+            if (children.Length == 1 && children[0] is OtherwisePart directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 195 (OtherwisePart: OTHERWISE COLON;)");
+        }
+
+
+        // Mapping method for production 196: Direction: TO;
+        private static Direction MapDirection0_P196(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new DirectionTO((TO)children[0 + 0]);
+                return new DirectionTOVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Direction directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 196 (Direction: TO;)");
+        }
+
+
+        // Mapping method for production 197: Direction: DOWNTO;
+        private static Direction MapDirection1_P197(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new DirectionDOWNTO((DOWNTO)children[0 + 0]);
+                return new DirectionDOWNTOVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Direction directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 197 (Direction: DOWNTO;)");
+        }
+
+
+        // Mapping method for production 198: FinalValue: Expression;
+        private static FinalValue MapFinalValue_P198(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FinalValue((Expression)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FinalValue directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 198 (FinalValue: Expression;)");
+        }
+
+
+        // Mapping method for production 199: RecordVariableList: RecordVariableList COMMA VariableAccess;
+        private static RecordVariableList MapRecordVariableList0_P199(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new RecordVariableListRecordVariableListCOMMAVariableAccess((RecordVariableList)children[0 + 0], (COMMA)children[0 + 1], (VariableAccess)children[0 + 2]);
+                return new RecordVariableListRecordVariableListCOMMAVariableAccessVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordVariableList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 199 (RecordVariableList: RecordVariableList COMMA VariableAccess;)");
+        }
+
+
+        // Mapping method for production 200: RecordVariableList: VariableAccess;
+        private static RecordVariableList MapRecordVariableList1_P200(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RecordVariableListVariableAccess((VariableAccess)children[0 + 0]);
+                return new RecordVariableListVariableAccessVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RecordVariableList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 200 (RecordVariableList: VariableAccess;)");
+        }
+
+
+        // Mapping method for production 201: Expression: SimpleExpression;
+        private static Expression MapExpression0_P201(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ExpressionSimpleExpression((SimpleExpression)children[0 + 0]);
+                return new ExpressionSimpleExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Expression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 201 (Expression: SimpleExpression;)");
+        }
+
+
+        // Mapping method for production 202: Expression: SimpleExpression RelOp SimpleExpression;
+        private static Expression MapExpression1_P202(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ExpressionSimpleExpressionRelOpSimpleExpression((SimpleExpression)children[0 + 0], (RelOp)children[0 + 1], (SimpleExpression)children[0 + 2]);
+                return new ExpressionSimpleExpressionRelOpSimpleExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Expression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 202 (Expression: SimpleExpression RelOp SimpleExpression;)");
+        }
+
+
+        // Mapping method for production 203: SimpleExpression: Term;
+        private static SimpleExpression MapSimpleExpression0_P203(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new SimpleExpressionTerm((Term)children[0 + 0]);
+                return new SimpleExpressionTermVariant(value);
+            }
+            if (children.Length == 1 && children[0] is SimpleExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 203 (SimpleExpression: Term;)");
+        }
+
+
+        // Mapping method for production 204: SimpleExpression: SimpleExpression AddOp Term;
+        private static SimpleExpression MapSimpleExpression1_P204(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new SimpleExpressionSimpleExpressionAddOpTerm((SimpleExpression)children[0 + 0], (AddOp)children[0 + 1], (Term)children[0 + 2]);
+                return new SimpleExpressionSimpleExpressionAddOpTermVariant(value);
+            }
+            if (children.Length == 1 && children[0] is SimpleExpression directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 204 (SimpleExpression: SimpleExpression AddOp Term;)");
+        }
+
+
+        // Mapping method for production 205: Term: Factor;
+        private static Term MapTerm0_P205(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new TermFactor((Factor)children[0 + 0]);
+                return new TermFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Term directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 205 (Term: Factor;)");
+        }
+
+
+        // Mapping method for production 206: Term: Term MulOp Factor;
+        private static Term MapTerm1_P206(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new TermTermMulOpFactor((Term)children[0 + 0], (MulOp)children[0 + 1], (Factor)children[0 + 2]);
+                return new TermTermMulOpFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Term directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 206 (Term: Term MulOp Factor;)");
+        }
+
+
+        // Mapping method for production 207: Factor: Sign Factor;
+        private static Factor MapFactor0_P207(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new FactorSignFactor((Sign)children[0 + 0], (Factor)children[0 + 1]);
+                return new FactorSignFactorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Factor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 207 (Factor: Sign Factor;)");
+        }
+
+
+        // Mapping method for production 208: Factor: Exponentiation;
+        private static Factor MapFactor1_P208(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new FactorExponentiation((Exponentiation)children[0 + 0]);
+                return new FactorExponentiationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Factor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 208 (Factor: Exponentiation;)");
+        }
+
+
+        // Mapping method for production 209: Exponentiation: Primary;
+        private static Exponentiation MapExponentiation0_P209(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new ExponentiationPrimary((Primary)children[0 + 0]);
+                return new ExponentiationPrimaryVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Exponentiation directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 209 (Exponentiation: Primary;)");
+        }
+
+
+        // Mapping method for production 210: Exponentiation: Primary STARSTAR Exponentiation;
+        private static Exponentiation MapExponentiation1_P210(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new ExponentiationPrimarySTARSTARExponentiation((Primary)children[0 + 0], (STARSTAR)children[0 + 1], (Exponentiation)children[0 + 2]);
+                return new ExponentiationPrimarySTARSTARExponentiationVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Exponentiation directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 210 (Exponentiation: Primary STARSTAR Exponentiation;)");
+        }
+
+
+        // Mapping method for production 211: Primary: VariableAccess;
+        private static Primary MapPrimary0_P211(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new PrimaryVariableAccess((VariableAccess)children[0 + 0]);
+                return new PrimaryVariableAccessVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 211 (Primary: VariableAccess;)");
+        }
+
+
+        // Mapping method for production 212: Primary: UnsignedConstant;
+        private static Primary MapPrimary1_P212(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new PrimaryUnsignedConstant((UnsignedConstant)children[0 + 0]);
+                return new PrimaryUnsignedConstantVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 212 (Primary: UnsignedConstant;)");
+        }
+
+
+        // Mapping method for production 213: Primary: FunctionDesignator;
+        private static Primary MapPrimary2_P213(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new PrimaryFunctionDesignator((FunctionDesignator)children[0 + 0]);
+                return new PrimaryFunctionDesignatorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 213 (Primary: FunctionDesignator;)");
+        }
+
+
+        // Mapping method for production 214: Primary: SetConstructor;
+        private static Primary MapPrimary3_P214(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new PrimarySetConstructor((SetConstructor)children[0 + 0]);
+                return new PrimarySetConstructorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 214 (Primary: SetConstructor;)");
+        }
+
+
+        // Mapping method for production 215: Primary: LPAREN Expression RPAREN;
+        private static Primary MapPrimary4_P215(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new PrimaryLPARENExpressionRPAREN((LPAREN)children[0 + 0], (Expression)children[0 + 1], (RPAREN)children[0 + 2]);
+                return new PrimaryLPARENExpressionRPARENVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 215 (Primary: LPAREN Expression RPAREN;)");
+        }
+
+
+        // Mapping method for production 216: Primary: NOT Primary;
+        private static Primary MapPrimary5_P216(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new PrimaryNOTPrimary((NOT)children[0 + 0], (Primary)children[0 + 1]);
+                return new PrimaryNOTPrimaryVariant(value);
+            }
+            if (children.Length == 1 && children[0] is Primary directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 216 (Primary: NOT Primary;)");
+        }
+
+
+        // Mapping method for production 217: UnsignedConstant: UnsignedNumber;
+        private static UnsignedConstant MapUnsignedConstant0_P217(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new UnsignedConstantUnsignedNumber((UnsignedNumber)children[0 + 0]);
+                return new UnsignedConstantUnsignedNumberVariant(value);
+            }
+            if (children.Length == 1 && children[0] is UnsignedConstant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 217 (UnsignedConstant: UnsignedNumber;)");
+        }
+
+
+        // Mapping method for production 218: UnsignedConstant: CHARACTER_STRING;
+        private static UnsignedConstant MapUnsignedConstant1_P218(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new UnsignedConstantCHARACTERSTRING((CHARACTERSTRING)children[0 + 0]);
+                return new UnsignedConstantCHARACTERSTRINGVariant(value);
+            }
+            if (children.Length == 1 && children[0] is UnsignedConstant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 218 (UnsignedConstant: CHARACTER_STRING;)");
+        }
+
+
+        // Mapping method for production 219: UnsignedConstant: NIL;
+        private static UnsignedConstant MapUnsignedConstant2_P219(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new UnsignedConstantNIL((NIL)children[0 + 0]);
+                return new UnsignedConstantNILVariant(value);
+            }
+            if (children.Length == 1 && children[0] is UnsignedConstant directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 219 (UnsignedConstant: NIL;)");
+        }
+
+
+        // Mapping method for production 220: UnsignedNumber: DIGSEQ;
+        private static UnsignedNumber MapUnsignedNumber0_P220(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new UnsignedNumberDIGSEQ((DIGSEQ)children[0 + 0]);
+                return new UnsignedNumberDIGSEQVariant(value);
+            }
+            if (children.Length == 1 && children[0] is UnsignedNumber directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 220 (UnsignedNumber: DIGSEQ;)");
+        }
+
+
+        // Mapping method for production 221: UnsignedNumber: REALNUMBER;
+        private static UnsignedNumber MapUnsignedNumber1_P221(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new UnsignedNumberREALNUMBER((REALNUMBER)children[0 + 0]);
+                return new UnsignedNumberREALNUMBERVariant(value);
+            }
+            if (children.Length == 1 && children[0] is UnsignedNumber directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 221 (UnsignedNumber: REALNUMBER;)");
+        }
+
+
+        // Mapping method for production 222: FunctionDesignator: IDENTIFIER Params;
+        private static FunctionDesignator MapFunctionDesignator_P222(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2 ) return new FunctionDesignator((IDENTIFIER)children[0 + 0], (Params)children[0 + 1]);
+            if (children.Length == 1 && children[0] is FunctionDesignator directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 222 (FunctionDesignator: IDENTIFIER Params;)");
+        }
+
+
+        // Mapping method for production 223: SetConstructor: LBRAC MemberDesignatorList RBRAC;
+        private static SetConstructor MapSetConstructor0_P223(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new SetConstructorLBRACMemberDesignatorListRBRAC((LBRAC)children[0 + 0], (MemberDesignatorList)children[0 + 1], (RBRAC)children[0 + 2]);
+                return new SetConstructorLBRACMemberDesignatorListRBRACVariant(value);
+            }
+            if (children.Length == 1 && children[0] is SetConstructor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 223 (SetConstructor: LBRAC MemberDesignatorList RBRAC;)");
+        }
+
+
+        // Mapping method for production 224: SetConstructor: LBRAC RBRAC;
+        private static SetConstructor MapSetConstructor1_P224(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 2) {
+                var value = new SetConstructorLBRACRBRAC((LBRAC)children[0 + 0], (RBRAC)children[0 + 1]);
+                return new SetConstructorLBRACRBRACVariant(value);
+            }
+            if (children.Length == 1 && children[0] is SetConstructor directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 224 (SetConstructor: LBRAC RBRAC;)");
+        }
+
+
+        // Mapping method for production 225: MemberDesignatorList: MemberDesignatorList COMMA MemberDesignator;
+        private static MemberDesignatorList MapMemberDesignatorList0_P225(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new MemberDesignatorListMemberDesignatorListCOMMAMemberDesignator((MemberDesignatorList)children[0 + 0], (COMMA)children[0 + 1], (MemberDesignator)children[0 + 2]);
+                return new MemberDesignatorListMemberDesignatorListCOMMAMemberDesignatorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MemberDesignatorList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 225 (MemberDesignatorList: MemberDesignatorList COMMA MemberDesignator;)");
+        }
+
+
+        // Mapping method for production 226: MemberDesignatorList: MemberDesignator;
+        private static MemberDesignatorList MapMemberDesignatorList1_P226(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MemberDesignatorListMemberDesignator((MemberDesignator)children[0 + 0]);
+                return new MemberDesignatorListMemberDesignatorVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MemberDesignatorList directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 226 (MemberDesignatorList: MemberDesignator;)");
+        }
+
+
+        // Mapping method for production 227: MemberDesignator: MemberDesignator DOTDOT Expression;
+        private static MemberDesignator MapMemberDesignator0_P227(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 3) {
+                var value = new MemberDesignatorMemberDesignatorDOTDOTExpression((MemberDesignator)children[0 + 0], (DOTDOT)children[0 + 1], (Expression)children[0 + 2]);
+                return new MemberDesignatorMemberDesignatorDOTDOTExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MemberDesignator directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 227 (MemberDesignator: MemberDesignator DOTDOT Expression;)");
+        }
+
+
+        // Mapping method for production 228: MemberDesignator: Expression;
+        private static MemberDesignator MapMemberDesignator1_P228(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MemberDesignatorExpression((Expression)children[0 + 0]);
+                return new MemberDesignatorExpressionVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MemberDesignator directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 228 (MemberDesignator: Expression;)");
+        }
+
+
+        // Mapping method for production 229: AddOp: PLUS;
+        private static AddOp MapAddOp0_P229(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new AddOpPLUS((PLUS)children[0 + 0]);
+                return new AddOpPLUSVariant(value);
+            }
+            if (children.Length == 1 && children[0] is AddOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 229 (AddOp: PLUS;)");
+        }
+
+
+        // Mapping method for production 230: AddOp: MINUS;
+        private static AddOp MapAddOp1_P230(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new AddOpMINUS((MINUS)children[0 + 0]);
+                return new AddOpMINUSVariant(value);
+            }
+            if (children.Length == 1 && children[0] is AddOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 230 (AddOp: MINUS;)");
+        }
+
+
+        // Mapping method for production 231: AddOp: OR;
+        private static AddOp MapAddOp2_P231(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new AddOpOR((OR)children[0 + 0]);
+                return new AddOpORVariant(value);
+            }
+            if (children.Length == 1 && children[0] is AddOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 231 (AddOp: OR;)");
+        }
+
+
+        // Mapping method for production 232: MulOp: STAR;
+        private static MulOp MapMulOp0_P232(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MulOpSTAR((STAR)children[0 + 0]);
+                return new MulOpSTARVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MulOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 232 (MulOp: STAR;)");
+        }
+
+
+        // Mapping method for production 233: MulOp: SLASH;
+        private static MulOp MapMulOp1_P233(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MulOpSLASH((SLASH)children[0 + 0]);
+                return new MulOpSLASHVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MulOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 233 (MulOp: SLASH;)");
+        }
+
+
+        // Mapping method for production 234: MulOp: DIV;
+        private static MulOp MapMulOp2_P234(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MulOpDIV((DIV)children[0 + 0]);
+                return new MulOpDIVVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MulOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 234 (MulOp: DIV;)");
+        }
+
+
+        // Mapping method for production 235: MulOp: MOD;
+        private static MulOp MapMulOp3_P235(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MulOpMOD((MOD)children[0 + 0]);
+                return new MulOpMODVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MulOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 235 (MulOp: MOD;)");
+        }
+
+
+        // Mapping method for production 236: MulOp: AND;
+        private static MulOp MapMulOp4_P236(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new MulOpAND((AND)children[0 + 0]);
+                return new MulOpANDVariant(value);
+            }
+            if (children.Length == 1 && children[0] is MulOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 236 (MulOp: AND;)");
+        }
+
+
+        // Mapping method for production 237: RelOp: EQUAL;
+        private static RelOp MapRelOp0_P237(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpEQUAL((EQUAL)children[0 + 0]);
+                return new RelOpEQUALVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 237 (RelOp: EQUAL;)");
+        }
+
+
+        // Mapping method for production 238: RelOp: NOTEQUAL;
+        private static RelOp MapRelOp1_P238(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpNOTEQUAL((NOTEQUAL)children[0 + 0]);
+                return new RelOpNOTEQUALVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 238 (RelOp: NOTEQUAL;)");
+        }
+
+
+        // Mapping method for production 239: RelOp: LT;
+        private static RelOp MapRelOp2_P239(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpLT((LT)children[0 + 0]);
+                return new RelOpLTVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 239 (RelOp: LT;)");
+        }
+
+
+        // Mapping method for production 240: RelOp: GT;
+        private static RelOp MapRelOp3_P240(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpGT((GT)children[0 + 0]);
+                return new RelOpGTVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 240 (RelOp: GT;)");
+        }
+
+
+        // Mapping method for production 241: RelOp: LE;
+        private static RelOp MapRelOp4_P241(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpLE((LE)children[0 + 0]);
+                return new RelOpLEVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 241 (RelOp: LE;)");
+        }
+
+
+        // Mapping method for production 242: RelOp: GE;
+        private static RelOp MapRelOp5_P242(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpGE((GE)children[0 + 0]);
+                return new RelOpGEVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 242 (RelOp: GE;)");
+        }
+
+
+        // Mapping method for production 243: RelOp: IN;
+        private static RelOp MapRelOp6_P243(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1) {
+                var value = new RelOpIN((IN)children[0 + 0]);
+                return new RelOpINVariant(value);
+            }
+            if (children.Length == 1 && children[0] is RelOp directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 243 (RelOp: IN;)");
+        }
+
+
+        // Mapping method for production 244: AND: /(?i)AND(?-i)/;
+        private static AND MapAND_P244(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new AND((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is AND directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 244 (AND: /(?i)AND(?-i)/;)");
+        }
+
+
+        // Mapping method for production 245: ARRAY: /(?i)ARRAY(?-i)/;
+        private static ARRAY MapARRAY_P245(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ARRAY((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ARRAY directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 245 (ARRAY: /(?i)ARRAY(?-i)/;)");
+        }
+
+
+        // Mapping method for production 246: PBEGIN: /(?i)BEGIN(?-i)/;
+        private static PBEGIN MapPBEGIN_P246(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PBEGIN((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PBEGIN directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 246 (PBEGIN: /(?i)BEGIN(?-i)/;)");
+        }
+
+
+        // Mapping method for production 247: CASE: /(?i)CASE(?-i)/;
+        private static CASE MapCASE_P247(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new CASE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is CASE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 247 (CASE: /(?i)CASE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 248: CONST: /(?i)CONST(?-i)/;
+        private static CONST MapCONST_P248(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new CONST((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is CONST directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 248 (CONST: /(?i)CONST(?-i)/;)");
+        }
+
+
+        // Mapping method for production 249: DIV: /(?i)DIV(?-i)/;
+        private static DIV MapDIV_P249(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DIV((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DIV directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 249 (DIV: /(?i)DIV(?-i)/;)");
+        }
+
+
+        // Mapping method for production 250: DO: /(?i)DO(?-i)/;
+        private static DO MapDO_P250(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DO((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DO directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 250 (DO: /(?i)DO(?-i)/;)");
+        }
+
+
+        // Mapping method for production 251: DOWNTO: /(?i)DOWNTO(?-i)/;
+        private static DOWNTO MapDOWNTO_P251(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DOWNTO((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DOWNTO directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 251 (DOWNTO: /(?i)DOWNTO(?-i)/;)");
+        }
+
+
+        // Mapping method for production 252: ELSE: /(?i)ELSE(?-i)/;
+        private static ELSE MapELSE_P252(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ELSE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ELSE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 252 (ELSE: /(?i)ELSE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 253: END: /(?i)END(?-i)/;
+        private static END MapEND_P253(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new END((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is END directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 253 (END: /(?i)END(?-i)/;)");
+        }
+
+
+        // Mapping method for production 254: EXTERNAL: /(?i)EXTERN(AL)?(?-i)/;
+        private static EXTERNAL MapEXTERNAL_P254(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new EXTERNAL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is EXTERNAL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 254 (EXTERNAL: /(?i)EXTERN(AL)?(?-i)/;)");
+        }
+
+
+        // Mapping method for production 255: PFILE: /(?i)FILE(?-i)/;
+        private static PFILE MapPFILE_P255(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PFILE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PFILE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 255 (PFILE: /(?i)FILE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 256: FOR: /(?i)FOR(?-i)/;
+        private static FOR MapFOR_P256(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FOR((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FOR directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 256 (FOR: /(?i)FOR(?-i)/;)");
+        }
+
+
+        // Mapping method for production 257: FORWARD: /(?i)FORWARD(?-i)/;
+        private static FORWARD MapFORWARD_P257(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FORWARD((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FORWARD directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 257 (FORWARD: /(?i)FORWARD(?-i)/;)");
+        }
+
+
+        // Mapping method for production 258: FUNCTION: /(?i)FUNCTION(?-i)/;
+        private static FUNCTION MapFUNCTION_P258(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new FUNCTION((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is FUNCTION directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 258 (FUNCTION: /(?i)FUNCTION(?-i)/;)");
+        }
+
+
+        // Mapping method for production 259: GOTO: /(?i)GOTO(?-i)/;
+        private static GOTO MapGOTO_P259(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new GOTO((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is GOTO directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 259 (GOTO: /(?i)GOTO(?-i)/;)");
+        }
+
+
+        // Mapping method for production 260: IF: /(?i)IF(?-i)/;
+        private static IF MapIF_P260(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new IF((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is IF directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 260 (IF: /(?i)IF(?-i)/;)");
+        }
+
+
+        // Mapping method for production 261: IN: /(?i)IN(?-i)/;
+        private static IN MapIN_P261(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new IN((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is IN directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 261 (IN: /(?i)IN(?-i)/;)");
+        }
+
+
+        // Mapping method for production 262: LABEL: /(?i)LABEL(?-i)/;
+        private static LABEL MapLABEL_P262(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new LABEL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is LABEL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 262 (LABEL: /(?i)LABEL(?-i)/;)");
+        }
+
+
+        // Mapping method for production 263: MOD: /(?i)MOD(?-i)/;
+        private static MOD MapMOD_P263(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new MOD((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is MOD directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 263 (MOD: /(?i)MOD(?-i)/;)");
+        }
+
+
+        // Mapping method for production 264: NIL: /(?i)NIL(?-i)/;
+        private static NIL MapNIL_P264(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new NIL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is NIL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 264 (NIL: /(?i)NIL(?-i)/;)");
+        }
+
+
+        // Mapping method for production 265: NOT: /(?i)NOT(?-i)/;
+        private static NOT MapNOT_P265(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new NOT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is NOT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 265 (NOT: /(?i)NOT(?-i)/;)");
+        }
+
+
+        // Mapping method for production 266: OF: /(?i)OF(?-i)/;
+        private static OF MapOF_P266(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new OF((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is OF directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 266 (OF: /(?i)OF(?-i)/;)");
+        }
+
+
+        // Mapping method for production 267: OR: /(?i)OR(?-i)/;
+        private static OR MapOR_P267(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new OR((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is OR directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 267 (OR: /(?i)OR(?-i)/;)");
+        }
+
+
+        // Mapping method for production 268: OTHERWISE: /(?i)OTHERWISE(?-i)/;
+        private static OTHERWISE MapOTHERWISE_P268(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new OTHERWISE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is OTHERWISE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 268 (OTHERWISE: /(?i)OTHERWISE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 269: PACKED: /(?i)PACKED(?-i)/;
+        private static PACKED MapPACKED_P269(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PACKED((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PACKED directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 269 (PACKED: /(?i)PACKED(?-i)/;)");
+        }
+
+
+        // Mapping method for production 270: PROCEDURE: /(?i)PROCEDURE(?-i)/;
+        private static PROCEDURE MapPROCEDURE_P270(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PROCEDURE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PROCEDURE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 270 (PROCEDURE: /(?i)PROCEDURE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 271: PROGRAM: /(?i)PROGRAM(?-i)/;
+        private static PROGRAM MapPROGRAM_P271(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PROGRAM((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PROGRAM directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 271 (PROGRAM: /(?i)PROGRAM(?-i)/;)");
+        }
+
+
+        // Mapping method for production 272: RECORD: /(?i)RECORD(?-i)/;
+        private static RECORD MapRECORD_P272(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new RECORD((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is RECORD directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 272 (RECORD: /(?i)RECORD(?-i)/;)");
+        }
+
+
+        // Mapping method for production 273: REPEAT: /(?i)REPEAT(?-i)/;
+        private static REPEAT MapREPEAT_P273(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new REPEAT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is REPEAT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 273 (REPEAT: /(?i)REPEAT(?-i)/;)");
+        }
+
+
+        // Mapping method for production 274: SET: /(?i)SET(?-i)/;
+        private static SET MapSET_P274(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new SET((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is SET directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 274 (SET: /(?i)SET(?-i)/;)");
+        }
+
+
+        // Mapping method for production 275: THEN: /(?i)THEN(?-i)/;
+        private static THEN MapTHEN_P275(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new THEN((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is THEN directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 275 (THEN: /(?i)THEN(?-i)/;)");
+        }
+
+
+        // Mapping method for production 276: TO: /(?i)TO(?-i)/;
+        private static TO MapTO_P276(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new TO((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is TO directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 276 (TO: /(?i)TO(?-i)/;)");
+        }
+
+
+        // Mapping method for production 277: TYPE: /(?i)TYPE(?-i)/;
+        private static TYPE MapTYPE_P277(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new TYPE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is TYPE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 277 (TYPE: /(?i)TYPE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 278: UNTIL: /(?i)UNTIL(?-i)/;
+        private static UNTIL MapUNTIL_P278(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new UNTIL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is UNTIL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 278 (UNTIL: /(?i)UNTIL(?-i)/;)");
+        }
+
+
+        // Mapping method for production 279: VAR: /(?i)VAR(?-i)/;
+        private static VAR MapVAR_P279(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new VAR((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is VAR directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 279 (VAR: /(?i)VAR(?-i)/;)");
+        }
+
+
+        // Mapping method for production 280: WHILE: /(?i)WHILE(?-i)/;
+        private static WHILE MapWHILE_P280(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new WHILE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is WHILE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 280 (WHILE: /(?i)WHILE(?-i)/;)");
+        }
+
+
+        // Mapping method for production 281: WITH: /(?i)WITH(?-i)/;
+        private static WITH MapWITH_P281(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new WITH((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is WITH directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 281 (WITH: /(?i)WITH(?-i)/;)");
+        }
+
+
+        // Mapping method for production 282: IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/;
+        private static IDENTIFIER MapIDENTIFIER_P282(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new IDENTIFIER((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is IDENTIFIER directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 282 (IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/;)");
+        }
+
+
+        // Mapping method for production 283: ASSIGNMENT: ':=';
+        private static ASSIGNMENT MapASSIGNMENT_P283(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new ASSIGNMENT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is ASSIGNMENT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 283 (ASSIGNMENT: ':=';)");
+        }
+
+
+        // Mapping method for production 284: COLON: ':';
+        private static COLON MapCOLON_P284(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new COLON((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is COLON directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 284 (COLON: ':';)");
+        }
+
+
+        // Mapping method for production 285: COMMA: ',';
+        private static COMMA MapCOMMA_P285(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new COMMA((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is COMMA directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 285 (COMMA: ',';)");
+        }
+
+
+        // Mapping method for production 286: DOTDOT: '..';
+        private static DOTDOT MapDOTDOT_P286(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DOTDOT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DOTDOT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 286 (DOTDOT: '..';)");
+        }
+
+
+        // Mapping method for production 287: DOT: '.';
+        private static DOT MapDOT_P287(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DOT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DOT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 287 (DOT: '.';)");
+        }
+
+
+        // Mapping method for production 288: EQUAL: '=';
+        private static EQUAL MapEQUAL_P288(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new EQUAL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is EQUAL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 288 (EQUAL: '=';)");
+        }
+
+
+        // Mapping method for production 289: LPAREN: '(';
+        private static LPAREN MapLPAREN_P289(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new LPAREN((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is LPAREN directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 289 (LPAREN: '(';)");
+        }
+
+
+        // Mapping method for production 290: RPAREN: ')';
+        private static RPAREN MapRPAREN_P290(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new RPAREN((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is RPAREN directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 290 (RPAREN: ')';)");
+        }
+
+
+        // Mapping method for production 291: LBRAC: '[';
+        private static LBRAC MapLBRAC_P291(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new LBRAC((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is LBRAC directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 291 (LBRAC: '[';)");
+        }
+
+
+        // Mapping method for production 292: RBRAC: ']';
+        private static RBRAC MapRBRAC_P292(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new RBRAC((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is RBRAC directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 292 (RBRAC: ']';)");
+        }
+
+
+        // Mapping method for production 293: PLUS: '+';
+        private static PLUS MapPLUS_P293(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new PLUS((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is PLUS directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 293 (PLUS: '+';)");
+        }
+
+
+        // Mapping method for production 294: MINUS: '-';
+        private static MINUS MapMINUS_P294(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new MINUS((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is MINUS directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 294 (MINUS: '-';)");
+        }
+
+
+        // Mapping method for production 295: SLASH: '/';
+        private static SLASH MapSLASH_P295(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new SLASH((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is SLASH directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 295 (SLASH: '/';)");
+        }
+
+
+        // Mapping method for production 296: STARSTAR: '**';
+        private static STARSTAR MapSTARSTAR_P296(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new STARSTAR((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is STARSTAR directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 296 (STARSTAR: '**';)");
+        }
+
+
+        // Mapping method for production 297: STAR: '*';
+        private static STAR MapSTAR_P297(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new STAR((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is STAR directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 297 (STAR: '*';)");
+        }
+
+
+        // Mapping method for production 298: NOTEQUAL: '<>';
+        private static NOTEQUAL MapNOTEQUAL_P298(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new NOTEQUAL((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is NOTEQUAL directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 298 (NOTEQUAL: '<>';)");
+        }
+
+
+        // Mapping method for production 299: LE: '<=';
+        private static LE MapLE_P299(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new LE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is LE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 299 (LE: '<=';)");
+        }
+
+
+        // Mapping method for production 300: LT: '<';
+        private static LT MapLT_P300(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new LT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is LT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 300 (LT: '<';)");
+        }
+
+
+        // Mapping method for production 301: GE: '>=';
+        private static GE MapGE_P301(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new GE((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is GE directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 301 (GE: '>=';)");
+        }
+
+
+        // Mapping method for production 302: GT: '>';
+        private static GT MapGT_P302(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new GT((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is GT directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 302 (GT: '>';)");
+        }
+
+
+        // Mapping method for production 303: SEMICOLON: ';';
+        private static SEMICOLON MapSEMICOLON_P303(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new SEMICOLON((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is SEMICOLON directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 303 (SEMICOLON: ';';)");
+        }
+
+
+        // Mapping method for production 304: UPARROW: '^';
+        private static UPARROW MapUPARROW_P304(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new UPARROW((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is UPARROW directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 304 (UPARROW: '^';)");
+        }
+
+
+        // Mapping method for production 305: REALNUMBER: /[0-9]+\.[0-9]+/;
+        private static REALNUMBER MapREALNUMBER_P305(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new REALNUMBER((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is REALNUMBER directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 305 (REALNUMBER: /[0-9]+\\.[0-9]+/;)");
+        }
+
+
+        // Mapping method for production 306: DIGSEQ: /[0-9]+/;
+        private static DIGSEQ MapDIGSEQ_P306(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new DIGSEQ((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is DIGSEQ directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 306 (DIGSEQ: /[0-9]+/;)");
+        }
+
+
+        // Mapping method for production 307: CHARACTER_STRING: /'([^']|'')*'/;
+        private static CHARACTERSTRING MapCHARACTERSTRING_P307(object[] children) {
+            if (children == null) throw new ArgumentNullException(nameof(children));
+            if (children.Length == 1 ) return new CHARACTERSTRING((Token)children[0 + 0]);
+            if (children.Length == 1 && children[0] is CHARACTERSTRING directValue) return directValue;
+            throw new InvalidOperationException("Unsupported C# mapping for production 307 (CHARACTER_STRING: /'([^']|'')*'/;)");
         }
 
     }

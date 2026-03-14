@@ -4,7 +4,7 @@ using PascalCs;
 
 namespace PascalCs
 {
-    class Program
+    class PascalCsApp
     {
         // Parses a file provided on the command line and prints the semantic result.
         static void Main(string[] args)
