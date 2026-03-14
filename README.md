@@ -1,6 +1,7 @@
 # PascalCs
 
 A small C# command-line Pascal parser based on a parol grammar. The parser works as acceptor only.
+It demonstrates the LALR(1) parser generation with parol.
 
 ## What it does
 
