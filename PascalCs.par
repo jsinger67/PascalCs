@@ -1,0 +1,594 @@
+%start PascalCs
+%title "ISO Pascal LL(k) grammar"
+%comment "Readable EBNF-style ISO 7185 grammar in parol format"
+%block_comment "\(\*" "\*\)"
+%block_comment "\{" "\}"
+
+%%
+
+PascalCs
+	: Program
+	| Module
+	;
+
+Program
+	: ProgramHeading SEMICOLON Block DOT
+	;
+
+ProgramHeading
+	: PROGRAM IDENTIFIER [ LPAREN IdentifierList RPAREN ]
+	;
+
+Module
+	: ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart
+	;
+
+Block
+	: LabelDeclarationPart ConstantDefinitionPart TypeDefinitionPart VariableDeclarationPart ProcedureAndFunctionDeclarationPart StatementPart
+	;
+
+LabelDeclarationPart
+	: [ LABEL LabelList SEMICOLON ]
+	;
+
+LabelList
+	: Label { COMMA Label }
+	;
+
+Label
+	: DIGSEQ
+	;
+
+ConstantDefinitionPart
+	: [ CONST ConstantList ]
+	;
+
+ConstantList
+	: ConstantDefinition { ConstantDefinition }
+	;
+
+ConstantDefinition
+	: IDENTIFIER EQUAL CExpression SEMICOLON
+	;
+
+CExpression
+	: CSimpleExpression [ RelOp CSimpleExpression ]
+	;
+
+CSimpleExpression
+	: CTerm { AddOp CTerm }
+	;
+
+CTerm
+	: CFactor { MulOp CFactor }
+	;
+
+CFactor
+	: [ Sign ] CExponentiation
+	;
+
+CExponentiation
+	: CPrimary [ STARSTAR CExponentiation ]
+	;
+
+CPrimary
+	: IDENTIFIER
+	| LPAREN CExpression RPAREN
+	| UnsignedConstant
+	| NOT CPrimary
+	;
+
+Constant
+	: NonString
+	| Sign NonString
+	| CHARACTER_STRING
+	;
+
+Sign
+	: PLUS
+	| MINUS
+	;
+
+NonString
+	: DIGSEQ
+	| IDENTIFIER
+	| REALNUMBER
+	;
+
+TypeDefinitionPart
+	: [ TYPE TypeDefinitionList ]
+	;
+
+TypeDefinitionList
+	: TypeDefinition { TypeDefinition }
+	;
+
+TypeDefinition
+	: IDENTIFIER EQUAL TypeDenoter SEMICOLON
+	;
+
+TypeDenoter
+	: IDENTIFIER
+	| NewType
+	;
+
+NewType
+	: NewOrdinalType
+	| NewStructuredType
+	| NewPointerType
+	;
+
+NewOrdinalType
+	: EnumeratedType
+	| SubrangeType
+	;
+
+EnumeratedType
+	: LPAREN IdentifierList RPAREN
+	;
+
+SubrangeType
+	: Constant DOTDOT Constant
+	;
+
+NewStructuredType
+	: [ PACKED ] StructuredType
+	;
+
+StructuredType
+	: ArrayType
+	| RecordType
+	| SetType
+	| FileType
+	;
+
+ArrayType
+	: ARRAY LBRAC IndexList RBRAC OF ComponentType
+	;
+
+IndexList
+	: IndexType { COMMA IndexType }
+	;
+
+IndexType
+	: OrdinalType
+	;
+
+OrdinalType
+	: NewOrdinalType
+	| IDENTIFIER
+	;
+
+ComponentType
+	: TypeDenoter
+	;
+
+RecordType
+	: RECORD [ RecordSectionList [ SEMICOLON VariantPart ] | VariantPart ] END
+	;
+
+RecordSectionList
+	: RecordSection { SEMICOLON RecordSection }
+	;
+
+RecordSection
+	: IdentifierList COLON TypeDenoter
+	;
+
+VariantPart
+	: CASE VariantSelector OF VariantList [ SEMICOLON ]
+	;
+
+VariantSelector
+	: [ TagField COLON ] TagType
+	;
+
+VariantList
+	: Variant { SEMICOLON Variant }
+	;
+
+Variant
+	: CaseConstantList COLON LPAREN [ RecordSectionList [ SEMICOLON VariantPart ] | VariantPart ] RPAREN
+	;
+
+CaseConstantList
+	: CaseConstant { COMMA CaseConstant }
+	;
+
+CaseConstant
+	: Constant [ DOTDOT Constant ]
+	;
+
+TagField
+	: IDENTIFIER
+	;
+
+TagType
+	: IDENTIFIER
+	;
+
+SetType
+	: SET OF OrdinalType
+	;
+
+FileType
+	: PFILE OF ComponentType
+	;
+
+NewPointerType
+	: UPARROW DomainType
+	;
+
+DomainType
+	: IDENTIFIER
+	;
+
+VariableDeclarationPart
+	: [ VAR VariableDeclarationList SEMICOLON ]
+	;
+
+VariableDeclarationList
+	: VariableDeclaration { SEMICOLON VariableDeclaration }
+	;
+
+VariableDeclaration
+	: IdentifierList COLON TypeDenoter
+	;
+
+ProcedureAndFunctionDeclarationPart
+	: [ ProcOrFuncDeclaration { SEMICOLON ProcOrFuncDeclaration } SEMICOLON ]
+	;
+
+ProcOrFuncDeclaration
+	: ProcedureDeclaration
+	| FunctionDeclaration
+	;
+
+ProcedureDeclaration
+	: ProcedureHeading SEMICOLON ( Directive | ProcedureBlock )
+	;
+
+ProcedureHeading
+	: ProcedureIdentification [ FormalParameterList ]
+	;
+
+Directive
+	: FORWARD
+	| EXTERNAL
+	;
+
+FormalParameterList
+	: LPAREN FormalParameterSection { SEMICOLON FormalParameterSection } RPAREN
+	;
+
+FormalParameterSection
+	: ValueParameterSpecification
+	| VariableParameterSpecification
+	| ProceduralParameterSpecification
+	| FunctionalParameterSpecification
+	;
+
+ValueParameterSpecification
+	: IdentifierList COLON IDENTIFIER
+	;
+
+VariableParameterSpecification
+	: VAR IdentifierList COLON IDENTIFIER
+	;
+
+ProceduralParameterSpecification
+	: ProcedureHeading
+	;
+
+FunctionalParameterSpecification
+	: FunctionHeading
+	;
+
+ProcedureIdentification
+	: PROCEDURE IDENTIFIER
+	;
+
+ProcedureBlock
+	: Block
+	;
+
+FunctionDeclaration
+	: FunctionHeading SEMICOLON ( Directive | FunctionBlock )
+	| FunctionIdentification SEMICOLON FunctionBlock
+	;
+
+FunctionHeading
+	: FUNCTION IDENTIFIER [ FormalParameterList ] COLON ResultType
+	;
+
+ResultType
+	: IDENTIFIER
+	;
+
+FunctionIdentification
+	: FUNCTION IDENTIFIER
+	;
+
+FunctionBlock
+	: Block
+	;
+
+StatementPart
+	: CompoundStatement
+	;
+
+CompoundStatement
+	: PBEGIN [ StatementSequence ] END
+	;
+
+StatementSequence
+	: Statement { SEMICOLON Statement }
+	;
+
+Statement
+	: [ Label COLON ] NonLabeledStatement
+	;
+
+NonLabeledStatement
+	: AssignmentStatement
+	| ProcedureStatement
+	| GotoStatement
+	| CompoundStatement
+	| CaseStatement
+	| RepeatStatement
+	| WithStatement
+	| IfStatement
+	| WhileStatement
+	| ForStatement
+	|
+	;
+
+RepeatStatement
+	: REPEAT StatementSequence UNTIL Expression
+	;
+
+WhileStatement
+	: WHILE Expression DO Statement
+	;
+
+ForStatement
+	: FOR IDENTIFIER ASSIGNMENT Expression Direction FinalValue DO Statement
+	;
+
+WithStatement
+	: WITH RecordVariableList DO Statement
+	;
+
+IfStatement
+	: IF Expression THEN Statement [ ELSE Statement ]
+	;
+
+AssignmentStatement
+	: VariableAccess ASSIGNMENT Expression
+	;
+
+VariableAccess
+	: IDENTIFIER { VariableAccessSuffix }
+	;
+
+VariableAccessSuffix
+	: UPARROW
+	| IndexedVariable
+	| FieldDesignator
+	;
+
+IndexedVariable
+	: LBRAC IndexExpressionList RBRAC
+	;
+
+IndexExpressionList
+	: IndexExpression { COMMA IndexExpression }
+	;
+
+IndexExpression
+	: Expression
+	;
+
+FieldDesignator
+	: DOT IDENTIFIER
+	;
+
+ProcedureStatement
+	: IDENTIFIER [ Params ]
+	;
+
+Params
+	: LPAREN ActualParameterList RPAREN
+	;
+
+ActualParameterList
+	: ActualParameter { COMMA ActualParameter }
+	;
+
+ActualParameter
+	: Expression [ COLON Expression [ COLON Expression ] ]
+	;
+
+GotoStatement
+	: GOTO Label
+	;
+
+CaseStatement
+	: CASE Expression OF CaseListElementList [ SEMICOLON [ OtherwisePart Statement [ SEMICOLON ] ] ] END
+	;
+
+CaseListElementList
+	: CaseListElement { SEMICOLON CaseListElement }
+	;
+
+CaseListElement
+	: CaseConstantList COLON Statement
+	;
+
+OtherwisePart
+	: OTHERWISE [ COLON ]
+	;
+
+Direction
+	: TO
+	| DOWNTO
+	;
+
+FinalValue
+	: Expression
+	;
+
+RecordVariableList
+	: VariableAccess { COMMA VariableAccess }
+	;
+
+Expression
+	: SimpleExpression [ RelOp SimpleExpression ]
+	;
+
+SimpleExpression
+	: Term { AddOp Term }
+	;
+
+Term
+	: Factor { MulOp Factor }
+	;
+
+Factor
+	: [ Sign ] Exponentiation
+	;
+
+Exponentiation
+	: Primary [ STARSTAR Exponentiation ]
+	;
+
+Primary
+	: VariableAccess
+	| UnsignedConstant
+	| FunctionDesignator
+	| SetConstructor
+	| LPAREN Expression RPAREN
+	| NOT Primary
+	;
+
+UnsignedConstant
+	: UnsignedNumber
+	| CHARACTER_STRING
+	| NIL
+	;
+
+UnsignedNumber
+	: DIGSEQ
+	| REALNUMBER
+	;
+
+FunctionDesignator
+	: IDENTIFIER Params
+	;
+
+SetConstructor
+	: LBRAC [ MemberDesignatorList ] RBRAC
+	;
+
+MemberDesignatorList
+	: MemberDesignator { COMMA MemberDesignator }
+	;
+
+MemberDesignator
+	: Expression [ DOTDOT Expression ]
+	;
+
+IdentifierList
+	: IDENTIFIER { COMMA IDENTIFIER }
+	;
+
+AddOp
+	: PLUS
+	| MINUS
+	| OR
+	;
+
+MulOp
+	: STAR
+	| SLASH
+	| DIV
+	| MOD
+	| AND
+	;
+
+RelOp
+	: EQUAL
+	| NOTEQUAL
+	| LT
+	| GT
+	| LE
+	| GE
+	| IN
+	;
+
+AND: /(?i)(?-u:\b)AND(?-i)(?-u:\b)/;
+ARRAY: /(?i)(?-u:\b)ARRAY(?-i)(?-u:\b)/;
+PBEGIN: /(?i)(?-u:\b)BEGIN(?-i)(?-u:\b)/;
+CASE: /(?i)(?-u:\b)CASE(?-i)(?-u:\b)/;
+CONST: /(?i)(?-u:\b)CONST(?-i)(?-u:\b)/;
+DIV: /(?i)(?-u:\b)DIV(?-i)(?-u:\b)/;
+DO: /(?i)(?-u:\b)DO(?-i)(?-u:\b)/;
+DOWNTO: /(?i)(?-u:\b)DOWNTO(?-i)(?-u:\b)/;
+ELSE: /(?i)(?-u:\b)ELSE(?-i)(?-u:\b)/;
+END: /(?i)(?-u:\b)END(?-i)(?-u:\b)/;
+EXTERNAL: /(?i)(?-u:\b)EXTERN(AL)?(?-i)(?-u:\b)/;
+PFILE: /(?i)(?-u:\b)FILE(?-i)(?-u:\b)/;
+FOR: /(?i)(?-u:\b)FOR(?-i)(?-u:\b)/;
+FORWARD: /(?i)(?-u:\b)FORWARD(?-i)(?-u:\b)/;
+FUNCTION: /(?i)(?-u:\b)FUNCTION(?-i)(?-u:\b)/;
+GOTO: /(?i)(?-u:\b)GOTO(?-i)(?-u:\b)/;
+IF: /(?i)(?-u:\b)IF(?-i)(?-u:\b)/;
+IN: /(?i)(?-u:\b)IN(?-i)(?-u:\b)/;
+LABEL: /(?i)(?-u:\b)LABEL(?-i)(?-u:\b)/;
+MOD: /(?i)(?-u:\b)MOD(?-i)(?-u:\b)/;
+NIL: /(?i)(?-u:\b)NIL(?-i)(?-u:\b)/;
+NOT: /(?i)(?-u:\b)NOT(?-i)(?-u:\b)/;
+OF: /(?i)(?-u:\b)OF(?-i)(?-u:\b)/;
+OR: /(?i)(?-u:\b)OR(?-i)(?-u:\b)/;
+OTHERWISE: /(?i)(?-u:\b)OTHERWISE(?-i)(?-u:\b)/;
+PACKED: /(?i)(?-u:\b)PACKED(?-i)(?-u:\b)/;
+PROCEDURE: /(?i)(?-u:\b)PROCEDURE(?-i)(?-u:\b)/;
+PROGRAM: /(?i)(?-u:\b)PROGRAM(?-i)(?-u:\b)/;
+RECORD: /(?i)(?-u:\b)RECORD(?-i)(?-u:\b)/;
+REPEAT: /(?i)(?-u:\b)REPEAT(?-i)(?-u:\b)/;
+SET: /(?i)(?-u:\b)SET(?-i)(?-u:\b)/;
+THEN: /(?i)(?-u:\b)THEN(?-i)(?-u:\b)/;
+TO: /(?i)(?-u:\b)TO(?-i)(?-u:\b)/;
+TYPE: /(?i)(?-u:\b)TYPE(?-i)(?-u:\b)/;
+UNTIL: /(?i)(?-u:\b)UNTIL(?-i)(?-u:\b)/;
+VAR: /(?i)(?-u:\b)VAR(?-i)(?-u:\b)/;
+WHILE: /(?i)(?-u:\b)WHILE(?-i)(?-u:\b)/;
+WITH: /(?i)(?-u:\b)WITH(?-i)(?-u:\b)/;
+
+IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/;
+ASSIGNMENT: ':=';
+COLON: ':';
+COMMA: ',';
+DOTDOT: '..';
+DOT: '.';
+EQUAL: '=';
+LPAREN: '(';
+RPAREN: ')';
+LBRAC: '[';
+RBRAC: ']';
+PLUS: '+';
+MINUS: '-';
+SLASH: '/';
+STARSTAR: '**';
+STAR: '*';
+NOTEQUAL: '<>';
+LE: '<=';
+LT: '<';
+GE: '>=';
+GT: '>';
+SEMICOLON: ';';
+UPARROW: '^';
+REALNUMBER: /[0-9]+\.[0-9]+/;
+DIGSEQ: /[0-9]+/;
+CHARACTER_STRING: /'([^']|'')*'/;
+

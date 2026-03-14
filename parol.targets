@@ -1,0 +1,11 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="GenerateParser" BeforeTargets="BeforeCompile;CoreCompile" Inputs="PascalCs.par" Outputs="PascalCsParser.cs;IPascalCsActions.cs">
+    <Exec Command="parol -f PascalCs.par -e PascalCsExp.par -p PascalCsParser.cs -a IPascalCsActions.cs -t PascalCs -m PascalCs -l c-sharp" />
+    <ItemGroup>
+      <Compile Remove="PascalCsParser.cs" />
+      <Compile Include="PascalCsParser.cs" />
+      <Compile Remove="IPascalCsActions.cs" />
+      <Compile Include="IPascalCsActions.cs" />
+    </ItemGroup>
+  </Target>
+</Project>
