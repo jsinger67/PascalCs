@@ -1,5 +1,7 @@
 # PascalCs
 
+> Note: You need to have parol >= 4.3.4 installed to compile this project successfully.
+
 A small C# command-line Pascal parser based on a parol grammar. The parser works as acceptor only.
 It demonstrates the LALR(1) parser generation with parol.
 
