@@ -14,14 +14,21 @@ It demonstrates the LALR(1) parser generation with parol.
 ## Prerequisites
 
 - .NET 10 SDK
+- Windows with .NET Framework 4.8 runtime (for `net48` execution)
 - The local `parol-dotnet` repository at `../../parol-dotnet` (required by `PascalCs.csproj`)
+
+## Target frameworks
+
+- `net10.0`
+- `net48`
 
 ## Run
 
 From the repository root:
 
 ```powershell
-dotnet run -- .\pascal_sources\basics.pas
+dotnet run -f net10.0 -- .\pascal_sources\basics.pas
+dotnet run -f net48 -- .\pascal_sources\basics.pas
 ```
 
 You can replace the sample file with any Pascal source path.
