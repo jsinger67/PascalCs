@@ -11,7 +11,8 @@
   <Import Project="parol.targets" />
 
   <ItemGroup>
-    <PackageReference Include="Parol.Runtime" Version="0.2.0" />
+    <!-- Parol runtime library restored from NuGet.org -->
+    <PackageReference Include="Parol.Runtime" Version="0.2.1" />
   </ItemGroup>
 
 </Project>

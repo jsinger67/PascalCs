@@ -15,7 +15,6 @@ It demonstrates the LALR(1) parser generation with parol.
 
 - .NET 10 SDK
 - Windows with .NET Framework 4.8 runtime (for `net48` execution)
-- The local `parol-dotnet` repository at `../../parol-dotnet` (required by `PascalCs.csproj`)
 
 ## Target frameworks
 
